@@ -13,6 +13,17 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-});
+Route::get('/','App\Http\Controllers\PagesController@getHome' );
+Route::get('/contact','App\Http\Controllers\PagesController@getContact' );
+Route::post('/contact/submit', 'App\Http\Controllers\MessagesController@submit');
+
+
+Route::get('/af', 'App\Http\Controllers\AgriFarmController@getagrifarm');
+Route::post('/af/submit', 'App\Http\Controllers\AgriFarmController@submit');
+Route::get('/nest', 'App\Http\Controllers\NestController@getnest');
+Route::post('/nest/submit', 'App\Http\Controllers\NestController@submit');
+Route::get('/hr', 'App\Http\Controllers\HrController@gethr');
+Route::get('/avu', 'App\Http\Controllers\AVUController@getavu');
+Auth::routes();
+
+Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
