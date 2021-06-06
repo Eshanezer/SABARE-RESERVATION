@@ -22,7 +22,7 @@ class CreateHrbookingsTable extends Migration
             $table->string('Description');
             $table->boolean('VCApproval')->default(0);
 			$table->date('Date');
-            $table->integer('GuestId')->unsigned();
+            $table->unsignedBigInteger('GuestId');
 			$table->foreign('GuestId')->references('id')->on('users'); 
             $table->integer('HolodayResortId')->unsigned();
 			$table->foreign('HolodayResortId')->references('HolodayResortId')->on('holidayresorts'); 

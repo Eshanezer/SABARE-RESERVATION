@@ -23,7 +23,7 @@ class CreateAvubookingsTable extends Migration
 			$table->date('Date');
 			$table->integer('RecommendedBy')->unsigned();
 			$table->foreign('RecommendedBy')->references('UserId')->on('administrators');
-            $table->integer('GuestId')->unsigned();
+            $table->unsignedBigInteger('GuestId');
 			$table->foreign('GuestId')->references('id')->on('users'); 
             $table->integer('AVUId')->unsigned();
 			$table->foreign('AVUId')->references('AVUId')->on('audiovisualunits'); 

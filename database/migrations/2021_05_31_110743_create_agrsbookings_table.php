@@ -22,8 +22,8 @@ class CreateAgrsbookingsTable extends Migration
             $table->string('Description');
             $table->boolean('VCApproval')->default(0);
 			$table->date('Date');
-            $table->integer('GuestId')->unsigned();
-			$table->foreign('GuestId')->references('id')->on('users'); 
+            $table->unsignedBigInteger('GuestId');
+			$table->foreign('GuestId')->references('id')->on('users');
             $table->integer('AgriFarmStayId')->unsigned();
 			$table->foreign('AgriFarmStayId')->references('AgriFarmStayId')->on('agrifarmstays'); 
 			$table->integer('UserId')->unsigned();

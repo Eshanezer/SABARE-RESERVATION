@@ -23,7 +23,7 @@ class CreateNestbookingsTable extends Migration
             $table->string('Description');
             $table->boolean('VCApproval')->default(0);
 			$table->date('Date');
-            $table->integer('GuestId')->unsigned();
+            $table->unsignedBigInteger('GuestId');
 			$table->foreign('GuestId')->references('id')->on('users'); 
             $table->integer('NestId')->unsigned();
 			$table->foreign('NestId')->references('NestId')->on('nests'); 
