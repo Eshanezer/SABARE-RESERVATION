@@ -5,6 +5,8 @@ namespace App\Http\Controllers\Auth;
 use App\Http\Controllers\Controller;
 use App\Providers\RouteServiceProvider;
 use Illuminate\Foundation\Auth\ResetsPasswords;
+//added by thesh
+use App\Models\User;
 
 class ResetPasswordController extends Controller
 {
@@ -27,4 +29,12 @@ class ResetPasswordController extends Controller
      * @var string
      */
     protected $redirectTo = RouteServiceProvider::HOME;
+    //added by thesh
+    /*protected function redirectTo(){
+        if(Auth()->users()->role == 1){
+            return route('admin.dashboard');
+        }elseif(Auth()->users()->role == 2){
+            return route('user.dashboard');
+        }
+    }*/
 }
