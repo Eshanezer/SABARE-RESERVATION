@@ -23,7 +23,9 @@ Route::post('/af/submit', 'App\Http\Controllers\AgriFarmController@submit');
 Route::get('/nest', 'App\Http\Controllers\NestController@getnest');
 Route::post('/nest/submit', 'App\Http\Controllers\NestController@submit');
 Route::get('/hr', 'App\Http\Controllers\HrController@gethr');
+Route::post('/hr/submit', 'App\Http\Controllers\HrController@submit');
 Route::get('/avu', 'App\Http\Controllers\AVUController@getavu');
+Route::post('/avu/submit', 'App\Http\Controllers\AVUController@submit');
 Auth::routes();
 
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');

@@ -27,37 +27,51 @@
          </tbody>
       </table>
 
-            <div class="card p-3 mb-2 bg-secondary text-white">
+             <div class="card p-3 mb-2 bg-secondary text-white">
             <h5 class="card-header">Booking</h5>
             <div class="card-body">
             <div class="mb-3">
 
-           <label for="exampleFormControlInput1" class="form-label">Check In Date</label>
-            <input type="email" class="form-control" id="exampleFormControlInput1" placeholder="Check In Date">
-            <label for="exampleFormControlInput1" class="form-label">Check Out Date</label>
-            <input type="email" class="form-control" id="exampleFormControlInput1" placeholder="Check Out Date">
-            <label for="exampleFormControlInput1" class="form-label">Number of Adults</label>
-            <input type="email" class="form-control" id="exampleFormControlInput1" placeholder="Number of Adults">
+                        {!! Form::open(['url' => 'hr/submit']) !!}
+                        <div class="form-group">
+                        {{Form::label('CheckInDate', 'Check In Date') }}
+                        {{ Form::date('CheckInDate', new \DateTime(), ['class' => 'form-control']) }}
+                       
+                        </div>
+                        <div class="form-group">
+                        {{Form::label('CheckOutDate', 'Check Out Date') }}
+                        {{ Form::date('CheckOutDate', new \DateTime(), ['class' => 'form-control']) }}
+                        </div>
 
-            <label for="exampleFormControlInput1" class="form-label">Number of Children</label>
-            <input type="email" class="form-control" id="exampleFormControlInput1" placeholder="Number of Children">
+                        <div class="form-group">
+                        {{Form::label('NoOfAdults', 'Number Of Adults') }}
+                        {{Form::text('NoOfAdults', '',['class'=>'form-control','placeholder'=>'Number Of Adults'])}}
+                        </div>
+                        <div class="form-group">
+                        {{Form::label('NoOfChildren', 'Number Of Children') }}
+                        {{Form::text('NoOfChildren', '',['class'=>'form-control','placeholder'=>'Number Of Children'])}}
+                        </div>
 
-            <label for="exampleFormControlInput1" class="form-label">Description</label>
-            <input type="email" class="form-control" id="exampleFormControlInput1" placeholder="Description">
-            </div>
+                        <div class="form-group">
+                        {{Form::label('Description', 'Description') }}
+                        {{Form::textarea('Description', '',['class'=>'form-control','placeholder'=>'Description'])}}
+                        </div>
+                        <div class="form-group">
+                        
+                        <div class="form-check">
+                        <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault">
+                        <label class="form-check-label" for="flexCheckDefault">
+                        VC Approval
+                        </label>
+                        </div>
+                        </br>
+                        {{Form::submit('Submit', ['class'=>'btn btn-primary'])}}
+                        </div>
+                        {!! Form::close() !!}
 
-            <div class="form-check">
-            <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault">
-            <label class="form-check-label" for="flexCheckDefault">
-            VC Approval
-            </label>
-            </div>
-            <div class="mb-3">
-            <a href="#" class="btn btn-primary">Book</a>
-            </div>
-            </div>
-            </div>
-
+             </div>
+        </div>
+    </div>
 
 
 
