@@ -26,18 +26,16 @@
                         </span>
                     </div>
 
-                     <script type="text/javascript">
-                $(function () {
-                    $('#datetimepicker1').datepicker({
-                        format: "mm/dd/yy",
-                        weekStart: 0,
-                        calendarWeeks: true,
-                        autoclose: true,
-                        todayHighlight: true, 
-                        orientation: "auto"
-                    });
-                });
-            </script>
+                  
+                    <script type="text/javascript">
+
+                    $('.date').datepicker({  
+
+                    format: 'mm-dd-yyyy'
+
+                    });  
+
+                    </script>  
 
 <label for="exampleFormControlInput1" class="form-label">Check-out Date</label>
   <div class='input-group date' id='datetimepicker2'>
@@ -48,6 +46,16 @@
                     </div>
 
                      <script type="text/javascript">
+
+                    $('.date').datepicker({  
+
+                    format: 'mm-dd-yyyy'
+
+                    });  
+
+                    </script> 
+
+                     <!-- <script type="text/javascript">
                 $(function () {
                     $('#datetimepicker2').datepicker({
                         format: "mm/dd/yy",
@@ -57,7 +65,7 @@
                         todayHighlight: true, 
                         orientation: "auto"
                     });
-                });
+                }); -->
             </script>
   <label for="exampleFormControlInput1" class="form-label">Number of Adults</label>
   <input type="email" class="form-control" id="exampleFormControlInput1" placeholder="Number of Adults">

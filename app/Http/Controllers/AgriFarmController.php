@@ -27,6 +27,7 @@ class AgriFarmController extends Controller
             'NoOfAdults'=>'required',
             'NoOfChildren'=>'required',
             'Description'=>'required',
+            
         ]);
         
         ;

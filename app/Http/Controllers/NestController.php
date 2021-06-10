@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\nest;
+use App\Models\nestbooking;
 
 class NestController extends Controller
 {

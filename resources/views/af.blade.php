@@ -35,11 +35,14 @@
                         {!! Form::open(['url' => 'af/submit']) !!}
                         <div class="form-group">
                         {{Form::label('CheckInDate', 'Check In Date') }}
-                        {{Form::text('CheckInDate', '',['class'=>'form-control','placeholder'=>'Check In Date'])}}
+                        {{ Form::date('CheckInDate', new \DateTime(), ['class' => 'form-control']) }}
+                       
                         </div>
+                        
                         <div class="form-group">
                         {{Form::label('CheckOutDate', 'Check Out Date') }}
-                        {{Form::text('CheckOutDate', '',['class'=>'form-control','placeholder'=>'Check Out Date'])}}
+                        {{ Form::date('CheckOutDate', new \DateTime(), ['class' => 'form-control']) }}
+                        
                         </div>
 
                         <div class="form-group">
@@ -58,10 +61,8 @@
                         <div class="form-group">
                         
                         <div class="form-check">
-                        <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault">
-                        <label class="form-check-label" for="flexCheckDefault">
-                        VC Approval
-                        </label>
+                        {{Form::label('VCApproval','VC Approval') }}
+                        {{Form::checkbox('VCApproval', 'value')}}
                         </div>
                         </br>
                         {{Form::submit('Submit', ['class'=>'btn btn-primary'])}}

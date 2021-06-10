@@ -32,14 +32,15 @@
             <div class="card-body">
             <div class="mb-3">
 
-                        {!! Form::open(['url' => 'af/submit']) !!}
+                        {!! Form::open(['url' => 'nest/submit']) !!}
                         <div class="form-group">
                         {{Form::label('CheckInDate', 'Check In Date') }}
-                        {{Form::text('CheckInDate', '',['class'=>'form-control','placeholder'=>'Check In Date'])}}
+                        {{ Form::date('CheckInDate', new \DateTime(), ['class' => 'form-control']) }}
+                       
                         </div>
                         <div class="form-group">
                         {{Form::label('CheckOutDate', 'Check Out Date') }}
-                        {{Form::text('CheckOutDate', '',['class'=>'form-control','placeholder'=>'Check Out Date'])}}
+                        {{ Form::date('CheckOutDate', new \DateTime(), ['class' => 'form-control']) }}
                         </div>
 
                         <div class="form-group">
@@ -63,10 +64,13 @@
                         VC Approval
                         </label>
                         </div>
+                        </div>
                         </br>
                         {{Form::submit('Submit', ['class'=>'btn btn-primary'])}}
                         </div>
                         {!! Form::close() !!}
+
+                        
 
              </div>
         </div>
