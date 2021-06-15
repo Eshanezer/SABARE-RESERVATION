@@ -5,7 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\audiovisualunit;
 use App\Models\avubooking;
-use Illuminate\Support\Facades\Auth;
+use Auth;
 
 class AVUController extends Controller
 {
@@ -37,9 +37,9 @@ class AVUController extends Controller
         $avubooking-> Description = $request->input('Description');
         $avubooking-> RecommendedBy = $request->input('RecommendedBy');
         $avubooking-> Date = '2021-06-01';
-        $avubooking-> GuestId = '1';
+        $avubooking-> GuestId = Auth::user()->id;
         $avubooking-> AVUId = '1';
-        $avubooking-> UserId = '1';
+        //$avubooking-> UserId = '1';
 
         $avubooking->save();
 

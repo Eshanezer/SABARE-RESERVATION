@@ -5,7 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\holidayresort;
 use App\Models\hrbooking;
-use Illuminate\Support\Facades\Auth;
+use Auth;
 class HrController extends Controller
 {
     public function gethr(){
@@ -16,6 +16,23 @@ class HrController extends Controller
         $hr = holidayresort::all();
 
         return view('hr')->with('hr',$hr);
+    }
+
+    function send(Request $request)
+    {
+     $this->validate($request, [
+      
+     ]);
+
+     $data = array(
+        'id'      =>  Auth::user()->id,
+        'name'      =>  Auth::user()->name,
+     
+    );
+
+            Mail::to('ashansawijeratne@gmail.com')->send(new SendMail($data));
+            return back()->with('success', 'Successfuly sent!');
+
     }
 
 
@@ -37,9 +54,9 @@ class HrController extends Controller
         $hrbooking-> NoOfChildren = $request->input('NoOfChildren');
         $hrbooking-> Description = $request->input('Description');
         $hrbooking-> Date = '2021-06-08';
-        $hrbooking-> GuestId = '1';
+        $hrbooking-> GuestId = Auth::user()->id;
         $hrbooking-> HolodayResortId = '1';
-        $hrbooking-> UserId = '1';
+        //$hrbooking-> UserId = '1';
      
 
         $hrbooking->save();

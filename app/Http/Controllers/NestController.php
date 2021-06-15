@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\nest;
 use App\Models\nestbooking;
+use Auth;
 
 class NestController extends Controller
 {
@@ -16,6 +17,23 @@ class NestController extends Controller
         $nest = nest::all();
 
         return view('nest')->with('nest',$nest);
+    }
+
+    function send(Request $request)
+    {
+     $this->validate($request, [
+      
+     ]);
+
+     $data = array(
+        'id'      =>  Auth::user()->id,
+        'name'      =>  Auth::user()->name,
+     
+    );
+
+            Mail::to('ashansawijeratne@gmail.com')->send(new SendMail($data));
+            return back()->with('success', 'Successfuly sent!');
+
     }
 
 
@@ -37,15 +55,9 @@ class NestController extends Controller
         $nestbooking-> NoOfChildren = $request->input('NoOfChildren');
         $nestbooking-> Description = $request->input('Description');
         $nestbooking-> Date = '2021-06-01';
-        $nestbooking-> GuestId = '1';
+        $nestbooking-> GuestId = Auth::user()->id;
         $nestbooking-> 	NestId = '1';
-        $nestbooking-> UserId = '1';
-       // $user = Auth::user();
-        //$id = Auth::id();
-       // $agrsbooking-> GuestId = \Auth::user()->id;
-        //$agrsbooking-> GuestId = $request->input($id);
-       // $agrsbooking-> AgriFarmStayId = $request->input('AgriFarmStayId', '1');
-       // $agrsbooking-> Date = $request->input('Date', '2021-06-01');
+       
 
         $nestbooking->save();
 

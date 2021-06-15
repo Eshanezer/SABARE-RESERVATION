@@ -27,6 +27,8 @@ class CreateUsersTable extends Migration
             $table->string('FacultyOrCenter');
             $table->string('Department');
             $table->string('UPFNo');
+            $table->string('Designation');
+            $table->integer('roleNo')->default('0');
             $table->rememberToken();
             $table->timestamps();
         });

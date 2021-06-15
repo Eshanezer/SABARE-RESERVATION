@@ -27,8 +27,6 @@ class CreateNestbookingsTable extends Migration
 			$table->foreign('GuestId')->references('id')->on('users'); 
             $table->integer('NestId')->unsigned();
 			$table->foreign('NestId')->references('NestId')->on('nests'); 
-			$table->integer('UserId')->unsigned();
-			$table->foreign('UserId')->references('UserId')->on('administrators'); 
 			$table->timestamps();
         });
     }

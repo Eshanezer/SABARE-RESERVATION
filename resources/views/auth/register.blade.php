@@ -149,6 +149,18 @@
                             </div>
                         </div>
                         <div class="form-group row">
+                            <label for="Designation" class="col-md-4 col-form-label text-md-right">{{ __('Designation') }}</label>
+
+                            <div class="col-md-6">
+                                <input id="Designation" type="text" class="form-control" name="Designation" required autocomplete="Designation">
+                                @error('Department')
+                                    <span class="invalid-feedback" role="alert">
+                                        <strong>{{ $message }}</strong>
+                                    </span>
+                                @enderror
+                            </div>
+                        </div>
+                        <div class="form-group row">
                             <label for="UPFNo" class="col-md-4 col-form-label text-md-right">{{ __('UPFNo') }}</label>
 
                             <div class="col-md-6">
