@@ -60,14 +60,39 @@
                         </div>
                         <div class="form-group">
                         
-                        <div class="form-check">
+                        <!-- <div class="form-check">
                         {{Form::label('VCApproval','VC Approval') }}
                         {{Form::checkbox('VCApproval', 'value')}}
-                        </div>
+                        </div> -->
                         </br>
                         {{Form::submit('Submit', ['class'=>'btn btn-primary'])}}
                         </div>
                         {!! Form::close() !!}
+
+
+                        @if (count($errors) > 0)
+                            <div class="alert alert-danger">
+                            <button type="button" class="close" data-dismiss="alert">×</button>
+                            <ul>
+                            @foreach ($errors->all() as $error)
+                            <li>{{ $error }}</li>
+                            @endforeach
+                            </ul>
+                            </div>
+                        @endif
+                        @if ($message = Session::get('success'))
+                        <div class="alert alert-success alert-block">
+                            <button type="button" class="close" data-dismiss="alert">×</button>
+                                <strong>{{ $message }}</strong>
+                        </div>
+                        @endif
+                        <form method="post" action="{{url('af/send')}}">
+                            {{ csrf_field() }}
+                            
+                            <div class="form-group">
+                            <input type="submit" name="send" class="btn btn-info" value="Request Vice Chancellor Approval" />
+                            </div>
+                        </form>
 
              </div>
         </div>

@@ -5,7 +5,9 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\agrifarmstay;
 use App\Models\agrsbooking;
-use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Mail;
+use App\Mail\SendMail;
+use Auth;
 
 class AgriFarmController extends Controller
 {
@@ -18,6 +20,31 @@ class AgriFarmController extends Controller
     }
 
 
+
+    function send(Request $request)
+    {
+     $this->validate($request, [
+        // 'CheckInDate'=>'required',
+        // 'CheckOutDate'=>'required',
+        // 'NoOfAdults'=>'required',
+        // 'NoOfChildren'=>'required',
+        // 'Description'=>'required',
+     ]);
+
+     $data = array(
+        'id'      =>  Auth::user()->id,
+        'name'      =>  Auth::user()->name,
+        // 'CheckInDate'=>$request->CheckInDate,
+        // 'CheckOutDate'=>$request->CheckOutDate,
+        // 'NoOfAdults'=>$request->NoOfAdults,
+        // 'NoOfChildren'=>$request->NoOfChildren,
+        // 'Description'=>$request->Description
+    );
+
+            Mail::to('ashansawijeratne@gmail.com')->send(new SendMail($data));
+            return back()->with('success', 'Successfuly sent!');
+
+    }
 
     public function submit(Request $request){
 
@@ -38,15 +65,8 @@ class AgriFarmController extends Controller
         $agrsbooking-> NoOfChildren = $request->input('NoOfChildren');
         $agrsbooking-> Description = $request->input('Description');
         $agrsbooking-> Date = '2021-06-01';
-        $agrsbooking-> GuestId = '1';
+        $agrsbooking-> GuestId = Auth::user()->id;
         $agrsbooking-> AgriFarmStayId = '1';
-        $agrsbooking-> UserId = '1';
-       // $user = Auth::user();
-        //$id = Auth::id();
-       // $agrsbooking-> GuestId = \Auth::user()->id;
-        //$agrsbooking-> GuestId = $request->input($id);
-       // $agrsbooking-> AgriFarmStayId = $request->input('AgriFarmStayId', '1');
-       // $agrsbooking-> Date = $request->input('Date', '2021-06-01');
 
         $agrsbooking->save();
 

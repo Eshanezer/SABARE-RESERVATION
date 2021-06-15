@@ -26,8 +26,6 @@ class CreateAgridbookingsTable extends Migration
 			$table->foreign('GuestId')->references('id')->on('users'); 
             $table->integer('AgriFarmDiningId')->unsigned();
 			$table->foreign('AgriFarmDiningId')->references('AgriFarmDiningId')->on('agrifarmdinings'); 
-			$table->integer('UserId')->unsigned();
-			$table->foreign('UserId')->references('UserId')->on('administrators'); 
 			$table->timestamps();
         });
     }

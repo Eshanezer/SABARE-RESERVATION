@@ -76,6 +76,7 @@ class RegisterController extends Controller
             'University' => $data['University'],
             'FacultyOrCenter' => $data['FacultyOrCenter'],
             'Department' => $data['Department'],
+            'Designation' => $data['Designation'],
             'UPFNo' => $data['UPFNo'],
         ]);
     }

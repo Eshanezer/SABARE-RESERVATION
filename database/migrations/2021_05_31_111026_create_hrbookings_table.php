@@ -26,8 +26,6 @@ class CreateHrbookingsTable extends Migration
 			$table->foreign('GuestId')->references('id')->on('users'); 
             $table->integer('HolodayResortId')->unsigned();
 			$table->foreign('HolodayResortId')->references('HolodayResortId')->on('holidayresorts'); 
-			$table->integer('UserId')->unsigned();
-			$table->foreign('UserId')->references('UserId')->on('administrators'); 
 			$table->timestamps();
         });
     }

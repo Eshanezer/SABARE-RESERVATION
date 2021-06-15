@@ -21,14 +21,12 @@ class CreateAvubookingsTable extends Migration
             $table->time('EndTime', $precision = 0);
             $table->string('Description');
 			$table->date('Date');
-			$table->integer('RecommendedBy')->unsigned();
-			$table->foreign('RecommendedBy')->references('UserId')->on('administrators');
+			$table->unsignedBigInteger('RecommendedBy')->default(0);
+			$table->foreign('RecommendedBy')->references('UserId')->on('users');
             $table->unsignedBigInteger('GuestId');
 			$table->foreign('GuestId')->references('id')->on('users'); 
             $table->integer('AVUId')->unsigned();
 			$table->foreign('AVUId')->references('AVUId')->on('audiovisualunits'); 
-			$table->integer('UserId')->unsigned();
-			$table->foreign('UserId')->references('UserId')->on('administrators'); 
 			$table->timestamps();
         });
     }
