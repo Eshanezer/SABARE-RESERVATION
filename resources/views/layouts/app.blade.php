@@ -47,8 +47,42 @@
                         <li class="nav-item active">
                             <a class="nav-link" href="/">Home </a>
                         </li>
+                        @if (Auth::check() && Auth::user()->roleNo == 1)
+                        <li class="nav-item">
+                            <a class="nav-link" href="/admin">Admin</a>
+                        </li>
+                        @endif
+                        @if (Auth::check() && Auth::user()->roleNo == 2)
+                        <li class="nav-item">
+                            <a class="nav-link" href="/vc">VC Page</a>
+                        </li>
+                        @endif
+                        @if (Auth::check() && Auth::user()->roleNo == 3)
+                        <li class="nav-item">
+                            <a class="nav-link" href="/agricoordinator">Coordinator</a>
+                        </li>
+                        @endif
+                        @if (Auth::check() && Auth::user()->roleNo == 4)
+                        <li class="nav-item">
+                            <a class="nav-link" href="/avucoordinator">Coordinator</a>
+                        </li>
+                        @endif
+                        @if (Auth::check() && Auth::user()->roleNo == 6)
+                        <li class="nav-item">
+                            <a class="nav-link" href="/nestcoordinator">Coordinator</a>
+                        </li>
+                        @endif
+                        @if (Auth::check() && Auth::user()->roleNo >= 7)
+                        <li class="nav-item">
+                            <a class="nav-link" href="/dean_hod">Dean/HOD</a>
+                        </li>
+                        @endif
+                        
                         <li class="nav-item">
                             <a class="nav-link" href="/af">Agri Farm</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="/afd">Agri Farm Dinning </a>
                         </li>
                         <li class="nav-item">
                             <a class="nav-link " href="/nest">NEST</a>
@@ -112,16 +146,16 @@
             @include('inc.showcase')
         @endif
     <div class = "row">
-    <div class = "col-md-8 col-lg-8">
+    <div class = "col-md-12 col-lg-12">
     
         
     @include('inc.messages')
              @yield('content')
     </div>
-    <div class = "col-md-4 col-lg-4">
+    <!-- <div class = "col-md-4 col-lg-4">
     
              @include('inc.sidebar')
-    </div>
+    </div> -->
     </div>
     
     </div>

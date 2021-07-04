@@ -64,7 +64,7 @@ class AgriFarmController extends Controller
         $agrsbooking-> NoOfAdults = $request->input('NoOfAdults');
         $agrsbooking-> NoOfChildren = $request->input('NoOfChildren');
         $agrsbooking-> Description = $request->input('Description');
-        $agrsbooking-> Date = '2021-06-01';
+        //$agrsbooking-> Date = '2021-06-01';
         $agrsbooking-> GuestId = Auth::user()->id;
         $agrsbooking-> AgriFarmStayId = '1';
 
