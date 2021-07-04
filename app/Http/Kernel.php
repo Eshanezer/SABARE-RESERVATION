@@ -64,5 +64,12 @@ class Kernel extends HttpKernel
         'throttle' => \Illuminate\Routing\Middleware\ThrottleRequests::class,
         'verified' => \Illuminate\Auth\Middleware\EnsureEmailIsVerified::class,
         'CustomAuth'=> \App\Http\Middleware\CustomAuth::class,
+        'AdminMiddleware'=> \App\Http\Middleware\AdminMiddleware::class,
+        'VCMiddleware'=> \App\Http\Middleware\VCMiddleware::class,
+        'AVUCoordinator'=> \App\Http\Middleware\AVUCoordinator::class,
+        'HOD'=> \App\Http\Middleware\HOD::class,
+        'DeanHodMiddleware'=> \App\Http\Middleware\DeanHodMiddleware::class,
+        'NestCoordinatorMiddleware'=> \App\Http\Middleware\NestCoordinatorMiddleware::class,
+        'AgriFarmCoordinatorMiddleware'=> \App\Http\Middleware\AgriFarmCoordinatorMiddleware::class,
     ];
 }

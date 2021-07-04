@@ -15,13 +15,17 @@ class CreateAgrsbookingsTable extends Migration
     {
         Schema::create('agrsbookings', function (Blueprint $table) {
             $table->increments('BookingId');
+            $table->string('BookingType');
             $table->date('CheckInDate');
 			$table->date('CheckOutDate');
 			$table->integer('NoOfAdults');
-			$table->integer('NoOfChildren');
+            $table->integer('NoOfChildren');
+            $table->integer('NoOfUnits');
             $table->string('Description');
+            $table->string('Status');
             $table->boolean('VCApproval')->default(0);
-			$table->date('Date');
+            $table->boolean('IS_Vc_Approved')->default(0);
+            $table->unsignedBigInteger('GuestName');
             $table->unsignedBigInteger('GuestId');
 			$table->foreign('GuestId')->references('id')->on('users');
             $table->integer('AgriFarmStayId')->unsigned();

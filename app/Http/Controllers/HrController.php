@@ -53,7 +53,7 @@ class HrController extends Controller
         $hrbooking-> NoOfAdults = $request->input('NoOfAdults');
         $hrbooking-> NoOfChildren = $request->input('NoOfChildren');
         $hrbooking-> Description = $request->input('Description');
-        $hrbooking-> Date = '2021-06-08';
+        //$hrbooking-> Date = '2021-06-08';
         $hrbooking-> GuestId = Auth::user()->id;
         $hrbooking-> HolodayResortId = '1';
         //$hrbooking-> UserId = '1';

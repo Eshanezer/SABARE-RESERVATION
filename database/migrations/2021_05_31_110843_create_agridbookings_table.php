@@ -15,13 +15,19 @@ class CreateAgridbookingsTable extends Migration
     {
         Schema::create('agridbookings', function (Blueprint $table) {
             $table->increments('BookingId');
+            $table->string('BookingType');
             $table->date('CheckInDate');
             $table->time('StartTime', $precision = 0);
             $table->time('EndTime', $precision = 0);
 			$table->integer('NoOfGuest');
             $table->string('Description');
+            $table->string('Status');
+            $table->unsignedBigInteger('Recommendation_From')->nullable()->unsigned();
+            $table->foreign('Recommendation_From')->references('id')->on('users'); 
             $table->boolean('VCApproval')->default(0);
-			$table->date('Date');
+            $table->boolean('IS_Vc_Approved')->default(0);
+            $table->boolean('IS_Recommended')->default(0);
+            $table->unsignedBigInteger('GuestName');
             $table->unsignedBigInteger('GuestId');
 			$table->foreign('GuestId')->references('id')->on('users'); 
             $table->integer('AgriFarmDiningId')->unsigned();

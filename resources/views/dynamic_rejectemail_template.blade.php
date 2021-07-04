@@ -1,0 +1,1 @@
+<p> Booking Id {{ $data }} is rejected.</p>

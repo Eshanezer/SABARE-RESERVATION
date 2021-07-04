@@ -8,15 +8,14 @@ use DB;
 use App\Http\Requests;
 use App\Http\Controllers\Controller;
 
-class SendEmailVCController extends Controller
+class AdminAgriSBookingController extends Controller
 {
-  
-    public function viewagribooking() { 
+    public function viewadminagribooking() { 
       
         $agrsbookings = DB::select('select * from agrsbookings');
        
 
-        return view('viewagribooking',['agrsbookings'=>$agrsbookings]); 
+        return view('viewadminagribooking',['agrsbookings'=>$agrsbookings]); 
        } 
 
     

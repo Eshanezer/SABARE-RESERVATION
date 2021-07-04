@@ -2,39 +2,28 @@
 
 namespace App\Http\Controllers;
 
+
 use Illuminate\Http\Request;
-use App\Models\audiovisualunit;
-use App\Models\avubooking;
+use App\Models\agrifarmdining;
+use App\Models\agridbooking;
 use App\Models\User;
 use Auth;
 use Illuminate\Support\Facades\Mail;
 use App\Mail\RequestRecommendMail;
 use DB;
 
-class AVUController extends Controller
+class AgriDinningController extends Controller
 {
-    public function getavu(){
+    public function getdinning(){
        
         
-        $avu = audiovisualunit::all();
+        $afd = agrifarmdining::all();
 
-        return view('avu')->with('avu',$avu);
+        return view('afd')->with('afd',$afd);
     }
 
 
-    // public function dropDownShow(Request $request)
-
-    //     {
-
-    //         $Users = User::pluck('name', 'id');
-
-    //         $selectedID = 2;
-
-    //         // return view('avu')->with('avu',$Users);
-
-    //         return view('avu', compact('id', 'Users'));
-
-    //     }
+  
 
 
     public function dropDownShow()
@@ -46,8 +35,8 @@ class AVUController extends Controller
         foreach($Users as $User){
             $select[$User->id] = $User->name;
         }
-        return view('avu', compact('select'));
-       // return view('avu')->with('select', $select);
+        return view('afd', compact('select'));
+      
 }
 
 
@@ -55,7 +44,7 @@ class AVUController extends Controller
     public function submit(Request $request){
 
         $this->validate($request,[
-            'EventName'=>'required',
+            'NoOfGuest'=>'required',
             'CheckInDate'=>'required',
             'StartTime'=>'required',
             'EndTime'=>'required',
@@ -63,19 +52,24 @@ class AVUController extends Controller
         ]);
         
         ;
-        $avubooking = new avubooking;
-        $avubooking-> EventName = $request->input('EventName');
-        $avubooking-> CheckInDate = $request->input('CheckInDate');
-        $avubooking-> StartTime = $request->input('StartTime');
-        $avubooking-> EndTime = $request->input('EndTime');
-        $avubooking-> Description = $request->input('Description');
-        $avubooking-> Status = 'Send to Recommendation';
-        $avubooking-> Recommendation_from = $request->input('Recommendation_from');
-        $avubooking-> IS_Recommended = '0';
-        $avubooking-> GuestId = Auth::user()->id;
-        $avubooking-> AVUId = $request->input('AVUId');
-        //$avubooking-> AVUId = $request->input('AVUId');
-        //$avubooking-> UserId = '1';
+
+        							
+        $agridbooking = new agridbooking;
+        $agridbooking-> CheckInDate = $request->input('CheckInDate');
+        $agridbooking-> StartTime = $request->input('StartTime');
+        $agridbooking-> EndTime = $request->input('EndTime');
+        $agridbooking-> NoOfGuest = $request->input('NoOfGuest');
+        $agridbooking-> Description = $request->input('Description');
+        $agridbooking-> Status = 'Send to Recommendation';
+        $agridbooking-> Recommendation_from = $request->input('Recommendation_from');
+        $agridbooking-> IS_Recommended = '0';
+        $agridbooking-> GuestId = Auth::user()->id;
+        $agridbooking-> GuestName = Auth::user()->id;
+        $agridbooking-> AgriFarmDiningId = '1';
+        $agridbooking-> VCApproval = $request->input('VCApproval');
+        $agridbooking-> IS_Recommended = '0';
+        $agridbooking-> IS_Vc_Approved = '0';
+        $agridbooking-> BookingType = 'SUSL Staff';
 
         $data = array(
             'id'      =>  Auth::user()->id,
@@ -83,7 +77,7 @@ class AVUController extends Controller
             'CheckInDate'=>$request->input('CheckInDate'),
             'StartTime'=>$request->input('StartTime'),
             'EndTime'=>$request->input('EndTime'),
-            'EventName'=>$request->input('EventName'),
+            'NoOfGuest'=>$request->input('NoOfGuest'),
             'Description'=>$request->input('Description')
         );
 
@@ -92,12 +86,12 @@ class AVUController extends Controller
         //$email = 'pmakwije@gmail.com';
 
         //$CheckInDate = avubooking::where(['CheckInDate' => $request->input('CheckInDate'), 'Status' => 'Conformed'])->get();
-       $CheckInDate = avubooking::where('CheckInDate', '=', $request->input('CheckInDate'))->first();
+       $CheckInDate = agridbooking::where('CheckInDate', '=', $request->input('CheckInDate'))->first();
         
         if ($CheckInDate === null) {
         
             
-                $avubooking->save();
+                $agridbooking->save();
                 Mail::to($email)->send(new RequestRecommendMail($data));
                 return back()->with('success', 'Request Sent Successfuly!');
 

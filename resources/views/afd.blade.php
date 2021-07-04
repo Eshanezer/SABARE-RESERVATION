@@ -2,52 +2,20 @@
 
 
 @section('content')
-<h1>Audio Visual Unit</h1>
+<h1>Agri Farm Dinning Room</h1>
 
-    <table class="table">
-  <thead class="table-primary">
-         <tr>
-            <td>Type</td>
-        
-            <td>Description</td>
-         </tr>
-         
-         
-        
-</thead>
-<tbody>
-        <tr>
-        <td>Photography</td>
-       
-        <td>Only Photography</td>
-         </tr>
-        
-    <tr>
-    <td>Videography</td>
-       
-            <td>Only Videography</td>
-         </tr>
-         <tr>
-         <td>Photography and Videography</td>
-       
-            <td>Both Photography and Videography</td>
-         </tr>
- </tbody>
-      </table>
+
+      
 
            <div class="card p-3 mb-2 bg-secondary text-white">
             <h5 class="card-header">Booking</h5>
             <div class="card-body">
             <div class="mb-3">
 
-                        {!! Form::open(['url' => 'avu/submit']) !!}
+                        {!! Form::open(['url' => 'afd/submit']) !!}
 
                         
-                        <div class="form-group">
-                        {{Form::label('AVUId', 'Booking Type') }}
-                        {{Form::select('AVUId', [1 => 'Photography', 2 => 'Videography', 3 => 'Photography and Videography'], null, ['placeholder' => 'Please select ...'])}}
                         
-                        </div>
 
                         <div class="form-group">
                         {{Form::label('CheckInDate', 'Booking Date') }}
@@ -66,8 +34,8 @@
                         </div>
 
                          <div class="form-group">
-                        {{Form::label('EventName', 'Event Name') }}
-                        {{Form::text('EventName', '',['class'=>'form-control','placeholder'=>'Event Name'])}}
+                        {{Form::label('NoOfGuest', 'Number Of Guest') }}
+                        {{Form::text('NoOfGuest', '',['class'=>'form-control','placeholder'=>'Number Of Guest'])}}
                         </div>
                          
                         <div class="form-group">
@@ -76,12 +44,17 @@
                         </div>
                         <div class="form-group">
 
-                          <div class="form-group col-md-6">
+                          <div class="form-group ">
                             {!! Form::label('Request Recommendation from')!!}
                             {!! Form::select('Recommendation_from', $select, null, ['class'=>'form-control']) !!}
                         </div>
                         
-                     
+                        <div class="form-group">
+                        {{Form::label('VCApproval', 'Request VC Approval') }}
+                        {{Form::select('VCApproval', [1 => 'Yes', 0 => 'No'], null, ['placeholder' => 'Please select ...'])}}
+                        
+                        </div>
+
                         </br>
                         {{Form::submit('Submit', ['class'=>'btn btn-primary'])}}
                         </div>
@@ -93,3 +66,6 @@
 @endsection
 
 
+
+       
+     

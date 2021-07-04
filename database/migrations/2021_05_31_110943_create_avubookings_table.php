@@ -20,9 +20,10 @@ class CreateAvubookingsTable extends Migration
             $table->time('StartTime', $precision = 0);
             $table->time('EndTime', $precision = 0);
             $table->string('Description');
-			$table->date('Date');
-			$table->unsignedBigInteger('RecommendedBy')->default(0);
-			$table->foreign('RecommendedBy')->references('UserId')->on('users');
+            $table->string('Status');
+			$table->unsignedBigInteger('Recommendation_From')->nullable()->unsigned();
+            $table->foreign('Recommendation_From')->references('id')->on('users'); 
+            $table->boolean('IS_Recommended')->default(0);
             $table->unsignedBigInteger('GuestId');
 			$table->foreign('GuestId')->references('id')->on('users'); 
             $table->integer('AVUId')->unsigned();
