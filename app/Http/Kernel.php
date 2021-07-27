@@ -71,5 +71,6 @@ class Kernel extends HttpKernel
         'DeanHodMiddleware'=> \App\Http\Middleware\DeanHodMiddleware::class,
         'NestCoordinatorMiddleware'=> \App\Http\Middleware\NestCoordinatorMiddleware::class,
         'AgriFarmCoordinatorMiddleware'=> \App\Http\Middleware\AgriFarmCoordinatorMiddleware::class,
+        'HrCoordinatorMiddleware' => \App\Http\Middleware\HrCoordinatorMiddleware::class,
     ];
 }

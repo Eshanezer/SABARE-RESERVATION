@@ -23,9 +23,9 @@ class CreateAvubookingsTable extends Migration
             $table->string('Status');
 			$table->unsignedBigInteger('Recommendation_From')->nullable()->unsigned();
             $table->foreign('Recommendation_From')->references('id')->on('users'); 
-            $table->boolean('IS_Recommended')->default(0);
             $table->unsignedBigInteger('GuestId');
-			$table->foreign('GuestId')->references('id')->on('users'); 
+            $table->foreign('GuestId')->references('id')->on('users'); 
+            $table->string('GuestName');
             $table->integer('AVUId')->unsigned();
 			$table->foreign('AVUId')->references('AVUId')->on('audiovisualunits'); 
 			$table->timestamps();

@@ -21,10 +21,10 @@
         </tr>
         <tr>
 
-        <td>Guest Id</td>
+        <td>Guest Name</td>
         <td>
-        <input class="form-control" type = 'text' name = 'GuestId'
-        value = '<?php echo$users[0]->GuestId; ?>'readonly="readonly"/>
+        <input class="form-control" type = 'text' name = 'GuestName'
+        value = '<?php echo$users[0]->GuestName; ?>'readonly="readonly"/>
         </td>
         </tr>
        
@@ -54,8 +54,8 @@
         <tr>
         <td>Recommendation From</td>
         <td>
-        <input class="form-control" type = 'textarea' name = 'Recommendation_From'
-        value = '<?php echo$users[0]->Recommendation_From; ?>' readonly="readonly"/>
+        <input class="form-control" type = 'textarea' name = 'name'
+        value = '<?php echo$users[0]->name; ?>' readonly="readonly"/>
         </td>
         </tr>
         <tr>

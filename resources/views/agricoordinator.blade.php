@@ -7,7 +7,7 @@
 <div class="card-body">
 <a class="nav-link btn btn-info" href="/guest-show">View Guest Details</a></br>
 
-<a class="nav-link btn btn-info" href="/viewagrisbooking">Agri Farm Stay Booking Details</a></br>
+<a class="nav-link btn btn-info" href="/viewagribooking">Agri Farm Stay Booking Details</a></br>
 <a class="nav-link btn btn-info" href="/viewagridbooking">Agri Farm Dinning Room Booking Details</a></br>
  </div>
 </div>

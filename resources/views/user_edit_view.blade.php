@@ -21,6 +21,7 @@
 
 </tr>
 @foreach ($users as $user)
+@if( $user->name != 'None')
 <tr>
 <td>{{ $user->id }}</td>
 <td>{{ $user->name }}</td>
@@ -36,6 +37,7 @@
 <a href = 'delete/{{ $user->id }}'>Delete</a>
 </td>
 </tr>
+@endif
 @endforeach
 </table>
 

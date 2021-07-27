@@ -45,7 +45,7 @@
                         
                         <div class="form-group">
                         {{Form::label('AVUId', 'Booking Type') }}
-                        {{Form::select('AVUId', [1 => 'Photography', 2 => 'Videography', 3 => 'Photography and Videography'], null, ['placeholder' => 'Please select ...'])}}
+                        {{Form::select('AVUId', [1 => 'Photography', 2 => 'Videography', 3 => 'Photography and Videography'], null, ['class'=>'form-control','placeholder' => 'Please select ...'])}}
                         
                         </div>
 
@@ -57,12 +57,12 @@
 
                         <div class="form-group">
                         {{Form::label('StartTime', 'Start Time') }}
-                        {{ Form::time('StartTime', \Carbon\Carbon::now()) }}
+                        {{ Form::time('StartTime', \Carbon\Carbon::now(),['class'=>'form-control']) }}
                        
                         </div>
                         <div class="form-group">
                         {{Form::label('EndTime', 'End Time') }}
-                        {{ Form::time('EndTime', \Carbon\Carbon::now()) }}
+                        {{ Form::time('EndTime', \Carbon\Carbon::now(),['class'=>'form-control']) }}
                         </div>
 
                          <div class="form-group">
@@ -76,7 +76,7 @@
                         </div>
                         <div class="form-group">
 
-                          <div class="form-group col-md-6">
+                          <div class="form-group ">
                             {!! Form::label('Request Recommendation from')!!}
                             {!! Form::select('Recommendation_from', $select, null, ['class'=>'form-control']) !!}
                         </div>

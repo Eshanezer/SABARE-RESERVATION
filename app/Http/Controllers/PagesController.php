@@ -4,12 +4,266 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 
+use App\Models\holidayresort;
+use App\Models\hrbooking;
+use App\Models\nest;
+use App\Models\nestbooking;
+use App\Models\agrifarmstay;
+use App\Models\agrsbooking;
+use App\Models\agrifarmdining;
+use App\Models\agridbooking;
+use App\Models\audiovisualunit;
+use App\Models\avubooking;
+use Auth;
+use DB;
+
+use App\Models\User;
+
 class PagesController extends Controller
 {
     public function getHome(){
-        return view('home');
+
+        $hr = holidayresort::all();
+        $hrdetail = DB::select('select * from holidayresorts');
+        $hrfill = [];
+        foreach($hrdetail as $n){
+            $hrfill[$n->HolodayResortId] = $n->Type;
+        }
+
+        $nest = nest::all();
+        $nestdetail = DB::select('select * from nests');
+        $nestfill = [];
+        foreach($nestdetail as $n){
+            $nestfill[$n->NestId] = $n->Type;
+        }
+       // return view('home');
+        return view('home', compact('hrfill','hr','nestfill','nest'));
     }
 
+    
+
+    public function checkavailable(Request $request){
+        if($request->input('property') == 'Holiday Resort'){
+               
+            
+            $this->validate($request,[
+                'CheckInDate'=>'required|date|after:yesterday',
+                'CheckOutDate'=>'required|date|after:CheckInDate',
+                'NoOfAdults'=>'required|numeric|min:1',
+                'NoOfChildren'=>'required|numeric|min:0',
+                'NoOfUnits'=>'required|numeric|min:1',
+                'HolodayResortId'=>'required',
+            ]);
+    
+            
+    
+            if($request->input('HolodayResortId') == 1){
+    
+                $CheckInDate = hrbooking::whereDate('CheckInDate', '<=', $request->input('CheckInDate'))->whereDate('CheckOutDate', '>=', $request->input('CheckInDate'))->where('Status', 'Confirmed')->get();
+                $CheckInDate2 = hrbooking::whereDate('CheckInDate', '>=', $request->input('CheckInDate'))->whereDate('CheckInDate', '<=', $request->input('CheckOutDate'))->where('Status', 'Confirmed')->get();
+            
+    
+                $check_cndition1 = $CheckInDate->sum('NoOfUnits') + $request->input('NoOfUnits');
+                $check_cndition2 = $CheckInDate2->sum('NoOfUnits') + $request->input('NoOfUnits');
+                $check_cndition3 = ($CheckInDate->sum('NoOfUnits') + $CheckInDate2->sum('NoOfUnits')) + $request->input('NoOfUnits');
+                
+                if( $check_cndition1 > 3 || $check_cndition2 > 3 || $check_cndition3 > 3){
+                     return redirect()->back()->with(session()->flash('alert-danger', 'Sorry already booked!'));
+                 }else{
+                
+                    return redirect()->back()->with(session()->flash('alert-success', 'Available'));
+                 }
+
+        }
+
+            if($request->input('HolodayResortId') == 2){
+        
+                $CheckInDate = hrbooking::whereDate('CheckInDate', '<=', $request->input('CheckInDate'))->whereDate('CheckOutDate', '>=', $request->input('CheckInDate'))->where('Status', 'Confirmed')->get();
+                $CheckInDate2 = hrbooking::whereDate('CheckInDate', '>=', $request->input('CheckInDate'))->whereDate('CheckInDate', '<=', $request->input('CheckOutDate'))->where('Status', 'Confirmed')->get();
+            
+
+                $check_cndition1 = $CheckInDate->sum('NoOfUnits') + $request->input('NoOfUnits');
+                $check_cndition2 = $CheckInDate2->sum('NoOfUnits') + $request->input('NoOfUnits');
+                $check_cndition3 = ($CheckInDate->sum('NoOfUnits') + $CheckInDate2->sum('NoOfUnits')) + $request->input('NoOfUnits');
+                
+                if( $check_cndition1 > 12 || $check_cndition2 > 12 || $check_cndition3 >12){
+                    return redirect()->back()->with(session()->flash('alert-danger', 'Sorry already booked!'));
+                }else{
+                
+                    return redirect()->back()->with(session()->flash('alert-success', 'Available'));
+                }
+
+        }
+    }
+
+
+
+    if($request->input('property') == 'NEST'){
+               
+            
+        $this->validate($request,[
+            'CheckInDate'=>'required|date|after:yesterday',
+            'CheckOutDate'=>'required|date|after:CheckInDate',
+            'NoOfAdults'=>'required|numeric|min:1',
+            'NoOfChildren'=>'required|numeric|min:0',
+            'NoOfUnits'=>'required|numeric|min:1',
+            'NestId'=>'required',
+        ]);
+
+        
+
+        if($request->input('NestId') == 1){
+
+            $CheckInDate = nestbooking::whereDate('CheckInDate', '<=', $request->input('CheckInDate'))->whereDate('CheckOutDate', '>=', $request->input('CheckInDate'))->where('Status', 'Confirmed')->get();
+            $CheckInDate2 = nestbooking::whereDate('CheckInDate', '>=', $request->input('CheckInDate'))->whereDate('CheckInDate', '<=', $request->input('CheckOutDate'))->where('Status', 'Confirmed')->get();
+        
+
+            $check_cndition1 = $CheckInDate->sum('NoOfUnits') + $request->input('NoOfUnits');
+            $check_cndition2 = $CheckInDate2->sum('NoOfUnits') + $request->input('NoOfUnits');
+            $check_cndition3 = ($CheckInDate->sum('NoOfUnits') + $CheckInDate2->sum('NoOfUnits')) + $request->input('NoOfUnits');
+            
+            if( $check_cndition1 > 1 || $check_cndition2 > 1 || $check_cndition3 > 1){
+                 return redirect()->back()->with(session()->flash('alert-danger', 'Sorry already booked!'));
+             }else{
+            
+                return redirect()->back()->with(session()->flash('alert-success', 'Available'));
+             }
+
+    }
+
+        if($request->input('NestId') == 2){
+    
+            $CheckInDate = nestbooking::whereDate('CheckInDate', '<=', $request->input('CheckInDate'))->whereDate('CheckOutDate', '>=', $request->input('CheckInDate'))->where('Status', 'Confirmed')->get();
+            $CheckInDate2 = nestbooking::whereDate('CheckInDate', '>=', $request->input('CheckInDate'))->whereDate('CheckInDate', '<=', $request->input('CheckOutDate'))->where('Status', 'Confirmed')->get();
+        
+
+            $check_cndition1 = $CheckInDate->sum('NoOfUnits') + $request->input('NoOfUnits');
+            $check_cndition2 = $CheckInDate2->sum('NoOfUnits') + $request->input('NoOfUnits');
+            $check_cndition3 = ($CheckInDate->sum('NoOfUnits') + $CheckInDate2->sum('NoOfUnits')) + $request->input('NoOfUnits');
+            
+            if( $check_cndition1 > 4 || $check_cndition2 > 4 || $check_cndition3 >4){
+                return redirect()->back()->with(session()->flash('alert-danger', 'Sorry already booked!'));
+            }else{
+            
+                return redirect()->back()->with(session()->flash('alert-success', 'Available'));
+            }
+
+    }
+}
+
+
+if($request->input('property') == 'Agri Farm Kabana'){
+               
+            
+    $this->validate($request,[
+        'CheckInDate'=>'required|date|after:yesterday',
+        'CheckOutDate'=>'required|date|after:CheckInDate',
+        'NoOfAdults'=>'required|numeric|min:1',
+        'NoOfChildren'=>'required|numeric|min:0',
+        'NoOfUnits'=>'required|numeric|min:1',
+    ]);
+
+    
+
+   
+
+        $CheckInDate = agrsbooking::whereDate('CheckInDate', '<=', $request->input('CheckInDate'))->whereDate('CheckOutDate', '>=', $request->input('CheckInDate'))->where('Status', 'Confirmed')->get();
+        $CheckInDate2 = agrsbooking::whereDate('CheckInDate', '>=', $request->input('CheckInDate'))->whereDate('CheckInDate', '<=', $request->input('CheckOutDate'))->where('Status', 'Confirmed')->get();
+    
+
+        $check_cndition1 = $CheckInDate->sum('NoOfUnits') + $request->input('NoOfUnits');
+        $check_cndition2 = $CheckInDate2->sum('NoOfUnits') + $request->input('NoOfUnits');
+        $check_cndition3 = ($CheckInDate->sum('NoOfUnits') + $CheckInDate2->sum('NoOfUnits')) + $request->input('NoOfUnits');
+        
+        if( $check_cndition1 > 3 || $check_cndition2 > 3 || $check_cndition3 > 3){
+             return redirect()->back()->with(session()->flash('alert-danger', 'Sorry already booked!'));
+         }else{
+        
+            return redirect()->back()->with(session()->flash('alert-success', 'Available'));
+         }
+
+
+
+ 
+}
+
+
+
+
+if($request->input('property') == 'Agri Farm Dining Room'){
+               
+            
+    $this->validate($request,[
+        
+        'CheckInDate'=>'required|date|after:yesterday',
+        'StartTime'=>'required',
+        'EndTime'=>'required|after:StartTime',
+    ]);
+    
+
+                                
+   $CheckInDate = agridbooking::where('CheckInDate', '=', $request->input('CheckInDate'))->first();
+    
+    if ($CheckInDate === null) {
+    
+        return redirect()->back()->with(session()->flash('alert-success', 'Available'));
+        
+        
+    }else{
+        $CheckInDate = agridbooking::whereTime('StartTime', '<', $request->input('StartTime'))->whereTime('EndTime', '>', $request->input('StartTime'))->where('CheckInDate', '=', $request->input('CheckInDate'))->where('Status', 'Confirmed')->get();
+        $CheckInDate2 = agridbooking::whereTime('StartTime', '>', $request->input('StartTime'))->whereTime('StartTime', '<', $request->input('EndTime'))->where('CheckInDate', '=', $request->input('CheckInDate'))->where('Status', 'Confirmed')->get();
+       
+        if(count($CheckInDate) > 0 || count($CheckInDate2) > 0){
+          
+            return redirect()->back()->with(session()->flash('alert-danger', 'Sorry already booked!'));
+
+        }else{
+            return redirect()->back()->with(session()->flash('alert-success', 'Available'));
+         }
+        }
+    
+ 
+    }
+
+
+    if($request->input('property') == 'Audio Visual Unit'){
+               
+            
+        $this->validate($request,[
+            
+            'CheckInDate'=>'required|date|after:yesterday',
+            'StartTime'=>'required',
+            'EndTime'=>'required|after:StartTime',
+        ]);
+        
+    
+                                    
+       $CheckInDate = avubooking::where('CheckInDate', '=', $request->input('CheckInDate'))->first();
+        
+        if ($CheckInDate === null) {
+        
+            return redirect()->back()->with(session()->flash('alert-success', 'Available'));
+            
+            
+        }else{
+            $CheckInDate = avubooking::whereTime('StartTime', '<', $request->input('StartTime'))->whereTime('EndTime', '>', $request->input('StartTime'))->where('CheckInDate', '=', $request->input('CheckInDate'))->where('Status', 'Confirmed')->get();
+            $CheckInDate2 = avubooking::whereTime('StartTime', '>', $request->input('StartTime'))->whereTime('StartTime', '<', $request->input('EndTime'))->where('CheckInDate', '=', $request->input('CheckInDate'))->where('Status', 'Confirmed')->get();
+           
+            if(count($CheckInDate) > 0 || count($CheckInDate2) > 0){
+              
+                return redirect()->back()->with(session()->flash('alert-danger', 'Sorry already booked!'));
+    
+            }else{
+                return redirect()->back()->with(session()->flash('alert-success', 'Available'));
+             }
+            }
+        
+     
+        }
+
+
+        //dd($request->input());
+    }
 
     public function getagrifarm(){
         return view('af');
@@ -53,6 +307,10 @@ class PagesController extends Controller
    
     public function agricoordinator(Request $req){
         return view('agricoordinator');
+    }
+
+    public function hrcoordinator(Request $req){
+        return view('hrcoordinator');
     }
     
     

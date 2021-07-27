@@ -9,9 +9,9 @@
 <div class="table-responsive">
     <table  class="table table-striped">
     <tr>
-        <td>Booking Id </td>
-        <td>Guest Id </td>
-        <td>Audio Visual Unit Id </td>
+        <td>Id </td>
+        <td>Guest Name </td>
+        <td>Audio Visual Unit  </td>
         <!-- <td>EventName</td> -->
         <td>Check In Date</td>
         <td>StartTime</td>
@@ -29,8 +29,8 @@
     @foreach ($avubookings as $avubookings)
     <tr>
         <td>{{ $avubookings->BookingId  }}</td>
-        <td>{{ $avubookings->GuestId  }}</td>
-        <td>{{ $avubookings->AVUId   }}</td>
+        <td>{{ $avubookings->GuestName }}</td>
+        <td>{{ $avubookings->Type   }}</td>
         <!-- <td>{{ $avubookings->EventName }}</td> -->
         <td>{{ $avubookings->CheckInDate }}</td>
         <td>{{ $avubookings->StartTime }}</td>
@@ -40,8 +40,8 @@
         <td>{{ $avubookings->Status }}</td>
        
         <td>
-        <a href = 'avurecommend/{{ $avubookings->BookingId }}'>Recommended</a> </br>
-        <a href = 'avunnotrecommend/{{ $avubookings->BookingId }}'>Not Recommend</a>
+        <a href = 'avurecommend/{{ $avubookings->BookingId }}'>Recommend</a> </br>
+        <a href = 'avunnotrecommend/{{ $avubookings->BookingId }}'>Reject</a>
         </td>
        
     </tr>

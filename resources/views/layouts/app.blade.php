@@ -67,6 +67,11 @@
                             <a class="nav-link" href="/avucoordinator">Coordinator</a>
                         </li>
                         @endif
+                        @if (Auth::check() && Auth::user()->roleNo == 5)
+                        <li class="nav-item">
+                            <a class="nav-link" href="/hrcoordinator">Coordinator</a>
+                        </li>
+                        @endif
                         @if (Auth::check() && Auth::user()->roleNo == 6)
                         <li class="nav-item">
                             <a class="nav-link" href="/nestcoordinator">Coordinator</a>

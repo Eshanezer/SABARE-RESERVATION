@@ -25,12 +25,12 @@
 
                         <div class="form-group">
                         {{Form::label('StartTime', 'Start Time') }}
-                        {{ Form::time('StartTime', \Carbon\Carbon::now()) }}
+                        {{ Form::time('StartTime', \Carbon\Carbon::now(),['class'=>'form-control']) }}
                        
                         </div>
                         <div class="form-group">
                         {{Form::label('EndTime', 'End Time') }}
-                        {{ Form::time('EndTime', \Carbon\Carbon::now()) }}
+                        {{ Form::time('EndTime', \Carbon\Carbon::now(),['class'=>'form-control']) }}
                         </div>
 
                          <div class="form-group">
@@ -51,7 +51,7 @@
                         
                         <div class="form-group">
                         {{Form::label('VCApproval', 'Request VC Approval') }}
-                        {{Form::select('VCApproval', [1 => 'Yes', 0 => 'No'], null, ['placeholder' => 'Please select ...'])}}
+                        {{Form::select('VCApproval', [1 => 'Yes', 0 => 'No'], null, ['placeholder' => 'Please select ...','class'=>'form-control'])}}
                         
                         </div>
 
