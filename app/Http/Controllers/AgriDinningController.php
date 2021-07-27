@@ -44,14 +44,14 @@ class AgriDinningController extends Controller
     public function submit(Request $request){
 
         $this->validate($request,[
-            'NoOfGuest'=>'required',
-            'CheckInDate'=>'required',
+            'NoOfGuest'=>'required|numeric|min:1',
+            'CheckInDate'=>'required|date|after:yesterday',
             'StartTime'=>'required',
-            'EndTime'=>'required',
+            'EndTime'=>'required|after:StartTime',
             'Description'=>'required',
+            'VCApproval'=>'required',
         ]);
         
-        ;
 
         							
         $agridbooking = new agridbooking;
@@ -62,13 +62,10 @@ class AgriDinningController extends Controller
         $agridbooking-> Description = $request->input('Description');
         $agridbooking-> Status = 'Send to Recommendation';
         $agridbooking-> Recommendation_from = $request->input('Recommendation_from');
-        $agridbooking-> IS_Recommended = '0';
         $agridbooking-> GuestId = Auth::user()->id;
-        $agridbooking-> GuestName = Auth::user()->id;
+        $agridbooking-> GuestName = Auth::user()->name;
         $agridbooking-> AgriFarmDiningId = '1';
         $agridbooking-> VCApproval = $request->input('VCApproval');
-        $agridbooking-> IS_Recommended = '0';
-        $agridbooking-> IS_Vc_Approved = '0';
         $agridbooking-> BookingType = 'SUSL Staff';
 
         $data = array(
@@ -97,6 +94,19 @@ class AgriDinningController extends Controller
 
                 //return redirect('/')->with('success','Request Sent Successfuly !');
             
+        }else{
+            $CheckInDate = agridbooking::whereTime('StartTime', '<', $request->input('StartTime'))->whereTime('EndTime', '>', $request->input('StartTime'))->where('CheckInDate', '=', $request->input('CheckInDate'))->where('Status', 'Confirmed')->get();
+            $CheckInDate2 = agridbooking::whereTime('StartTime', '>', $request->input('StartTime'))->whereTime('StartTime', '<', $request->input('EndTime'))->where('CheckInDate', '=', $request->input('CheckInDate'))->where('Status', 'Confirmed')->get();
+           
+            if(count($CheckInDate) > 0 || count($CheckInDate2) > 0){
+               // dd("already booked");
+                return redirect('/')->with('success','Sorry Allready Booked!');
+            }else{
+               // dd("available");
+                $agridbooking->save();
+                Mail::to($email)->send(new RequestRecommendMail($data));
+                return back()->with('success', 'Request Sent Successfuly!');
+            }
         }
         
         

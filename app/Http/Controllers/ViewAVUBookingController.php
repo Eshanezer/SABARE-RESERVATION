@@ -18,7 +18,15 @@ class ViewAVUBookingController extends Controller
 
        public function viewavubooking() { 
       
-       $avubookings = DB::select('select * from avubookings');
+       //$avubookings = DB::select('select * from avubookings');
+
+
+       $avubookings =DB::table('avubookings')
+       ->select('avubookings.*','users.name','audiovisualunits.Type')
+       ->join('users','users.id','=','avubookings.Recommendation_From')
+       ->join('audiovisualunits','audiovisualunits.AVUId','=','avubookings.AVUId')
+       ->orderBy('avubookings.BookingId')
+       ->get();
         
         // $avubookings = DB::table('avubookings')
         // ->join('users', 'avubookings.Recommendation_From', '=', 'users.id')
@@ -46,7 +54,15 @@ class ViewAVUBookingController extends Controller
 
         //$Recommendation_From = '4';
         
-        $avubookings = DB::select('select * from avubookings where Recommendation_From = ?', [$Recommendation_From]);
+        $avubookings =DB::table('avubookings')
+        ->select('avubookings.*','users.name','audiovisualunits.Type')
+        ->join('users','users.id','=','avubookings.Recommendation_From')
+        ->join('audiovisualunits','audiovisualunits.AVUId','=','avubookings.AVUId')
+        ->where(['avubookings.Recommendation_From' => $Recommendation_From])
+        ->orderBy('avubookings.BookingId')
+        ->get();
+
+        //$avubookings = DB::select('select * from avubookings where Recommendation_From = ?', [$Recommendation_From]);
          
         
  

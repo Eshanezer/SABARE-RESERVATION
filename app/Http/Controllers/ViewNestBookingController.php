@@ -18,14 +18,26 @@ class ViewNestBookingController extends Controller
 {
     public function viewnestbooking() { 
       
-        $nestbookings = DB::select('select * from nestbookings');
-       
+        //$nestbookings = DB::select('select * from nestbookings');
+        $nestbookings =DB::table('nestbookings')
+        ->select('nestbookings.*','nests.Type')
+        ->join('nests','nests.NestId','=','nestbookings.NestId')
+        ->orderBy('nestbookings.BookingId')
+        ->get();
+      
+
         return view('viewnestbooking',['nestbookings'=>$nestbookings]); 
    
        } 
        public function viewvcnestbooking() { 
+
+        $nestbookings =DB::table('nestbookings')
+        ->select('nestbookings.*','nests.Type')
+        ->join('nests','nests.NestId','=','nestbookings.NestId')
+        ->orderBy('nestbookings.BookingId')
+        ->get();
       
-        $nestbookings = DB::select('select * from nestbookings');
+        //$nestbookings = DB::select('select * from nestbookings');
        
         return view('viewvcnestbooking',['nestbookings'=>$nestbookings]); 
    
@@ -46,8 +58,15 @@ class ViewNestBookingController extends Controller
         $Recommendation_From = Auth::id();
 
         //$Recommendation_From = '4';
+
+        $nestbookings =DB::table('nestbookings')
+        ->select('nestbookings.*','nests.Type')
+        ->join('nests','nests.NestId','=','nestbookings.NestId')
+        ->where(['nestbookings.Recommendation_From' => $Recommendation_From])
+        ->orderBy('nestbookings.BookingId')
+        ->get();
         
-        $nestbookings = DB::select('select * from nestbookings where Recommendation_From = ?', [$Recommendation_From]);
+       // $nestbookings = DB::select('select * from nestbookings where Recommendation_From = ?', [$Recommendation_From]);
          
         
  
@@ -139,12 +158,41 @@ class ViewNestBookingController extends Controller
                             }
                         
                             public function shownestvc($id) {
-                                $users = DB::select('select * from nestbookings where BookingId = ?',[$id]);
+
+                                $users =DB::table('nestbookings')
+                                ->select('nestbookings.*','users.name','nests.Type')
+                                ->join('users','users.id','=','nestbookings.Recommendation_From')
+                                ->join('nests','nests.NestId','=','nestbookings.NestId')
+                                ->where(['nestbookings.BookingId' => $id])
+                                ->get();
+
+                               // $users = DB::select('select * from nestbookings where BookingId = ?',[$id]);
                                 return view('nestvc_view',['users'=>$users]);
                                 }
 
-                        public function show($id) {
-                            $users = DB::select('select * from nestbookings where BookingId = ?',[$id]);
+                           public function shownestdean($id) {
+
+                                $users =DB::table('nestbookings')
+                                ->select('nestbookings.*','users.name','nests.Type')
+                                ->join('users','users.id','=','nestbookings.Recommendation_From')
+                                ->join('nests','nests.NestId','=','nestbookings.NestId')
+                                ->where(['nestbookings.BookingId' => $id])
+                                ->get();
+
+                               // $users = DB::select('select * from nestbookings where BookingId = ?',[$id]);
+                                return view('nestdean_view',['users'=>$users]);
+                                }
+
+                        public function shownest($id) {
+
+                            $users =DB::table('nestbookings')
+                            ->select('nestbookings.*','users.name','nests.Type')
+                            ->join('users','users.id','=','nestbookings.Recommendation_From')
+                            ->join('nests','nests.NestId','=','nestbookings.NestId')
+                            ->where(['nestbookings.BookingId' => $id])
+                            ->get();
+
+                           // $users = DB::select('select * from nestbookings where BookingId = ?',[$id]);
                             return view('nest_view',['users'=>$users]);
                             }
 

@@ -11,7 +11,7 @@
 <a class="nav-link btn btn-info" href="/viewadminafdbooking">View Agri Farm Dinning Room Booking Details</a></br>
 <a class="nav-link btn btn-info" href="/viewadminnestbooking">View NEST Booking Details</a></br>
 <a class="nav-link btn btn-info" href="/viewadminhrbooking">View Holiday Resort Booking Details</a></br>
-<a class="nav-link btn btn-info" href="/viewavubooking">View Audio Visual Unit Booking Details</a></br>
+<a class="nav-link btn btn-info" href="/viewadminavubooking">View Audio Visual Unit Booking Details</a></br>
  </div>
 </div>
 

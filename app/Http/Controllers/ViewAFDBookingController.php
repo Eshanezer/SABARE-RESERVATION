@@ -19,14 +19,23 @@ class ViewAFDBookingController extends Controller
 {
     public function viewagridbooking() { 
       
-        $agridbooking = DB::select('select * from agridbookings');
+        $agridbooking =DB::table('agridbookings')
+        ->select('agridbookings.*','users.name')
+        ->join('users','users.id','=','agridbookings.Recommendation_From')
+        ->get();
+
+        //$agridbooking = DB::select('select * from agridbookings');
        
         return view('viewagridbooking',['agridbooking'=>$agridbooking]); 
    
        } 
        public function viewvcagridbooking() { 
       
-        $agridbooking = DB::select('select * from agridbookings');
+       // $agridbooking = DB::select('select * from agridbookings');
+       $agridbooking =DB::table('agridbookings')
+       ->select('agridbookings.*','users.name')
+       ->join('users','users.id','=','agridbookings.Recommendation_From')
+       ->get();
        
         return view('viewvcagridbooking',['agridbooking'=>$agridbooking]); 
    
@@ -132,13 +141,25 @@ class ViewAFDBookingController extends Controller
                             return back()->with('success', 'Updated Successfuly!');
                             }
                         
-                            public function showafdvc($id) {
-                                $users = DB::select('select * from agridbookings where BookingId = ?',[$id]);
+                        public function showafdvc($id) {
+                               // $users = DB::select('select * from agridbookings where BookingId = ?',[$id]);
+                               $users =DB::table('agridbookings')
+                                ->select('agridbookings.*','users.name')
+                                ->join('users','users.id','=','agridbookings.Recommendation_From')
+                                ->where(['agridbookings.BookingId' => $id])
+                                ->get();
                                 return view('afdvc_view',['users'=>$users]);
                                 }
 
                         public function show($id) {
-                            $users = DB::select('select * from agridbookings where BookingId = ?',[$id]);
+
+                            $users =DB::table('agridbookings')
+                            ->select('agridbookings.*','users.name')
+                            ->join('users','users.id','=','agridbookings.Recommendation_From')
+                            ->where(['agridbookings.BookingId' => $id])
+                            ->get();
+
+                           // $users = DB::select('select * from agridbookings where BookingId = ?',[$id]);
                             return view('afd_view',['users'=>$users]);
                             }
 

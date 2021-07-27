@@ -23,9 +23,10 @@ class CreateAgrsbookingsTable extends Migration
             $table->integer('NoOfUnits');
             $table->string('Description');
             $table->string('Status');
+            $table->unsignedBigInteger('Recommendation_From')->nullable()->unsigned();
+            $table->foreign('Recommendation_From')->references('id')->on('users'); 
             $table->boolean('VCApproval')->default(0);
-            $table->boolean('IS_Vc_Approved')->default(0);
-            $table->unsignedBigInteger('GuestName');
+            $table->string('GuestName');
             $table->unsignedBigInteger('GuestId');
 			$table->foreign('GuestId')->references('id')->on('users');
             $table->integer('AgriFarmStayId')->unsigned();

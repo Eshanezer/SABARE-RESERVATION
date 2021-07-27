@@ -56,9 +56,9 @@ class AVUController extends Controller
 
         $this->validate($request,[
             'EventName'=>'required',
-            'CheckInDate'=>'required',
+            'CheckInDate'=>'required|date|after:yesterday',
             'StartTime'=>'required',
-            'EndTime'=>'required',
+            'EndTime'=>'required|after:StartTime',
             'Description'=>'required',
         ]);
         
@@ -71,8 +71,8 @@ class AVUController extends Controller
         $avubooking-> Description = $request->input('Description');
         $avubooking-> Status = 'Send to Recommendation';
         $avubooking-> Recommendation_from = $request->input('Recommendation_from');
-        $avubooking-> IS_Recommended = '0';
         $avubooking-> GuestId = Auth::user()->id;
+        $avubooking-> GuestName = Auth::user()->name;
         $avubooking-> AVUId = $request->input('AVUId');
         //$avubooking-> AVUId = $request->input('AVUId');
         //$avubooking-> UserId = '1';
@@ -103,8 +103,20 @@ class AVUController extends Controller
 
                 //return redirect('/')->with('success','Request Sent Successfuly !');
             
+        }else{
+            $CheckInDate = avubooking::whereTime('StartTime', '<', $request->input('StartTime'))->whereTime('EndTime', '>', $request->input('StartTime'))->where('CheckInDate', '=', $request->input('CheckInDate'))->where('Status', 'Confirmed')->get();
+            $CheckInDate2 = avubooking::whereTime('StartTime', '>', $request->input('StartTime'))->whereTime('StartTime', '<', $request->input('EndTime'))->where('CheckInDate', '=', $request->input('CheckInDate'))->where('Status', 'Confirmed')->get();
+           
+            if(count($CheckInDate) > 0 || count($CheckInDate2) > 0){
+               // dd("already booked");
+                return redirect('/')->with('success','Sorry Allready Booked!');
+            }else{
+               // dd("available");
+                $avubooking->save();
+                Mail::to($email)->send(new RequestRecommendMail($data));
+                return back()->with('success', 'Request Sent Successfuly!');
+            }
         }
-        
         
             return redirect('/')->with('success','Sorry Allready Booked!');
         

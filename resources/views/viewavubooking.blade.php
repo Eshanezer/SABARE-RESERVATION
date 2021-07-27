@@ -9,16 +9,16 @@
 <div class="table-responsive">
     <table  class="table table-striped">
     <tr>
-        <td>Booking Id </td>
-        <td>Guest Id </td>
-        <td>Audio Visual Unit Id </td>
+        <td>Id </td>
+        <td>Guest  </td>
+        <td>Service </td>
         <!-- <td>EventName</td> -->
         <td>Check In Date</td>
         <td>StartTime</td>
         <td>EndTime</td>
         <td>Event Name</td>
         <td>Description</td>
-        <td>Recommendation from</td>
+        <td>Recommendation </td>
         <!-- <td> IS Recommended </td> -->
         <td>Status</td>
         <td>Confirm</td>
@@ -31,17 +31,16 @@
     @foreach ($avubookings as $avubookings)
     <tr>
         <td>{{ $avubookings->BookingId  }}</td>
-        <td>{{ $avubookings->GuestId  }}</td>
-        <td>{{ $avubookings->AVUId   }}</td>
+        <td>{{ $avubookings->GuestName  }}</td>
+        <td>{{ $avubookings->Type   }}</td>
         <!-- <td>{{ $avubookings->EventName }}</td> -->
         <td>{{ $avubookings->CheckInDate }}</td>
         <td>{{ $avubookings->StartTime }}</td>
         <td>{{ $avubookings->EndTime }}</td>
         <td>{{ $avubookings->EventName  }}</td>
         <td>{{ $avubookings->Description }}</td>
-        <td>{{ $avubookings->Recommendation_From }}</td>
+        <td>{{ $avubookings->name}}</td>
         
-        <!-- <td>{{ $avubookings->IS_Recommended }}</td> -->
         <td>{{ $avubookings->Status }}</td>
        
         <td>

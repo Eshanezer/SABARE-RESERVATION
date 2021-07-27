@@ -10,31 +10,36 @@
     <table border = "1" class="table table-striped">
     <tr>
         <td>Booking Id </td>
-        <td>Guest Id </td>
-        <td>Agri Farm Stay Id </td>
+        <td>Guest Name </td>
         <td>Check In Date</td>
         <td>Check Out Date</td>
-        <td>Number Of Adults</td>
-        <td>Number Of Children</td>
-        <td>Description</td>
+        <td>Number Of Unit</td>
+        <td>Request VC Approval</td>
         <td>Status</td>
+        <td>Option</td>
         
     </tr>
     @foreach ($agrsbookings as $agrsbookings)
     <tr>
         <td>{{ $agrsbookings->BookingId  }}</td>
-        <td>{{ $agrsbookings->GuestId  }}</td>
-        <td>{{ $agrsbookings->AgriFarmStayId   }}</td>
+        <td>{{ $agrsbookings->GuestName  }}</td>
         <td>{{ $agrsbookings->CheckInDate }}</td>
         <td>{{ $agrsbookings->CheckOutDate }}</td>
-        <td>{{ $agrsbookings->NoOfAdults }}</td>
-        <td>{{ $agrsbookings->NoOfChildren }}</td>
-        <td>{{ $agrsbookings->	Description }}</td>
+        <td>{{ $agrsbookings->NoOfUnits }}</td>
         @if($agrsbookings->VCApproval == 0)
-        <td><a href = 'approve/{{ $agrsbookings->BookingId }}'>Approve</a></td>
+        <td>Not Request</td>
         @else
-        <td>Approved</a></td>
+        <td>Requested</td>
         @endif
+        
+        <td>{{ $agrsbookings->Status }}</td>
+       
+        <td>
+        <a href = 'showaf/{{ $agrsbookings->BookingId }}'>View</a></br>
+        <a href = 'afconfirm/{{ $agrsbookings->BookingId }}'>Confirm</a></br>
+        <a href = 'afnotconfirm/{{ $agrsbookings->BookingId }}'>Reject</a>
+       
+        </td>
     </tr>
     @endforeach
     </table>

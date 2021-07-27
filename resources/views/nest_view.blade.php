@@ -7,7 +7,7 @@
     <h5 class="card-header">Details</h5>
     <div class="card-body">
      <div class="mb-4">
-        <form action = "/show/<?php echo $users[0]->BookingId; ?>" method = "post">
+        <form action = "/shownest/<?php echo $users[0]->BookingId; ?>" method = "post">
         <input type = "hidden" name = "_token" value = "<?php echo csrf_token(); ?>">
         <table>
         <tr>
@@ -21,17 +21,17 @@
         </tr>
         <tr>
 
-        <td>Guest Id</td>
+        <td>Guest Name</td>
         <td>
-        <input class="form-control" type = 'text' name = 'GuestId'
-        value = '<?php echo$users[0]->GuestId; ?>'readonly="readonly"/>
+        <input class="form-control" type = 'text' name = 'GuestName'
+        value = '<?php echo$users[0]->GuestName; ?>'readonly="readonly"/>
         </td>
         </tr>
         <tr>
-        <td>Nest Id</td>
+        <td>Room Type</td>
         <td>
-        <input class="form-control" type = 'text' name = 'NestId'
-        value = '<?php echo$users[0]->NestId; ?>'readonly="readonly"/>
+        <input class="form-control" type = 'text' name = 'Type'
+        value = '<?php echo$users[0]->Type; ?>'readonly="readonly"/>
         </td>
         </tr>
         <tr>
@@ -81,6 +81,12 @@
         <td>
         <input class="form-control" type = 'textarea' name = 'Description'
         value = '<?php echo$users[0]->Description; ?>' readonly="readonly"/>
+        </td>
+        </tr>
+        <td>Recommendation From</td>
+        <td>
+        <input class="form-control" type = 'textarea' name = 'name'
+        value = '<?php echo$users[0]->name; ?>' readonly="readonly"/>
         </td>
         </tr>
         <tr>
