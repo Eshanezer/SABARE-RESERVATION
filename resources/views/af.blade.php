@@ -125,7 +125,7 @@
                 formSubmit(){
                     
                         if(this.no_of_adults > 2*this.no_of_units || this.no_of_children > 2*this.no_of_units){
-                            alert("Sorry, the maximum number of people that can be accommodated has been exceeded.");
+                            alert("Sorry, the maximum number of people that can be accommodated has been exceeded.  Please check the number of units and number of guests");
                         }else{
                             $("#booking_form").submit();
                         }

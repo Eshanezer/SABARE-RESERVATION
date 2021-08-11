@@ -53,6 +53,14 @@ class AgriDinningController extends Controller
             'EndTime'=>'required|after:StartTime',
             'Description'=>'required',
             'VCApproval'=>'required',
+        ],
+        [
+            'NoOfGuest.required' => 'Please Add the Number of Guests',
+            'CheckInDate.after' => 'Please Enter a Valid Date',
+            'StartTime.after' => 'Please Enter a Valid Start Time',
+            'EndTime.after' => 'Please Enter a Valid End Time',
+            'Description.required' => 'Please Add a Description',
+            'VCApproval.required' => 'Please Select Whether You Need VC Approval',
         ]);
         
 

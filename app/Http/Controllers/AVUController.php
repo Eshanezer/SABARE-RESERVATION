@@ -55,8 +55,10 @@ class AVUController extends Controller
         ],
         [
             'EventName.required' => 'Please Fill the Event Name',
-            'CheckInDate.required' => 'Please Enter a Valid Date',
-            'StartTime.required' => 'Please Enter a Valid Start Time',
+            'CheckInDate.after' => 'Please Enter a Valid Date',
+            'StartTime.after' => 'Please Enter a Valid Start Time',
+            'EndTime.after' => 'Please Enter a Valid End Time',
+            'Description.required' => 'Please Add a Description',
         ]);
         
         ;

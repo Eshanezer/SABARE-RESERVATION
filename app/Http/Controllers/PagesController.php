@@ -53,6 +53,13 @@ class PagesController extends Controller
                 'NoOfChildren'=>'required|numeric|min:0',
                 'NoOfUnits'=>'required|numeric|min:1',
                 'HolodayResortId'=>'required',
+            ],
+            [
+                'CheckInDate.after' => 'Please Enter a Valid Date',
+                'CheckOutDate.after' => 'Please Enter a Valid Date',
+                'NoOfAdults.required' => 'Please Enter The Number of Adults',
+                'NoOfChildren.required' => 'Please Enter The Number of Children',
+                'NoOfUnits.required' => 'Please Enter The Number of Units',
             ]);
     
             
@@ -108,6 +115,13 @@ class PagesController extends Controller
             'NoOfChildren'=>'required|numeric|min:0',
             'NoOfUnits'=>'required|numeric|min:1',
             'NestId'=>'required',
+        ],
+        [
+            'CheckInDate.after' => 'Please Enter a Valid Date',
+            'CheckOutDate.after' => 'Please Enter a Valid Date',
+            'NoOfAdults.required' => 'Please Enter The Number of Adults',
+            'NoOfChildren.required' => 'Please Enter The Number of Children',
+            'NoOfUnits.required' => 'Please Enter The Number of Units',
         ]);
 
         
@@ -161,6 +175,13 @@ if($request->input('property') == 'Agri Farm Kabana'){
         'NoOfAdults'=>'required|numeric|min:1',
         'NoOfChildren'=>'required|numeric|min:0',
         'NoOfUnits'=>'required|numeric|min:1',
+    ],
+    [
+        'CheckInDate.after' => 'Please Enter a Valid Date',
+        'CheckOutDate.after' => 'Please Enter a Valid Date',
+        'NoOfAdults.required' => 'Please Enter The Number of Adults',
+        'NoOfChildren.required' => 'Please Enter The Number of Children',
+        'NoOfUnits.required' => 'Please Enter The Number of Units',
     ]);
 
     
@@ -198,6 +219,11 @@ if($request->input('property') == 'Agri Farm Dining Room'){
         'CheckInDate'=>'required|date|after:yesterday',
         'StartTime'=>'required|after:CurrentTime',
         'EndTime'=>'required|after:StartTime',
+    ],
+    [
+        'CheckInDate.after' => 'Please Enter a Valid Date',
+        'StartTime.after' => 'Please Enter a Valid Start Time',
+        'EndTime.after' => 'Please Enter a Valid End Time',
     ]);
     
 
@@ -234,6 +260,11 @@ if($request->input('property') == 'Agri Farm Dining Room'){
             'CheckInDate'=>'required|date|after:yesterday',
             'StartTime'=>'required|after:CurrentTime',
             'EndTime'=>'required|after:StartTime',
+        ],
+        [
+            'CheckInDate.after' => 'Please Enter a Valid Date',
+            'StartTime.after' => 'Please Enter a Valid Start Time',
+            'EndTime.after' => 'Please Enter a Valid End Time',
         ]);
         
     

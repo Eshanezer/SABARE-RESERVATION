@@ -55,6 +55,17 @@ class HrController extends Controller
             'VCApproval'=>"required_if:BookingType,==,Resource Person,SUSL Staff",
             'Recommendation_from'=>"required_if:BookingType,==,Resource Person,SUSL Staff",
             'HolodayResortId'=>'required',
+        ], 
+        [
+            'BookingType.required' => 'Please Select Whom are You Booking For',
+            'CheckInDate.after' => 'Please Enter a Valid Date',
+            'CheckOutDate.after' => 'Please Enter a Valid Date',
+            'NoOfAdults.required' => 'Please Enter The Number of Adults',
+            'NoOfChildren.required' => 'Please Enter The Number of Children',
+            'NoOfUnits.required' => 'Please Enter The Number of Units',
+            'Description.required' => 'Please Add a Description',
+            'VCApproval.required' => 'Please Select Whether You Need VC Approval',
+            'Recommendation_from' => 'Please Select From Whom You Need to Get Recommendation',
         ]);
 
         //dd($request->input('HolodayResortId'));
