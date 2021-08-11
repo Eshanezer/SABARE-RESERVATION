@@ -50,7 +50,15 @@ class AgriFarmController extends Controller
             'Description'=>'required',   
             'VCApproval'=>"required_if:BookingType,==,Resource Person,SUSL Staff",
             'Recommendation_from'=>"required_if:BookingType,==,Resource Person,SUSL Staff",
-            
+        ], 
+        [
+            'BookingType.required' => 'Please Select Whom are You Booking For',
+            'CheckInDate.after' => 'Please Enter a Valid Date',
+            'CheckOutDate.after' => 'Please Enter a Valid Date',
+            'NoOfAdults.required' => 'Please Enter The Number of Adults',
+            'NoOfChildren.required' => 'Please Enter The Number of Children',
+            'NoOfUnits.required' => 'Please Enter The Number of Units',
+            'Description.required' => 'Please Add a Description',
         ]);
         
         
