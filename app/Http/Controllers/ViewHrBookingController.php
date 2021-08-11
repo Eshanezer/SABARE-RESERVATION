@@ -39,6 +39,28 @@ class ViewHrBookingController extends Controller
         
        } 
 
+       public function viewreghrbooking(Request $request) { 
+      
+        //$hrbookings = DB::select('select * from hrbookings');
+       
+        if($request->input('CheckInDate') != null){
+            $hrbookings =DB::table('hrbookings')
+            ->select('hrbookings.*','holidayresorts.Type')
+            ->join('holidayresorts','holidayresorts.HolodayResortId','=','hrbookings.HolodayResortId')
+            ->where('CheckInDate', $request->input('CheckInDate'))
+            ->paginate(10);
+        }else{
+            $hrbookings =DB::table('hrbookings')
+            ->select('hrbookings.*','holidayresorts.Type')
+            ->join('holidayresorts','holidayresorts.HolodayResortId','=','hrbookings.HolodayResortId')
+            ->paginate(10);
+          
+        }
+        
+        return view('viewreghrbooking',['hrbookings'=>$hrbookings]); 
+        
+       } 
+
        public function viewcthrbooking(Request $request) { 
       
         //$hrbookings = DB::select('select * from hrbookings');

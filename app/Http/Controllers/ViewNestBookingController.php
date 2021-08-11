@@ -38,6 +38,30 @@ class ViewNestBookingController extends Controller
         return view('viewnestbooking',['nestbookings'=>$nestbookings]); 
    
        } 
+
+       public function viewregnestbooking(Request $request) { 
+      
+        //$nestbookings = DB::select('select * from nestbookings');
+        if($request->input('CheckInDate') != null){
+            $nestbookings =DB::table('nestbookings')
+            ->select('nestbookings.*','nests.Type')
+            ->join('nests','nests.NestId','=','nestbookings.NestId')
+            ->where('CheckInDate', $request->input('CheckInDate'))
+            ->paginate(10);
+                
+        }else{
+            $nestbookings =DB::table('nestbookings')
+            ->select('nestbookings.*','nests.Type')
+            ->join('nests','nests.NestId','=','nestbookings.NestId')
+            ->paginate(10);
+                
+        }
+      
+
+        return view('viewregnestbooking',['nestbookings'=>$nestbookings]); 
+   
+       } 
+
        public function viewvcnestbooking(Request $request) { 
 
         if($request->input('CheckInDate') != null){
