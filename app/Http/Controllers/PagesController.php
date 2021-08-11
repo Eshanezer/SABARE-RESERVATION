@@ -195,8 +195,8 @@ if($request->input('property') == 'Agri Farm Dining Room'){
             
     $this->validate($request,[
         
-        'CheckInDate'=>'required|date|after:today',
-        'StartTime'=>'required',
+        'CheckInDate'=>'required|date|after:yesterday',
+        'StartTime'=>'required|after:CurrentTime',
         'EndTime'=>'required|after:StartTime',
     ]);
     
@@ -227,12 +227,12 @@ if($request->input('property') == 'Agri Farm Dining Room'){
 
 
     if($request->input('property') == 'Audio Visual Unit'){
-               
+             
             
         $this->validate($request,[
             
-            'CheckInDate'=>'required|date|after:today',
-            'StartTime'=>'required',
+            'CheckInDate'=>'required|date|after:yesterday',
+            'StartTime'=>'required|after:CurrentTime',
             'EndTime'=>'required|after:StartTime',
         ]);
         

@@ -65,6 +65,11 @@
                         {{ Form::time('EndTime', \Carbon\Carbon::now(),['class'=>'form-control']) }}
                         </div>
 
+                        <div hidden class="form-group">
+                        {{Form::label('CurrentTime', 'Current Time') }}
+                        {{ Form::time('CurrentTime', \Carbon\Carbon::now(),  ['class'=>'form-control']) }}
+                        </div>
+
                          <div class="form-group">
                         {{Form::label('EventName', 'Event Name') }}
                         {{Form::text('EventName', '',['class'=>'form-control','placeholder'=>'Event Name'])}}
