@@ -48,8 +48,8 @@ class AgriDinningController extends Controller
 
         $this->validate($request,[
             'NoOfGuest'=>'required|numeric|min:1',
-            'CheckInDate'=>'required|date|after:today',
-            'StartTime'=>'required',
+            'CheckInDate'=>'required|date|after:yesterday',
+            'StartTime'=>'required|after:CurrentTime',
             'EndTime'=>'required|after:StartTime',
             'Description'=>'required',
             'VCApproval'=>'required',

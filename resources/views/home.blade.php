@@ -53,6 +53,11 @@
                         {{ Form::time('StartTime', \Carbon\Carbon::now(),  ['class'=>'form-control']) }}
                        
                         </div>
+                        <div hidden class="form-group" v-if="property_type === `Agri Farm Dining Room` || property_type === `Audio Visual Unit`">
+                        {{Form::label('CurrentTime', 'Current Time') }}
+                        {{ Form::time('CurrentTime', \Carbon\Carbon::now(),  ['class'=>'form-control']) }}
+                       
+                        </div>
                         <div class="form-group" v-if="property_type === `Agri Farm Dining Room` || property_type === `Audio Visual Unit`">
                         {{Form::label('EndTime', 'End Time') }}
                         {{ Form::time('EndTime', \Carbon\Carbon::now(), ['class'=>'form-control']) }}

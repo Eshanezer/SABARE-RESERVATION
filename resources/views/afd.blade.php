@@ -33,6 +33,11 @@
                         {{ Form::time('EndTime', \Carbon\Carbon::now(),['class'=>'form-control']) }}
                         </div>
 
+                        <div hidden class="form-group">
+                        {{Form::label('CurrentTime', 'Current Time') }}
+                        {{ Form::time('CurrentTime', \Carbon\Carbon::now(),  ['class'=>'form-control']) }}
+                        </div>
+
                          <div class="form-group">
                         {{Form::label('NoOfGuest', 'Number Of Guest') }}
                         {{Form::text('NoOfGuest', '',['class'=>'form-control','placeholder'=>'Number Of Guest'])}}
