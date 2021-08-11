@@ -48,10 +48,15 @@ class AVUController extends Controller
 
         $this->validate($request,[
             'EventName'=>'required',
-            'CheckInDate'=>'required|date|after:today',
-            'StartTime'=>'required',
+            'CheckInDate'=>'required|date|after:yesterday',
+            'StartTime'=>'required|after:CurrentTime',
             'EndTime'=>'required|after:StartTime',
             'Description'=>'required',
+        ],
+        [
+            'EventName.required' => 'Please Fill the Event Name',
+            'CheckInDate.required' => 'Please Enter a Valid Date',
+            'StartTime.required' => 'Please Enter a Valid Start Time',
         ]);
         
         ;
