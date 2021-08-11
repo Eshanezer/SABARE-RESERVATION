@@ -20,22 +20,33 @@ use App\Mail\SendMail;
 
 class AdminDBookingController extends Controller
 {
-  
-       public function viewadminafdbooking() { 
-      
-        $agridbooking =DB::table('agridbookings')
-        ->select('agridbookings.*','users.name')
-        ->join('users','users.id','=','agridbookings.Recommendation_From')
-        ->get();
+      //view agri farm dinning room booking details
+       public function viewadminafdbooking(Request $request) { 
 
-        //$agridbooking = DB::select('select * from agridbookings');
+
+        if($request->input('CheckInDate') != null){
+            $agridbookings =DB::table('agridbookings')
+            ->select('agridbookings.*','users.name')
+            ->join('users','users.id','=','agridbookings.Recommendation_From')
+            ->where('CheckInDate', $request->input('CheckInDate'))
+            ->paginate(10);
+        }else{
+            $agridbookings =DB::table('agridbookings')
+            ->select('agridbookings.*','users.name')
+            ->join('users','users.id','=','agridbookings.Recommendation_From')
+            ->paginate(10);
+        }
+      
        
-        return view('viewadminafdbooking',['agridbooking'=>$agridbooking]); 
+
+    
+       
+        return view('viewadminafdbooking',['agridbookings'=>$agridbookings]); 
    
        } 
      
        
-
+//confirm booking
        public function confirm(Request $request,$BookingId) {
 
         $data = $BookingId;
@@ -55,7 +66,7 @@ class AdminDBookingController extends Controller
         }
 
 
-
+//reject booking
         public function reject(Request $request,$BookingId) {
             $data = $BookingId;
             $Status = 'Rejected';
@@ -71,7 +82,7 @@ class AdminDBookingController extends Controller
             return back()->with('success', 'Message Sent Successfuly!');
             }
          
-
+//show selected details
                 public function show($id) {
 
                         $users =DB::table('agridbookings')
@@ -85,10 +96,10 @@ class AdminDBookingController extends Controller
                 }
 
                         
-
+//request vc approval
                     public function vcapprove(Request $request,$BookingId) {
                                 $data = $BookingId;
-                                $Status = 'Request VC Approval';
+                                $Status = 'Request Vice Chancellor Approval';
                                 
                 
                                 DB::update('update agridbookings set Status = ? where BookingId = ?',[$Status,$BookingId]);
@@ -96,7 +107,9 @@ class AdminDBookingController extends Controller
                                 ";
                                 echo 'Click Here to go back.';
                 
-                                Mail::to('ashansawijeratne@gmail.com')->send(new SendMail($data));
+                                $email = DB::select('select email from users where roleNo = 2');
+                
+                                Mail::to($email)->send(new SendMail($data));
                                 return back()->with('success', 'Message Sent Successfuly!');
                                 }
                             

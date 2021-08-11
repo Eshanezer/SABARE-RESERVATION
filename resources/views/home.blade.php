@@ -78,7 +78,7 @@
                       
 
                         </br>
-                        {{Form::button('Submit', ['class'=>'btn btn-primary', 'v-on:click'=>'formSubmit'])}}
+                        {{Form::button('Check', ['class'=>'btn btn-primary', 'v-on:click'=>'formSubmit'])}}
                         </div>
                         {!! Form::close() !!}
 

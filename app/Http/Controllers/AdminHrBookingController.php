@@ -16,12 +16,24 @@ use App\Mail\SendMail;
 
 class AdminHrBookingController extends Controller
 {
-    public function viewadminhrbooking() { 
+    //view booking details
+    public function viewadminhrbooking(Request $request) { 
+
+        if($request->input('CheckInDate') != null){
+            $hrbookings =DB::table('hrbookings')
+            ->select('hrbookings.*','holidayresorts.Type')
+            ->join('holidayresorts','holidayresorts.HolodayResortId','=','hrbookings.HolodayResortId')
+            ->where('CheckInDate', $request->input('CheckInDate'))
+            ->paginate(10);
+        }else{
+            $hrbookings =DB::table('hrbookings')
+            ->select('hrbookings.*','holidayresorts.Type')
+            ->join('holidayresorts','holidayresorts.HolodayResortId','=','hrbookings.HolodayResortId')
+            ->paginate(10);
+          
+        }
       
-        $hrbookings =DB::table('hrbookings')
-        ->select('hrbookings.*','holidayresorts.Type')
-        ->join('holidayresorts','holidayresorts.HolodayResortId','=','hrbookings.HolodayResortId')
-        ->get();
+        
        
         return view('viewadminhrbooking',['hrbookings'=>$hrbookings]); 
         
@@ -29,7 +41,7 @@ class AdminHrBookingController extends Controller
 
       
 
-
+       //confirm details
         public function confirm(Request $request,$BookingId) {
 
             $data = $BookingId;
@@ -37,7 +49,7 @@ class AdminHrBookingController extends Controller
             //$GuestId = DB::select('select GuestId from avubookings where BookingId = ?', [$data]);
             $GuestId = DB::table('hrbookings')->where('BookingId', [$BookingId])->value('GuestId');
             $email = DB::table('users')->where('id', [$GuestId])->value('email');
-            //$email = DB::select('select email from users where id = ?', [$GuestId]);
+            
 
             $Status = 'Confirmed';
             DB::update('update hrbookings set Status = ? where BookingId = ?',[$Status,$BookingId]);
@@ -49,7 +61,7 @@ class AdminHrBookingController extends Controller
             }
 
 
-
+//reject booking
             public function reject(Request $request,$BookingId) {
                 $data = $BookingId;
                 $Status = 'Rejected';
@@ -66,7 +78,7 @@ class AdminHrBookingController extends Controller
                 }
 
                
-
+        //show selected details
                     public function showhr($id) {
 
                         $users =DB::table('hrbookings')
@@ -79,10 +91,10 @@ class AdminHrBookingController extends Controller
                         return view('hr_adminview',['users'=>$users]);
                         }
 
-
+            //request vc aproval
                         public function vcapprove(Request $request,$BookingId) {
                             $data = $BookingId;
-                            $Status = 'Request VC Approval';
+                            $Status = 'Request Vice Chancellor Approval';
                             
                           
                             DB::update('update hrbookings set Status = ? where BookingId = ?',[$Status,$BookingId]);
@@ -90,7 +102,9 @@ class AdminHrBookingController extends Controller
                             ";
                             echo 'Click Here to go back.';
             
-                            Mail::to('ashansawijeratne@gmail.com')->send(new SendMail($data));
+                            $email = DB::select('select email from users where roleNo = 2');
+                
+                            Mail::to($email)->send(new SendMail($data));
                             return back()->with('success', 'Message Sent Successfuly!');
                             }
 

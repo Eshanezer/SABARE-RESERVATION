@@ -3,7 +3,7 @@
 
 @section('content')
 <h1>Audio Visual Unit</h1>
-
+<!-- Audio Visual Unit booking page -->
     <table class="table">
   <thead class="table-primary">
          <tr>

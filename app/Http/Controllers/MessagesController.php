@@ -7,6 +7,7 @@ use App\Models\messages;
 
 class MessagesController extends Controller
 {
+    //to submit comments
     public function submit(Request $request){
 
         $this->validate($request,[

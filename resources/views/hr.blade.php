@@ -3,7 +3,7 @@
 
 @section('content')
 <h1>Holiday Resort</h1>
-
+<!-- Holiday Resort booking page -->
     <table class="table">
   <thead class="table-primary">
          <tr>

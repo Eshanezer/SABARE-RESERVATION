@@ -10,7 +10,9 @@ use Auth;
 use Illuminate\Support\Facades\Mail;
 use App\Mail\RequestRecommendMail;
 use DB;
+use Carbon\Carbon;
 
+//to hanlde audio visual unit details
 class AVUController extends Controller
 {
     public function getavu(){
@@ -22,19 +24,7 @@ class AVUController extends Controller
     }
 
 
-    // public function dropDownShow(Request $request)
-
-    //     {
-
-    //         $Users = User::pluck('name', 'id');
-
-    //         $selectedID = 2;
-
-    //         // return view('avu')->with('avu',$Users);
-
-    //         return view('avu', compact('id', 'Users'));
-
-    //     }
+  
 
 
     public function dropDownShow()
@@ -54,9 +44,11 @@ class AVUController extends Controller
 
     public function submit(Request $request){
 
+        
+
         $this->validate($request,[
             'EventName'=>'required',
-            'CheckInDate'=>'required|date|after:yesterday',
+            'CheckInDate'=>'required|date|after:today',
             'StartTime'=>'required',
             'EndTime'=>'required|after:StartTime',
             'Description'=>'required',

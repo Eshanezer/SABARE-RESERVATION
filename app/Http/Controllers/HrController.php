@@ -11,6 +11,8 @@ use App\Models\User;
 use Illuminate\Support\Facades\Mail;
 use App\Mail\RequestRecommendMail;
 use DB;
+
+//to handle holiday resort details
 class HrController extends Controller
 {
     public function gethr(){

@@ -54,7 +54,7 @@
                         @endif
                         @if (Auth::check() && Auth::user()->roleNo == 2)
                         <li class="nav-item">
-                            <a class="nav-link" href="/vc">VC Page</a>
+                            <a class="nav-link" href="/vc">Vice Chancellor Page</a>
                         </li>
                         @endif
                         @if (Auth::check() && Auth::user()->roleNo == 3)
@@ -77,17 +77,37 @@
                             <a class="nav-link" href="/nestcoordinator">Coordinator</a>
                         </li>
                         @endif
-                        @if (Auth::check() && Auth::user()->roleNo >= 7)
+                        @if (Auth::check() && Auth::user()->roleNo == 7)
                         <li class="nav-item">
-                            <a class="nav-link" href="/dean_hod">Dean/HOD</a>
+                            <a class="nav-link" href="/hrregistar">Registrar Page</a>
+                        </li>
+                        @endif
+                        @if (Auth::check() && Auth::user()->roleNo == 8)
+                        <li class="nav-item">
+                            <a class="nav-link" href="/nestregistar">Registrar Page</a>
+                        </li>
+                        @endif
+                        @if (Auth::check() && Auth::user()->roleNo == 9)
+                        <li class="nav-item">
+                            <a class="nav-link" href="/viewcthrbooking">Care Taker</a>
+                        </li>
+                        @endif
+                        @if (Auth::check() && Auth::user()->roleNo == 10)
+                        <li class="nav-item">
+                            <a class="nav-link" href="/view_reports">View Reports </a>
+                        </li>
+                        @endif
+                        @if (Auth::check() && Auth::user()->roleNo >= 11)
+                        <li class="nav-item">
+                            <a class="nav-link" href="/dean_hod">Dean/HOD Page</a>
                         </li>
                         @endif
                         
                         <li class="nav-item">
-                            <a class="nav-link" href="/af">Agri Farm</a>
+                            <a class="nav-link" href="/af">Kabanas</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="/afd">Agri Farm Dinning </a>
+                            <a class="nav-link" href="/afd">Dining Room </a>
                         </li>
                         <li class="nav-item">
                             <a class="nav-link " href="/nest">NEST</a>
@@ -99,7 +119,7 @@
                             <a class="nav-link " href="/avu">Audio Visual Unit</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link " href="/contact">Contact</a>
+                            <a class="nav-link " href="/contact">Contact Us</a>
                         </li>
                        
                         

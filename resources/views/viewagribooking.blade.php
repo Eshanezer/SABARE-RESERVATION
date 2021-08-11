@@ -3,9 +3,28 @@
 
 @section('content')
 <div class="card p-3 mb-2 ">
+<!-- View Agri Farm  booking details from coordinator side -->
 <h5 class="card-header bg-secondary text-white">Agri Farm Booking Details</h5>
 <div class="card-body ">
 
+   <div class="mb-3">
+
+    {!! Form::open(['url' => 'viewagribooking',  'method' => 'GET',  'id' => 'booking_form']) !!}
+
+
+    <div class="form-group">
+    {{Form::label('CheckInDate', 'Check In Date') }}
+    <input type="date" class="form-control" name="CheckInDate" value="{{request()->query('CheckInDate') != null ? request()->query('CheckInDate') : date('yyyy/mm/dd')}}">
+
+    </div>
+
+
+    </br>
+    {{Form::submit('Submit', ['class'=>'btn btn-primary', 'v-on:click'=>'formSubmit'])}}
+    </div>
+    {!! Form::close() !!}
+
+    </div>
 
     <table border = "1" class="table table-striped">
     <tr>
@@ -19,31 +38,32 @@
         <td>Option</td>
         
     </tr>
-    @foreach ($agrsbookings as $agrsbookings)
+    @foreach ($agrsbookings as $agrsbooking)
     <tr>
-        <td>{{ $agrsbookings->BookingId  }}</td>
-        <td>{{ $agrsbookings->GuestName  }}</td>
-        <td>{{ $agrsbookings->CheckInDate }}</td>
-        <td>{{ $agrsbookings->CheckOutDate }}</td>
-        <td>{{ $agrsbookings->NoOfUnits }}</td>
-        @if($agrsbookings->VCApproval == 0)
+        <td>{{ $agrsbooking->BookingId  }}</td>
+        <td>{{ $agrsbooking->GuestName  }}</td>
+        <td>{{ $agrsbooking->CheckInDate }}</td>
+        <td>{{ $agrsbooking->CheckOutDate }}</td>
+        <td>{{ $agrsbooking->NoOfUnits }}</td>
+        @if($agrsbooking->VCApproval == 0)
         <td>Not Request</td>
         @else
         <td>Requested</td>
         @endif
         
-        <td>{{ $agrsbookings->Status }}</td>
+        <td>{{ $agrsbooking->Status }}</td>
        
         <td>
-        <a href = 'showaf/{{ $agrsbookings->BookingId }}'>View</a></br>
-        <a href = 'afconfirm/{{ $agrsbookings->BookingId }}'>Confirm</a></br>
-        <a href = 'afnotconfirm/{{ $agrsbookings->BookingId }}'>Reject</a>
+        <a href = 'showaf/{{ $agrsbooking->BookingId }}'>View</a></br>
+        <a href = 'afconfirm/{{ $agrsbooking->BookingId }}'>Confirm</a></br>
+        <a href = 'afnotconfirm/{{ $agrsbooking->BookingId }}'>Reject</a>
        
         </td>
     </tr>
     @endforeach
     </table>
 
+  {{ $agrsbookings->links() }}
 
  </div>
 </div>

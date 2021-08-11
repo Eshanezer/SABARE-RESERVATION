@@ -16,17 +16,25 @@ class ViewAVUBookingController extends Controller
 {
    
 
-       public function viewavubooking() { 
+       public function viewavubooking(Request $request) { 
       
        //$avubookings = DB::select('select * from avubookings');
 
 
-       $avubookings =DB::table('avubookings')
-       ->select('avubookings.*','users.name','audiovisualunits.Type')
-       ->join('users','users.id','=','avubookings.Recommendation_From')
-       ->join('audiovisualunits','audiovisualunits.AVUId','=','avubookings.AVUId')
-       ->orderBy('avubookings.BookingId')
-       ->get();
+       if($request->input('CheckInDate') != null){
+        $avubookings =DB::table('avubookings')
+        ->select('avubookings.*','users.name','audiovisualunits.Type')
+        ->join('users','users.id','=','avubookings.Recommendation_From')
+        ->join('audiovisualunits','audiovisualunits.AVUId','=','avubookings.AVUId')
+        ->where('CheckInDate', $request->input('CheckInDate'))
+        ->paginate(10);
+    }else{
+        $avubookings =DB::table('avubookings')
+        ->select('avubookings.*','users.name','audiovisualunits.Type')
+        ->join('users','users.id','=','avubookings.Recommendation_From')
+        ->join('audiovisualunits','audiovisualunits.AVUId','=','avubookings.AVUId')
+        ->paginate(10);
+    }
         
         // $avubookings = DB::table('avubookings')
         // ->join('users', 'avubookings.Recommendation_From', '=', 'users.id')
@@ -46,21 +54,36 @@ class ViewAVUBookingController extends Controller
        } 
 
 
-       public function viewdeanhodavubooking() { 
+       public function viewdeanhodavubooking(Request $request) { 
         
         //$Recommendation_From = Auth::user()->roleNo;
         //$Recommendation_From = Auth::roleNo();
         $Recommendation_From = Auth::id();
 
-        //$Recommendation_From = '4';
+        if($request->input('CheckInDate') != null){
+           
+
+            $avubookings =DB::table('avubookings')
+            ->select('avubookings.*','users.name','audiovisualunits.Type')
+            ->join('users','users.id','=','avubookings.Recommendation_From')
+            ->join('audiovisualunits','audiovisualunits.AVUId','=','avubookings.AVUId')
+            ->where(['avubookings.Recommendation_From' => $Recommendation_From])
+            ->where('CheckInDate', $request->input('CheckInDate'))
+            ->orderBy('avubookings.BookingId')
+            ->paginate(10);
+
+        }else{
+            $avubookings =DB::table('avubookings')
+            ->select('avubookings.*','users.name','audiovisualunits.Type')
+            ->join('users','users.id','=','avubookings.Recommendation_From')
+            ->join('audiovisualunits','audiovisualunits.AVUId','=','avubookings.AVUId')
+            ->where(['avubookings.Recommendation_From' => $Recommendation_From])
+            ->orderBy('avubookings.BookingId')
+            ->paginate(10);
+        }
+ 
         
-        $avubookings =DB::table('avubookings')
-        ->select('avubookings.*','users.name','audiovisualunits.Type')
-        ->join('users','users.id','=','avubookings.Recommendation_From')
-        ->join('audiovisualunits','audiovisualunits.AVUId','=','avubookings.AVUId')
-        ->where(['avubookings.Recommendation_From' => $Recommendation_From])
-        ->orderBy('avubookings.BookingId')
-        ->get();
+      
 
         //$avubookings = DB::select('select * from avubookings where Recommendation_From = ?', [$Recommendation_From]);
          

@@ -72,5 +72,9 @@ class Kernel extends HttpKernel
         'NestCoordinatorMiddleware'=> \App\Http\Middleware\NestCoordinatorMiddleware::class,
         'AgriFarmCoordinatorMiddleware'=> \App\Http\Middleware\AgriFarmCoordinatorMiddleware::class,
         'HrCoordinatorMiddleware' => \App\Http\Middleware\HrCoordinatorMiddleware::class,
+        'CareTakerMiddleware'=> \App\Http\Middleware\CareTakerMiddleware::class,
+        'HrRegistarMiddleware'=> \App\Http\Middleware\HrRegistarMiddleware::class,
+        'NestRegistarMiddleware'=> \App\Http\Middleware\NestRegistarMiddleware::class,
+        'ReportGeneratorMiddleware' => \App\Http\Middleware\ReportGeneratorMiddleware::class,
     ];
 }

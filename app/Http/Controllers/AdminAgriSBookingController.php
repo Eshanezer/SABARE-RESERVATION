@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use DB;
 use App\Http\Requests;
 use App\Http\Controllers\Controller;
+use App\Models\agrsbooking;
 
 use Illuminate\Support\Facades\Mail;
 use App\Mail\RejectMail;
@@ -16,10 +17,14 @@ use App\Mail\SendMail;
 
 class AdminAgriSBookingController extends Controller
 {
-    public function viewadminagribooking() { 
+    //load agri farm booking details in admin page
+    public function viewadminagribooking(Request $request) { 
       
-        $agrsbookings = DB::select('select * from agrsbookings');
-       
+        if($request->input('CheckInDate') != null){
+            $agrsbookings = agrsbooking::whereDate('CheckInDate', $request->input('CheckInDate'))->paginate(10);
+        }else{
+            $agrsbookings = agrsbooking::paginate(10);
+        }
 
         return view('viewadminagribooking',['agrsbookings'=>$agrsbookings]); 
        } 
@@ -27,15 +32,15 @@ class AdminAgriSBookingController extends Controller
 
 
 
-
+        //confirm afri farm booking
         public function confirm(Request $request,$BookingId) {
 
             $data = $BookingId;
 
-            //$GuestId = DB::select('select GuestId from avubookings where BookingId = ?', [$data]);
+            
             $GuestId = DB::table('agrsbookings')->where('BookingId', [$BookingId])->value('GuestId');
             $email = DB::table('users')->where('id', [$GuestId])->value('email');
-            //$email = DB::select('select email from users where id = ?', [$GuestId]);
+            
 
             $Status = 'Confirmed';
             DB::update('update agrsbookings set Status = ? where BookingId = ?',[$Status,$BookingId]);
@@ -47,7 +52,7 @@ class AdminAgriSBookingController extends Controller
             }
 
 
-
+            //reject agri farm booking
             public function reject(Request $request,$BookingId) {
                 $data = $BookingId;
                 $Status = 'Rejected';
@@ -65,7 +70,7 @@ class AdminAgriSBookingController extends Controller
 
                
 
-
+                //show selected agri farm details
                 public function showaf($id) {
 
                     $users =DB::table('agrsbookings')
@@ -78,10 +83,10 @@ class AdminAgriSBookingController extends Controller
                     return view('af_adminview',['users'=>$users]);
                 }
 
-
+                //request vc approval
                 public function vcapprove(Request $request,$BookingId) {
                     $data = $BookingId;
-                    $Status = 'Request VC Approval';
+                    $Status = 'Request Vice Chancellor Approval';
                     
     
                     DB::update('update agrsbookings set Status = ? where BookingId = ?',[$Status,$BookingId]);
@@ -89,7 +94,9 @@ class AdminAgriSBookingController extends Controller
                     ";
                     echo 'Click Here to go back.';
     
-                    Mail::to('ashansawijeratne@gmail.com')->send(new SendMail($data));
+                    $email = DB::select('select email from users where roleNo = 2');
+                
+                    Mail::to($email)->send(new SendMail($data));
                     return back()->with('success', 'Message Sent Successfuly!');
                     }
 

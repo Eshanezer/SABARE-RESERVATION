@@ -2,9 +2,9 @@
 
 
 @section('content')
-<h1>Agri Farm Dinning Room</h1>
+<h1>Dining Room</h1>
 
-
+<!-- Agri Farm Dinning Room booking page -->
       
 
            <div class="card p-3 mb-2 bg-secondary text-white">

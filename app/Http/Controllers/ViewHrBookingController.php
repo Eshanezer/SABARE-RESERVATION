@@ -17,46 +17,95 @@ use App\Mail\SendMail;
 
 class ViewHrBookingController extends Controller
 {
-    public function viewhrbooking() { 
+    public function viewhrbooking(Request $request) { 
       
         //$hrbookings = DB::select('select * from hrbookings');
        
-        $hrbookings =DB::table('hrbookings')
-        ->select('hrbookings.*','holidayresorts.Type')
-        ->join('holidayresorts','holidayresorts.HolodayResortId','=','hrbookings.HolodayResortId')
-        ->orderBy('hrbookings.BookingId')
-        ->get();
+        if($request->input('CheckInDate') != null){
+            $hrbookings =DB::table('hrbookings')
+            ->select('hrbookings.*','holidayresorts.Type')
+            ->join('holidayresorts','holidayresorts.HolodayResortId','=','hrbookings.HolodayResortId')
+            ->where('CheckInDate', $request->input('CheckInDate'))
+            ->paginate(10);
+        }else{
+            $hrbookings =DB::table('hrbookings')
+            ->select('hrbookings.*','holidayresorts.Type')
+            ->join('holidayresorts','holidayresorts.HolodayResortId','=','hrbookings.HolodayResortId')
+            ->paginate(10);
+          
+        }
         
         return view('viewhrbooking',['hrbookings'=>$hrbookings]); 
         
        } 
 
-       public function viewvchrbooking() 
+       public function viewcthrbooking(Request $request) { 
+      
+        //$hrbookings = DB::select('select * from hrbookings');
+       
+        if($request->input('CheckInDate') != null){
+            $hrbookings =DB::table('hrbookings')
+            ->select('hrbookings.*','holidayresorts.Type')
+            ->join('holidayresorts','holidayresorts.HolodayResortId','=','hrbookings.HolodayResortId')
+            ->where('CheckInDate', $request->input('CheckInDate'))
+            ->paginate(10);
+        }else{
+            $hrbookings =DB::table('hrbookings')
+            ->select('hrbookings.*','holidayresorts.Type')
+            ->join('holidayresorts','holidayresorts.HolodayResortId','=','hrbookings.HolodayResortId')
+            ->paginate(10);
+          
+        }
+        
+        return view('viewcthrbooking',['hrbookings'=>$hrbookings]); 
+        
+       } 
+
+       public function viewvchrbooking(Request $request) 
        { 
       
-        $hrbookings =DB::table('hrbookings')
-        ->select('hrbookings.*','holidayresorts.Type')
-        ->join('holidayresorts','holidayresorts.HolodayResortId','=','hrbookings.HolodayResortId')
-        ->orderBy('hrbookings.BookingId')
-        ->get();
-        //$hrbookings = DB::select('select * from hrbookings');
+        if($request->input('CheckInDate') != null){
+            $hrbookings =DB::table('hrbookings')
+            ->select('hrbookings.*','holidayresorts.Type')
+            ->join('holidayresorts','holidayresorts.HolodayResortId','=','hrbookings.HolodayResortId')
+            ->where('CheckInDate', $request->input('CheckInDate'))
+            ->paginate(10);
+        }else{
+            $hrbookings =DB::table('hrbookings')
+            ->select('hrbookings.*','holidayresorts.Type')
+            ->join('holidayresorts','holidayresorts.HolodayResortId','=','hrbookings.HolodayResortId')
+            ->paginate(10);
+          
+        }
        
         return view('viewvchrbooking',['hrbookings'=>$hrbookings]); 
    
        }
 
-       public function viewdeanhodhrbooking() { 
+       public function viewdeanhodhrbooking(Request $request) { 
         
         
         $Recommendation_From = Auth::id();
 
-        //$Recommendation_From = '4';
-        $hrbookings =DB::table('hrbookings')
-        ->select('hrbookings.*','holidayresorts.Type')
-        ->join('holidayresorts','holidayresorts.HolodayResortId','=','hrbookings.HolodayResortId')
-        ->where(['hrbookings.Recommendation_From' => $Recommendation_From])
-        ->orderBy('hrbookings.BookingId')
-        ->get();
+        if($request->input('CheckInDate') != null){
+            $hrbookings =DB::table('hrbookings')
+            ->select('hrbookings.*','holidayresorts.Type')
+            ->join('holidayresorts','holidayresorts.HolodayResortId','=','hrbookings.HolodayResortId')
+            ->where('CheckInDate', $request->input('CheckInDate'))
+            ->where(['hrbookings.Recommendation_From' => $Recommendation_From])
+            ->orderBy('hrbookings.BookingId')
+            ->paginate(10);
+        }else{
+            $hrbookings =DB::table('hrbookings')
+            ->select('hrbookings.*','holidayresorts.Type')
+            ->join('holidayresorts','holidayresorts.HolodayResortId','=','hrbookings.HolodayResortId')
+            ->where(['hrbookings.Recommendation_From' => $Recommendation_From])
+            ->orderBy('hrbookings.BookingId')
+            ->paginate(10);
+          
+        }
+
+      
         
 
         //$hrbookings = DB::select('select * from hrbookings where Recommendation_From = ?', [$Recommendation_From]);
@@ -134,7 +183,7 @@ class ViewHrBookingController extends Controller
 
                         $data = $BookingId;
         
-                    $Status = 'Approved By VC';
+                    $Status = 'Approved By Vice Chancellor';
                     DB::update('update hrbookings set Status = ? where BookingId = ?',[$Status,$BookingId]);
                     echo "Record updated successfully.";
                     echo 'Click Here to go back.';
@@ -198,7 +247,7 @@ class ViewHrBookingController extends Controller
 
                         public function vcapprove(Request $request,$BookingId) {
                             $data = $BookingId;
-                            $Status = 'Request VC Approval';
+                            $Status = 'Request Vice Chancellor Approval';
                             
                             // $users =DB::table('hrbookings')
                             // ->select('hrbookings.*','users.name','holidayresort.Type')
@@ -211,7 +260,9 @@ class ViewHrBookingController extends Controller
                             ";
                             echo 'Click Here to go back.';
             
-                            Mail::to('ashansawijeratne@gmail.com')->send(new SendMail($data));
+                            $email = DB::select('select email from users where roleNo = 2');
+                
+                             Mail::to($email)->send(new SendMail($data));
                             return back()->with('success', 'Message Sent Successfuly!');
                             }
 

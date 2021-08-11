@@ -63,6 +63,7 @@ Route::get('/dean_hod','App\Http\Controllers\PagesController@dean_hod' )->middle
 Route::get('/viewagribooking', 'App\Http\Controllers\SendEmailVCController@viewagribooking')->name('viewagribooking');
 Route::get('/viewvcagribooking', 'App\Http\Controllers\SendEmailVCController@viewvcagribooking')->name('viewvcagribooking');
 
+Route::get('/viewcthrbooking', 'App\Http\Controllers\ViewHrBookingController@viewcthrbooking')->name('viewcthrbooking')->middleware('CareTakerMiddleware');
 Route::get('/viewhrbooking', 'App\Http\Controllers\ViewHrBookingController@viewhrbooking')->name('viewhrbooking');
 Route::get('/viewvchrbooking', 'App\Http\Controllers\ViewHrBookingController@viewvchrbooking')->name('viewvchrbooking');
 
@@ -104,11 +105,11 @@ Route::get('/viewdeanhodagridbooking', 'App\Http\Controllers\ViewAFDBookingContr
  
 //Route::get('/viewavubooking', 'App\Http\Controllers\ViewAVUBookingController@viewavubooking')->name('viewavubooking'); 
 
-Route::get('/viewadminagribooking', 'App\Http\Controllers\AdminAgriSBookingController@viewadminagribooking')->name('viewadminagribooking'); 
-Route::get('/viewadminnestbooking', 'App\Http\Controllers\AdminNestBookingController@viewadminnestbooking')->name('viewadminnestbooking'); 
-Route::get('/viewadminafdbooking', 'App\Http\Controllers\AdminDBookingController@viewadminafdbooking')->name('viewadminafdbooking'); 
-Route::get('/viewadminhrbooking', 'App\Http\Controllers\AdminHrBookingController@viewadminhrbooking')->name('viewadminhrbooking'); 
-Route::get('/viewadminavubooking', 'App\Http\Controllers\AdminAVUBookingController@viewadminavubooking')->name('viewadminavubooking'); 
+Route::get('/viewadminagribooking', 'App\Http\Controllers\AdminAgriSBookingController@viewadminagribooking')->name('viewadminagribooking')->middleware('AdminMiddleware');
+Route::get('/viewadminnestbooking', 'App\Http\Controllers\AdminNestBookingController@viewadminnestbooking')->name('viewadminnestbooking')->middleware('AdminMiddleware'); 
+Route::get('/viewadminafdbooking', 'App\Http\Controllers\AdminDBookingController@viewadminafdbooking')->name('viewadminafdbooking')->middleware('AdminMiddleware');
+Route::get('/viewadminhrbooking', 'App\Http\Controllers\AdminHrBookingController@viewadminhrbooking')->name('viewadminhrbooking')->middleware('AdminMiddleware');
+Route::get('/viewadminavubooking', 'App\Http\Controllers\AdminAVUBookingController@viewadminavubooking')->name('viewadminavubooking')->middleware('AdminMiddleware'); 
 
 
 
@@ -188,6 +189,8 @@ Route::get('editguest/{id}','App\Http\Controllers\UserDetailsController@showgues
 Route::post('editguest/{id}','App\Http\Controllers\UserDetailsController@editguest');
 
 Route::get('/guest-show','App\Http\Controllers\UserDetailsController@guestshowonly');
+
+Route::get('/view-msg','App\Http\Controllers\UserDetailsController@showmsg')->middleware('AdminMiddleware');;
 
 Auth::routes();
 

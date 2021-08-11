@@ -14,47 +14,72 @@ use App\Mail\RejectMail;
 use App\Mail\ConfirmMail;
 use Auth;
 use App\Mail\SendMail;
+use App\Models\agridbooking;
 
 class ViewAFDBookingController extends Controller
 {
-    public function viewagridbooking() { 
+    public function viewagridbooking(Request $request) { 
       
-        $agridbooking =DB::table('agridbookings')
-        ->select('agridbookings.*','users.name')
-        ->join('users','users.id','=','agridbookings.Recommendation_From')
-        ->get();
-
+        if($request->input('CheckInDate') != null){
+            $agridbookings =DB::table('agridbookings')
+            ->select('agridbookings.*','users.name')
+            ->join('users','users.id','=','agridbookings.Recommendation_From')
+            ->where('CheckInDate', $request->input('CheckInDate'))
+            ->paginate(10);
+        }else{
+            $agridbookings =DB::table('agridbookings')
+            ->select('agridbookings.*','users.name')
+            ->join('users','users.id','=','agridbookings.Recommendation_From')
+            ->paginate(10);
+        }
         //$agridbooking = DB::select('select * from agridbookings');
        
-        return view('viewagridbooking',['agridbooking'=>$agridbooking]); 
+        return view('viewagridbooking',['agridbookings'=>$agridbookings]); 
    
        } 
-       public function viewvcagridbooking() { 
+       public function viewvcagridbooking(Request $request) { 
       
-       // $agridbooking = DB::select('select * from agridbookings');
-       $agridbooking =DB::table('agridbookings')
-       ->select('agridbookings.*','users.name')
-       ->join('users','users.id','=','agridbookings.Recommendation_From')
-       ->get();
+        if($request->input('CheckInDate') != null){
+            $agridbookings =DB::table('agridbookings')
+            ->select('agridbookings.*','users.name')
+            ->join('users','users.id','=','agridbookings.Recommendation_From')
+            ->where('CheckInDate', $request->input('CheckInDate'))
+            ->paginate(10);
+        }else{
+            $agridbookings =DB::table('agridbookings')
+            ->select('agridbookings.*','users.name')
+            ->join('users','users.id','=','agridbookings.Recommendation_From')
+            ->paginate(10);
+        }
+
+    
        
-        return view('viewvcagridbooking',['agridbooking'=>$agridbooking]); 
+        return view('viewvcagridbooking',['agridbookings'=>$agridbookings]); 
    
        }
        
 
 
-    public function viewdeanhodagridbooking() { 
+    public function viewdeanhodagridbooking(Request $request) { 
         
         
         $Recommendation_From = Auth::id();
 
-        //$Recommendation_From = '4';
+        if($request->input('CheckInDate') != null){
+                
+            $agridbookings = agridbooking::where('Recommendation_From', '=', [$Recommendation_From])->whereDate('CheckInDate', $request->input('CheckInDate'))->paginate(10);
+       
+        }else{
+            
+            $agridbookings = agridbooking::where('Recommendation_From', '=', [$Recommendation_From])->paginate(10);
+       
+        }
         
-        $agridbooking = DB::select('select * from agridbookings where Recommendation_From = ?', [$Recommendation_From]);
+       // $agridbooking = DB::select('select * from agridbookings where Recommendation_From = ?', [$Recommendation_From]);
          
         
  
-         return view('viewdeanhodagridbooking',['agridbooking'=>$agridbooking]); 
+         return view('viewdeanhodagridbooking',['agridbookings'=>$agridbookings]); 
         } 
 
         public function confirm(Request $request,$BookingId) {
@@ -120,7 +145,7 @@ class ViewAFDBookingController extends Controller
 
                             $data = $BookingId;
             
-                        $Status = 'Approved By VC';
+                        $Status = 'Approved By Vice Chancellor';
                         DB::update('update agridbookings set Status = ? where BookingId = ?',[$Status,$BookingId]);
                         echo "Record updated successfully.";
                         echo 'Click Here to go back.';
@@ -167,7 +192,7 @@ class ViewAFDBookingController extends Controller
 
                             public function vcapprove(Request $request,$BookingId) {
                                 $data = $BookingId;
-                                $Status = 'Request VC Approval';
+                                $Status = 'Request Vice Chancellor Approval';
                                 
                 
                                 DB::update('update agridbookings set Status = ? where BookingId = ?',[$Status,$BookingId]);
@@ -175,7 +200,9 @@ class ViewAFDBookingController extends Controller
                                 ";
                                 echo 'Click Here to go back.';
                 
-                                Mail::to('ashansawijeratne@gmail.com')->send(new SendMail($data));
+                                $email = DB::select('select email from users where roleNo = 2');
+                
+                                Mail::to($email)->send(new SendMail($data));
                                 return back()->with('success', 'Message Sent Successfuly!');
                                 }
                             

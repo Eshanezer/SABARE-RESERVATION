@@ -67,4 +67,10 @@ class UserDetailsController extends Controller
             ";
             echo 'Click Here to go back.';
             }
+
+
+            public function showmsg(){
+                $msgs = DB::select('select * from messages');
+                return view('msg_edit_view',['msgs'=>$msgs]);
+                }
 }

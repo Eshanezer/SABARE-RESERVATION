@@ -12,8 +12,11 @@ use Illuminate\Support\Facades\Mail;
 use App\Mail\RequestRecommendMail;
 use DB;
 
+//to handle Agri dinning booking details 
 class AgriDinningController extends Controller
 {
+
+
     public function getdinning(){
        
         
@@ -45,7 +48,7 @@ class AgriDinningController extends Controller
 
         $this->validate($request,[
             'NoOfGuest'=>'required|numeric|min:1',
-            'CheckInDate'=>'required|date|after:yesterday',
+            'CheckInDate'=>'required|date|after:today',
             'StartTime'=>'required',
             'EndTime'=>'required|after:StartTime',
             'Description'=>'required',

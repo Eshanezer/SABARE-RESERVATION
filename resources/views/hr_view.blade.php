@@ -83,12 +83,14 @@
         value = '<?php echo$users[0]->Description; ?>' readonly="readonly"/>
         </td>
         </tr>
+        @if( $users[0]->name != 'None')
         <tr>
         <td>Recommendation From</td>
         <td>
         <input class="form-control" type = 'textarea' name = 'name'
         value = '<?php echo$users[0]->name; ?>' readonly="readonly"/>
         </td>
+        @endif
         <tr>
         <td>Request VC Approval</td>
         @if( $users[0]->VCApproval == 1)

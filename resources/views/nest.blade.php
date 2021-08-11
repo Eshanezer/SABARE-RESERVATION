@@ -3,7 +3,7 @@
 
 @section('content')
 <h1>NEST</h1>
-
+<!-- nest booking page -->
     <table class="table">
   <thead class="table-primary">
          <tr>

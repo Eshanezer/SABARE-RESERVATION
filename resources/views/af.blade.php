@@ -2,8 +2,8 @@
 
 
 @section('content')
-<h1>Agri Farm</h1>
-
+<h1>Kabanas</h1>
+<!-- Agri Farm booking page -->
     <table class="table">
   <thead class="table-primary">
          <tr>
