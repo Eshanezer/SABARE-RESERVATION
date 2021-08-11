@@ -146,9 +146,29 @@ class ViewNestBookingController extends Controller
             return back()->with('success', 'Message Sent Successfuly!');
             }
 
+
+            public function regconfirm(Request $request,$BookingId) {
+
+                $data = $BookingId;
+    
+                //$GuestId = DB::select('select GuestId from avubookings where BookingId = ?', [$data]);
+                $GuestId = DB::table('nestbookings')->where('BookingId', [$BookingId])->value('GuestId');
+                $email = DB::table('users')->where('id', [$GuestId])->value('email');
+                //$email = DB::select('select email from users where id = ?', [$GuestId]);
+    
+                $Status = 'Approved By Registrar';
+                DB::update('update nestbookings set Status = ? where BookingId = ?',[$Status,$BookingId]);
+                echo "Record updated successfully.";
+                echo 'Click Here to go back.';
+    
+               // Mail::to($email)->send(new ConfirmMail($data));
+                return back()->with('success', 'Message Sent Successfuly!');
+                }
+
+
         public function reject(Request $request,$BookingId) {
                 $data = $BookingId;
-                $Status = 'Rejected';
+                $Status = 'Rejected ';
                 $GuestId = DB::table('nestbookings')->where('BookingId', [$BookingId])->value('GuestId');
                 $email = DB::table('users')->where('id', [$GuestId])->value('email');
 
@@ -161,6 +181,20 @@ class ViewNestBookingController extends Controller
                 return back()->with('success', 'Message Sent Successfuly!');
                 }
 
+                public function regreject(Request $request,$BookingId) {
+                    $data = $BookingId;
+                    $Status = ' Registrar Not Approved ';
+                    $GuestId = DB::table('nestbookings')->where('BookingId', [$BookingId])->value('GuestId');
+                    $email = DB::table('users')->where('id', [$GuestId])->value('email');
+    
+                    DB::update('update nestbookings set Status = ? where BookingId = ?',[$Status,$BookingId]);
+                    echo "Record updated successfully.
+                    ";
+                    echo 'Click Here to go back.';
+    
+                    //Mail::to($email)->send(new RejectMail($data));
+                    return back()->with('success', 'Message Sent Successfuly!');
+                    }
 
                 public function recommend(Request $request,$BookingId) {
 
@@ -202,7 +236,7 @@ class ViewNestBookingController extends Controller
             
                     public function nestnotapprove(Request $request,$BookingId) {
                             $data = $BookingId;
-                            $Status = 'Not Approved';
+                            $Status = 'VC Not Approved ';
                             DB::update('update nestbookings set Status = ? where BookingId = ?',[$Status,$BookingId]);
                             echo "Record updated successfully.
                             ";
@@ -251,7 +285,18 @@ class ViewNestBookingController extends Controller
                             return view('nest_view',['users'=>$users]);
                             }
 
-                        
+                            public function showregnest($id) {
+
+                                $users =DB::table('nestbookings')
+                                ->select('nestbookings.*','users.name','nests.Type')
+                                ->join('users','users.id','=','nestbookings.Recommendation_From')
+                                ->join('nests','nests.NestId','=','nestbookings.NestId')
+                                ->where(['nestbookings.BookingId' => $id])
+                                ->get();
+    
+                               // $users = DB::select('select * from nestbookings where BookingId = ?',[$id]);
+                                return view('nestreg_view',['users'=>$users]);
+                                }
 
                             public function vcapprove(Request $request,$BookingId) {
                                 $data = $BookingId;
@@ -268,6 +313,22 @@ class ViewNestBookingController extends Controller
                                 Mail::to($email)->send(new SendMail($data));
                                 return back()->with('success', 'Message Sent Successfuly!');
                                 }
+
+                                public function regapprove(Request $request,$BookingId) {
+                                    $data = $BookingId;
+                                    $Status = 'Request Registrar Approval';
+                                    
+                    
+                                    DB::update('update nestbookings set Status = ? where BookingId = ?',[$Status,$BookingId]);
+                                    echo "Record updated successfully.
+                                    ";
+                                    echo 'Click Here to go back.';
+    
+                                    $email = DB::select('select email from users where roleNo = 8');
+                    
+                                    Mail::to($email)->send(new SendMail($data));
+                                    return back()->with('success', 'Message Sent Successfuly!');
+                                    }
                             
                             
 
