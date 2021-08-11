@@ -3,9 +3,29 @@
 
 @section('content')
 <div class="card  ">
-<h5 class="card-header bg-secondary text-white">Nest Booking Details</h5>
+<!-- View Holiday Resort booking details from dean/hod side -->
+<h5 class="card-header bg-secondary text-white">Holiday Resort Booking Details</h5>
 <div class="card-body ">
 
+
+   <div class="mb-3">
+
+    {!! Form::open(['url' => 'viewdeanhodhrbooking',  'method' => 'GET',  'id' => 'booking_form']) !!}
+
+
+    <div class="form-group">
+    {{Form::label('CheckInDate', 'Check In Date') }}
+    <input type="date" class="form-control" name="CheckInDate" value="{{request()->query('CheckInDate') != null ? request()->query('CheckInDate') : date('yyyy/mm/dd')}}">
+
+    </div>
+
+
+    </br>
+    {{Form::submit('Submit', ['class'=>'btn btn-primary', 'v-on:click'=>'formSubmit'])}}
+    </div>
+    {!! Form::close() !!}
+
+    </div>
 <div class="table-responsive">
     <table  class="table table-striped">
     <tr>
@@ -29,35 +49,37 @@
         
          
     </tr>
-    @foreach ($hrbookings as $hrbookings)
+    @foreach ($hrbookings as $hrbooking)
     <tr>
-        <td>{{ $hrbookings->BookingId  }}</td>
-        <td>{{ $hrbookings->GuestName  }}</td>
-        <td>{{ $hrbookings->Type    }}</td>
-        <td>{{ $hrbookings->CheckInDate }}</td>
-        <td>{{ $hrbookings->CheckOutDate }}</td>
-        <!-- <td>{{ $hrbookings->NoOfAdults }}</td>
-        <td>{{ $hrbookings->NoOfChildren  }}</td> -->
-        <!-- <td>{{ $hrbookings->NoOfUnits }}</td> -->
-        <td>{{ $hrbookings->BookingType }}</td>
-        <!-- <td>{{ $hrbookings->Description }}</td> -->
-        <!-- @if($hrbookings->VCApproval == 0)
+        <td>{{ $hrbooking->BookingId  }}</td>
+        <td>{{ $hrbooking->GuestName  }}</td>
+        <td>{{ $hrbooking->Type    }}</td>
+        <td>{{ $hrbooking->CheckInDate }}</td>
+        <td>{{ $hrbooking->CheckOutDate }}</td>
+        <!-- <td>{{ $hrbooking->NoOfAdults }}</td>
+        <td>{{ $hrbooking->NoOfChildren  }}</td> -->
+        <!-- <td>{{ $hrbooking->NoOfUnits }}</td> -->
+        <td>{{ $hrbooking->BookingType }}</td>
+        <!-- <td>{{ $hrbooking->Description }}</td> -->
+        <!-- @if($hrbooking->VCApproval == 0)
         <td>Not Request</a></td>
         @else
         <td>Requested</a></td>
         @endif -->
         
-        <td>{{ $hrbookings->Status }}</td>
+        <td>{{ $hrbooking->Status }}</td>
        
         <td>
-        <a href = 'showhrdean/{{ $hrbookings->BookingId }}'>View</a></br>
-        <a href = 'hrrecommend/{{ $hrbookings->BookingId }}'>Recommend</a> </br>
-        <a href = 'hrnotrecommend/{{ $hrbookings->BookingId }}'>Reject</a>
+        <a href = 'showhrdean/{{ $hrbooking->BookingId }}'>View</a></br>
+        <a href = 'hrrecommend/{{ $hrbooking->BookingId }}'>Recommend</a> </br>
+        <a href = 'hrnotrecommend/{{ $hrbooking->BookingId }}'>Reject</a>
         </td>
        
     </tr>
     @endforeach
     </table>
+
+{{ $hrbookings->links() }}
 
 </div>
  </div>

@@ -3,9 +3,8 @@
   </br>
   <div class="card p-3 mb-2 bg-secondary text-white">
   
- 
-  <h1>Welcome To Our Site</h1>
-  <p class="lead">This is a Reservation Web Site</p>
+ <h1>Reservation System - Sabaragamuwa University Sri Lanka</h1>
+  <p class="lead">Welcome To Our Site</p>
         <div class="card-body">
  
     </div>

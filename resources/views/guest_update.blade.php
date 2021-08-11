@@ -88,7 +88,7 @@
         value = '<?php echo$users[0]->Designation; ?>' readonly="readonly"/>
         </td>
         </tr>
-        <td>role Number</td>
+        <td>Role Number</td>
         <td>
         <input class="form-control" type = 'number' name = 'roleNo'
         value = '<?php echo$users[0]->roleNo; ?>'/>

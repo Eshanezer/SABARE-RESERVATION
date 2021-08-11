@@ -2,14 +2,14 @@
 
 
 @section('content')
-<div class="card">
-<!-- View Holiday Resort booking details from vc side -->
+<div class="card  ">
+<!-- View Holiday Resort booking details from coordinator side -->
 <h5 class="card-header bg-secondary text-white">Holiday Resort Booking Details</h5>
 <div class="card-body ">
 
-        <div class="mb-3">
+   <div class="mb-3">
 
-    {!! Form::open(['url' => 'viewvchrbooking',  'method' => 'GET',  'id' => 'booking_form']) !!}
+    {!! Form::open(['url' => 'viewcthrbooking',  'method' => 'GET',  'id' => 'booking_form']) !!}
 
 
     <div class="form-group">
@@ -29,27 +29,28 @@
 <div class="table-responsive">
     <table  class="table table-striped">
     <tr>
-        <td>Id </td>
-        <td>Guest Name </td>
+        <td>Booking Id </td>
+        <td>Guest Name</td>
         <td>Room Type </td>
         <td>Check In Date</td>
         <td>Check Out Date</td>
-        <td>Units</td>
+        <!-- <td>Number Of Units</td> -->
         <td>Request VC Approval</td>
         <td>Status</td>
-        <td>Option</td>
         
-     
+        
+        
+        
          
     </tr>
     @foreach ($hrbookings as $hrbooking)
     <tr>
         <td>{{ $hrbooking->BookingId  }}</td>
         <td>{{ $hrbooking->GuestName  }}</td>
-        <td>{{ $hrbooking->Type }}</td>
+        <td>{{ $hrbooking->Type   }}</td>
         <td>{{ $hrbooking->CheckInDate }}</td>
         <td>{{ $hrbooking->CheckOutDate }}</td>
-        <td>{{ $hrbooking->NoOfUnits }}</td>
+        <!-- <td>{{ $hrbooking->NoOfUnits }}</td> -->
         @if($hrbooking->VCApproval == 0)
         <td>Not Request</td>
         @else
@@ -58,21 +59,7 @@
         
         <td>{{ $hrbooking->Status }}</td>
        
-
-        @if($hrbooking->VCApproval == 0)
-        <td>
-        <a href = 'showhrvc/{{ $hrbooking->BookingId }}'>View</a></br>
-       
-        </td>
-        @else
-        <td>
-        <a href = 'showhrvc/{{ $hrbooking->BookingId }}'>View</a></br>
-        <a href = 'hrapprove/{{ $hrbooking->BookingId }}'>Approve</a></br>
-        <a href = 'hrnotapprove/{{ $hrbooking->BookingId }}'>Reject</a>
-       
-        </td>
-        @endif
-        
+      
        
        
     </tr>
@@ -80,7 +67,6 @@
     </table>
 
 {{ $hrbookings->links() }}
-
 </div>
  </div>
 </div>

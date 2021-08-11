@@ -2,7 +2,8 @@
 
 
 @section('content')
-<h1>Contact</h1>
+<h1>Contact Us</h1>
+<!-- contact page -->
 {!! Form::open(['url' => 'contact/submit']) !!}
    <div class="form-group">
    {{Form::label('name', 'Name') }}

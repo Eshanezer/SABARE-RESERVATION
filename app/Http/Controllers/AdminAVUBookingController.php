@@ -16,27 +16,33 @@ use App\Mail\SendMail;
 
 class AdminAVUBookingController extends Controller
 {
-    public function viewadminavubooking() { 
+    //view avu bookings
+    public function viewadminavubooking(Request $request) { 
       
-        //$avubookings = DB::select('select * from avubookings');
+        if($request->input('CheckInDate') != null){
+            $avubookings =DB::table('avubookings')
+            ->select('avubookings.*','users.name','audiovisualunits.Type')
+            ->join('users','users.id','=','avubookings.Recommendation_From')
+            ->join('audiovisualunits','audiovisualunits.AVUId','=','avubookings.AVUId')
+            ->where('CheckInDate', $request->input('CheckInDate'))
+            ->paginate(10);
+        }else{
+            $avubookings =DB::table('avubookings')
+            ->select('avubookings.*','users.name','audiovisualunits.Type')
+            ->join('users','users.id','=','avubookings.Recommendation_From')
+            ->join('audiovisualunits','audiovisualunits.AVUId','=','avubookings.AVUId')
+            ->paginate(10);
+        }
  
  
-        $avubookings =DB::table('avubookings')
-        ->select('avubookings.*','users.name','audiovisualunits.Type')
-        ->join('users','users.id','=','avubookings.Recommendation_From')
-        ->join('audiovisualunits','audiovisualunits.AVUId','=','avubookings.AVUId')
-        ->get();
-         
-         // $avubookings = DB::table('avubookings')
-         // ->join('users', 'avubookings.Recommendation_From', '=', 'users.id')
-         // ->select('avubookings.*', 'users.name')
-         // ->get();
+       
+      
  
          return view('viewadminavubooking',['avubookings'=>$avubookings]); 
         } 
  
     
- 
+ //comfirm details
          public function edit(Request $request,$BookingId) {
  
              $data = $BookingId;
@@ -55,6 +61,7 @@ class AdminAVUBookingController extends Controller
              return back()->with('success', 'Message Sent Successfuly!');
              }
  
+        //reject bookings
          public function reject(Request $request,$BookingId) {
                  $data = $BookingId;
                  $Status = 'Rejected';

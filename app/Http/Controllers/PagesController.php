@@ -195,7 +195,7 @@ if($request->input('property') == 'Agri Farm Dining Room'){
             
     $this->validate($request,[
         
-        'CheckInDate'=>'required|date|after:yesterday',
+        'CheckInDate'=>'required|date|after:today',
         'StartTime'=>'required',
         'EndTime'=>'required|after:StartTime',
     ]);
@@ -231,7 +231,7 @@ if($request->input('property') == 'Agri Farm Dining Room'){
             
         $this->validate($request,[
             
-            'CheckInDate'=>'required|date|after:yesterday',
+            'CheckInDate'=>'required|date|after:today',
             'StartTime'=>'required',
             'EndTime'=>'required|after:StartTime',
         ]);

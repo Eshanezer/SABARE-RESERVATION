@@ -14,7 +14,7 @@ use DB;
 
 
 
-
+// to handle agri farm booking details
 class AgriFarmController extends Controller
 {
     public function getagrifarm(){

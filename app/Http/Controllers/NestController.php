@@ -11,6 +11,7 @@ use Illuminate\Support\Facades\Mail;
 use App\Mail\RequestRecommendMail;
 use DB;
 
+//to hanlde nest booking details
 class NestController extends Controller
 {
     public function getnest(){

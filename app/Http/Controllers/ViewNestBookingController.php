@@ -16,26 +16,44 @@ use App\Mail\SendMail;
 
 class ViewNestBookingController extends Controller
 {
-    public function viewnestbooking() { 
+    public function viewnestbooking(Request $request) { 
       
         //$nestbookings = DB::select('select * from nestbookings');
-        $nestbookings =DB::table('nestbookings')
-        ->select('nestbookings.*','nests.Type')
-        ->join('nests','nests.NestId','=','nestbookings.NestId')
-        ->orderBy('nestbookings.BookingId')
-        ->get();
+        if($request->input('CheckInDate') != null){
+            $nestbookings =DB::table('nestbookings')
+            ->select('nestbookings.*','nests.Type')
+            ->join('nests','nests.NestId','=','nestbookings.NestId')
+            ->where('CheckInDate', $request->input('CheckInDate'))
+            ->paginate(10);
+                
+        }else{
+            $nestbookings =DB::table('nestbookings')
+            ->select('nestbookings.*','nests.Type')
+            ->join('nests','nests.NestId','=','nestbookings.NestId')
+            ->paginate(10);
+                
+        }
       
 
         return view('viewnestbooking',['nestbookings'=>$nestbookings]); 
    
        } 
-       public function viewvcnestbooking() { 
+       public function viewvcnestbooking(Request $request) { 
 
-        $nestbookings =DB::table('nestbookings')
-        ->select('nestbookings.*','nests.Type')
-        ->join('nests','nests.NestId','=','nestbookings.NestId')
-        ->orderBy('nestbookings.BookingId')
-        ->get();
+        if($request->input('CheckInDate') != null){
+            $nestbookings =DB::table('nestbookings')
+            ->select('nestbookings.*','nests.Type')
+            ->join('nests','nests.NestId','=','nestbookings.NestId')
+            ->where('CheckInDate', $request->input('CheckInDate'))
+            ->paginate(10);
+                
+        }else{
+            $nestbookings =DB::table('nestbookings')
+            ->select('nestbookings.*','nests.Type')
+            ->join('nests','nests.NestId','=','nestbookings.NestId')
+            ->paginate(10);
+                
+        }
       
         //$nestbookings = DB::select('select * from nestbookings');
        
@@ -52,19 +70,32 @@ class ViewNestBookingController extends Controller
     //     echo 'Click Here to go back.';
     //     }
 
-    public function viewdeanhodnestbooking() { 
+    public function viewdeanhodnestbooking(Request $request) { 
         
         
         $Recommendation_From = Auth::id();
 
         //$Recommendation_From = '4';
+    
+        if($request->input('CheckInDate') != null){
+            $nestbookings =DB::table('nestbookings')
+            ->select('nestbookings.*','nests.Type')
+            ->join('nests','nests.NestId','=','nestbookings.NestId')
+            ->where(['nestbookings.Recommendation_From' => $Recommendation_From])
+            ->where('CheckInDate', $request->input('CheckInDate'))
+            ->paginate(10);
+                
+        }else{
+            $nestbookings =DB::table('nestbookings')
+            ->select('nestbookings.*','nests.Type')
+            ->join('nests','nests.NestId','=','nestbookings.NestId')
+            ->where(['nestbookings.Recommendation_From' => $Recommendation_From])
+            ->paginate(10);
+                
+        }
+      
 
-        $nestbookings =DB::table('nestbookings')
-        ->select('nestbookings.*','nests.Type')
-        ->join('nests','nests.NestId','=','nestbookings.NestId')
-        ->where(['nestbookings.Recommendation_From' => $Recommendation_From])
-        ->orderBy('nestbookings.BookingId')
-        ->get();
+      
         
        // $nestbookings = DB::select('select * from nestbookings where Recommendation_From = ?', [$Recommendation_From]);
          
@@ -136,7 +167,7 @@ class ViewNestBookingController extends Controller
 
                             $data = $BookingId;
             
-                        $Status = 'Approved By VC';
+                        $Status = 'Approved By Vice Chancellor';
                         DB::update('update nestbookings set Status = ? where BookingId = ?',[$Status,$BookingId]);
                         echo "Record updated successfully.";
                         echo 'Click Here to go back.';
@@ -200,15 +231,17 @@ class ViewNestBookingController extends Controller
 
                             public function vcapprove(Request $request,$BookingId) {
                                 $data = $BookingId;
-                                $Status = 'Request VC Approval';
+                                $Status = 'Request Vice Chancellor Approval';
                                 
                 
                                 DB::update('update nestbookings set Status = ? where BookingId = ?',[$Status,$BookingId]);
                                 echo "Record updated successfully.
                                 ";
                                 echo 'Click Here to go back.';
+
+                                $email = DB::select('select email from users where roleNo = 2');
                 
-                                Mail::to('ashansawijeratne@gmail.com')->send(new SendMail($data));
+                                Mail::to($email)->send(new SendMail($data));
                                 return back()->with('success', 'Message Sent Successfuly!');
                                 }
                             

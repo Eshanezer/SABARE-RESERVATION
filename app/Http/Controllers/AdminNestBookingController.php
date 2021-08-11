@@ -16,18 +16,30 @@ use App\Mail\SendMail;
 
 class AdminNestBookingController extends Controller
 {
-        public function viewadminnestbooking() { 
+    //view nest bookings
+        public function viewadminnestbooking(Request $request) { 
       
-        //$nestbookings = DB::select('select * from nestbookings');
-        $nestbookings =DB::table('nestbookings')
-        ->select('nestbookings.*','nests.Type')
-        ->join('nests','nests.NestId','=','nestbookings.NestId')
-        ->get();
+            if($request->input('CheckInDate') != null){
+                $nestbookings =DB::table('nestbookings')
+                ->select('nestbookings.*','nests.Type')
+                ->join('nests','nests.NestId','=','nestbookings.NestId')
+                ->where('CheckInDate', $request->input('CheckInDate'))
+                ->paginate(10);
+                    
+            }else{
+                $nestbookings =DB::table('nestbookings')
+                ->select('nestbookings.*','nests.Type')
+                ->join('nests','nests.NestId','=','nestbookings.NestId')
+                ->paginate(10);
+                    
+            }
+
 
         return view('viewadminnestbooking',['nestbookings'=>$nestbookings]); 
    
        } 
 
+       //confirm booking
        public function confirm(Request $request,$BookingId) {
 
         $data = $BookingId;
@@ -35,7 +47,6 @@ class AdminNestBookingController extends Controller
         //$GuestId = DB::select('select GuestId from avubookings where BookingId = ?', [$data]);
         $GuestId = DB::table('nestbookings')->where('BookingId', [$BookingId])->value('GuestId');
         $email = DB::table('users')->where('id', [$GuestId])->value('email');
-        //$email = DB::select('select email from users where id = ?', [$GuestId]);
 
         $Status = 'Confirmed';
         DB::update('update nestbookings set Status = ? where BookingId = ?',[$Status,$BookingId]);
@@ -46,6 +57,7 @@ class AdminNestBookingController extends Controller
         return back()->with('success', 'Message Sent Successfuly!');
         }
 
+        //reject booking
     public function reject(Request $request,$BookingId) {
             $data = $BookingId;
             $Status = 'Rejected';
@@ -63,7 +75,7 @@ class AdminNestBookingController extends Controller
 
 
 
-
+        //show nest booking details
                     public function shownest($id) {
 
                         $users =DB::table('nestbookings')
@@ -78,10 +90,10 @@ class AdminNestBookingController extends Controller
                         }
 
                     
-
+        //request vc approval
                         public function vcapprove(Request $request,$BookingId) {
                             $data = $BookingId;
-                            $Status = 'Request VC Approval';
+                            $Status = 'Request Vice Chancellor Approval';
                             
             
                             DB::update('update nestbookings set Status = ? where BookingId = ?',[$Status,$BookingId]);
@@ -89,7 +101,9 @@ class AdminNestBookingController extends Controller
                             ";
                             echo 'Click Here to go back.';
             
-                            Mail::to('ashansawijeratne@gmail.com')->send(new SendMail($data));
+                            $email = DB::select('select email from users where roleNo = 2');
+                
+                            Mail::to($email)->send(new SendMail($data));
                             return back()->with('success', 'Message Sent Successfuly!');
                             }
                         
