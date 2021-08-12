@@ -10,7 +10,7 @@
 
    <div class="mb-3">
 
-    {!! Form::open(['url' => 'viewnestbooking',  'method' => 'GET',  'id' => 'booking_form']) !!}
+    {!! Form::open(['url' => 'viewregnestbooking',  'method' => 'GET',  'id' => 'booking_form']) !!}
 
 
     <div class="form-group">
@@ -69,15 +69,10 @@
         <td>{{ $nestbooking->Status }}</td>
        
         <td>
-        <a href = 'shownest/{{ $nestbooking->BookingId }}'>View</a></br>
-        <a href = 'showrecnest/{{ $nestbooking->BookingId }}'>Recommendation</a></br>
-        <a href = 'showvcnest/{{ $nestbooking->BookingId }}'>VC Approval</a></br>
-        <a href = 'nestregapprove/{{ $nestbooking->BookingId }}'>Registrar Approval</a></br>
-        
-        <a href = 'nestconfirm/{{ $nestbooking->BookingId }}'>Confirm</a></br>
-        <a href = 'nestnotconfirm/{{ $nestbooking->BookingId }}'>Reject</a></br>
-        
-
+        <a href = 'showregnest/{{ $nestbooking->BookingId }}'>View</a></br>
+        <a href = 'nestregconfirm/{{ $nestbooking->BookingId }}'>Approve</a></br>
+        <a href = 'nestregnotconfirm/{{ $nestbooking->BookingId }}'>Reject</a>
+       
         </td>
        
        

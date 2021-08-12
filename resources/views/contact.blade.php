@@ -5,6 +5,11 @@
 <h1>Contact Us</h1>
 <!-- contact page -->
 {!! Form::open(['url' => 'contact/submit']) !!}
+
+  <div class="form-group">
+    {{Form::label('type', 'Type ') }}
+    {{Form::select('type', ['Review' => 'Review', 'Comment' => 'Comment','Feedback' => 'Feedback'], null, ['class'=>'form-control'])}}
+  </div>
    <div class="form-group">
    {{Form::label('name', 'Name') }}
    {{Form::text('name', '',['class'=>'form-control','placeholder'=>'Enter name'])}}

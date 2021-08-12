@@ -344,5 +344,11 @@ if($request->input('property') == 'Agri Farm Dining Room'){
         return view('hrcoordinator');
     }
     
-    
+    public function nestreg(Request $req){
+        return view('nestreg');
+    }
+
+    public function hrreg(Request $req){
+        return view('hrreg');
+    }
 }

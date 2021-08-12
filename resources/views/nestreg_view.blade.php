@@ -7,7 +7,7 @@
     <h5 class="card-header">Details</h5>
     <div class="card-body">
      <div class="mb-4">
-        <form action = "/showhr/<?php echo $users[0]->BookingId; ?>" method = "post">
+        <form action = "/showregnest/<?php echo $users[0]->BookingId; ?>" method = "post">
         <input type = "hidden" name = "_token" value = "<?php echo csrf_token(); ?>">
         <table>
         <tr>
@@ -28,7 +28,7 @@
         </td>
         </tr>
         <tr>
-        <td>Resort Id</td>
+        <td>Room Type</td>
         <td>
         <input class="form-control" type = 'text' name = 'Type'
         value = '<?php echo$users[0]->Type; ?>'readonly="readonly"/>
@@ -52,21 +52,21 @@
         <td>Number Of Adults</td>
         <td>
         <input class="form-control" type = 'text' name = 'NoOfAdults'
-        value = '<?php echo$users[0]->NoOfAdults; ?>' />
+        value = '<?php echo$users[0]->NoOfAdults; ?>' readonly="readonly"/>
         </td>
         </tr>
         <tr>
         <td>Number Of Children</td>
         <td>
         <input class="form-control" type = 'text' name = 'NoOfChildren'
-        value = '<?php echo$users[0]->NoOfChildren; ?>' />
+        value = '<?php echo$users[0]->NoOfChildren; ?>' readonly="readonly"/>
         </td>
         </tr>
         <tr>
         <td>Number Of Units</td>
         <td>
         <input class="form-control" type = 'text' name = 'NoOfUnits'
-        value = '<?php echo$users[0]->NoOfUnits; ?>' />
+        value = '<?php echo$users[0]->NoOfUnits; ?>' readonly="readonly"/>
         </td>
         </tr>
         <tr>
@@ -83,14 +83,19 @@
         value = '<?php echo$users[0]->Description; ?>' readonly="readonly"/>
         </td>
         </tr>
-        @if( $users[0]->name != 'None')
-        <tr>
         <td>Recommendation From</td>
         <td>
         <input class="form-control" type = 'textarea' name = 'name'
         value = '<?php echo$users[0]->name; ?>' readonly="readonly"/>
         </td>
-        @endif
+        </tr>
+        <tr>
+        <td>Comment By HOD/Dean</td>
+        <td>
+        <input class="form-control" type = 'textarea' name = 'HODComment'
+        value = '<?php echo$users[0]->HODComment; ?>' readonly="readonly"/>
+        </td>
+        </tr>
         <tr>
         <td>Request VC Approval</td>
         @if( $users[0]->VCApproval == 1)
@@ -104,8 +109,16 @@
          readonly="readonly"> Not Request </label>
         </td>
         @endif
-        
         </tr>
+
+        <tr>
+        <td>Comment By VC</td>
+        <td>
+        <input class="form-control" type = 'textarea' name = 'VCComment'
+        value = '<?php echo$users[0]->	VCComment; ?>' readonly="readonly"/>
+        </td>
+        </tr>
+
         <td>Status</td>
         <td>
         <input class="form-control" type = 'text' name = 'Status'
@@ -114,15 +127,20 @@
         </tr>
         
         <tr>
-        @if( $users[0]->VCApproval == 1)
+        <td>Comment</td>
+        <td>
+        <input class="form-control" type = 'textarea' name = 'RegComment'
+        value = '<?php echo$users[0]->	RegComment; ?>'/>
+        </td>
+        </tr>
+        
+        <tr>
         <td colspan = '2'>
         </br>
-        <input  type = 'submit' value = "Request VC Approval" />
+        <input  type = 'submit' value = "Update Booking Details" />
         </td>
-     
-        @endif
-        
         </tr>
+
         </table>
         </form>
         

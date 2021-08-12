@@ -9,7 +9,7 @@
 
    <div class="mb-3">
 
-    {!! Form::open(['url' => 'viewhrbooking',  'method' => 'GET',  'id' => 'booking_form']) !!}
+    {!! Form::open(['url' => 'viewreghrbooking',  'method' => 'GET',  'id' => 'booking_form']) !!}
 
 
     <div class="form-group">
@@ -61,10 +61,9 @@
         <td>{{ $hrbooking->Status }}</td>
        
         <td>
-        <a href = 'showhr/{{ $hrbooking->BookingId }}'>View</a></br>
-        <a href = 'hrconfirm/{{ $hrbooking->BookingId }}'>Confirm</a></br>
-        <a href = 'hrnotconfirm/{{ $hrbooking->BookingId }}'>Reject</a></br>
-        <a href = 'hrregapprove/{{ $hrbooking->BookingId }}'>Registrar Approval </a></br>
+        <a href = 'showreghr/{{ $hrbooking->BookingId }}'>View</a></br>
+        <a href = 'hrregconfirm/{{ $hrbooking->BookingId }}'>Approve</a></br>
+        <a href = 'hrregnotconfirm/{{ $hrbooking->BookingId }}'>Reject</a>
        
         </td>
        

@@ -92,6 +92,21 @@
         </td>
         </tr>
         
+        <tr>
+        <td>Comment</td>
+        <td>
+        <input class="form-control" type = 'textarea' name = 'HODComment'
+        value = '<?php echo$users[0]->HODComment; ?>'/>
+        </td>
+        </tr>
+        
+        <tr>
+        <td colspan = '2'>
+        </br>
+        <input  type = 'submit' value = "Update Booking Details" />
+        </td>
+        </tr>
+
       
         </table>
         </form>

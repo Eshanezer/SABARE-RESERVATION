@@ -79,12 +79,12 @@
                         @endif
                         @if (Auth::check() && Auth::user()->roleNo == 7)
                         <li class="nav-item">
-                            <a class="nav-link" href="/hrregistar">Registrar Page</a>
+                            <a class="nav-link" href="/hrreg">Registrar Page</a>
                         </li>
                         @endif
                         @if (Auth::check() && Auth::user()->roleNo == 8)
                         <li class="nav-item">
-                            <a class="nav-link" href="/nestregistar">Registrar Page</a>
+                            <a class="nav-link" href="/nestreg">Registrar Page</a>
                         </li>
                         @endif
                         @if (Auth::check() && Auth::user()->roleNo == 9)

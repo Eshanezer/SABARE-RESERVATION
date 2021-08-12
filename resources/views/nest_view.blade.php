@@ -28,6 +28,14 @@
         </td>
         </tr>
         <tr>
+
+        <td>Contact Number</td>
+        <td>
+        <input class="form-control" type = 'text' name = 'ContactNo'
+        value = '<?php echo$users[0]->ContactNo; ?>'readonly="readonly"/>
+        </td>
+        </tr>
+        <tr>
         <td>Room Type</td>
         <td>
         <input class="form-control" type = 'text' name = 'Type'
@@ -52,21 +60,21 @@
         <td>Number Of Adults</td>
         <td>
         <input class="form-control" type = 'text' name = 'NoOfAdults'
-        value = '<?php echo$users[0]->NoOfAdults; ?>' readonly="readonly"/>
+        value = '<?php echo$users[0]->NoOfAdults; ?>'/>
         </td>
         </tr>
         <tr>
         <td>Number Of Children</td>
         <td>
         <input class="form-control" type = 'text' name = 'NoOfChildren'
-        value = '<?php echo$users[0]->NoOfChildren; ?>' readonly="readonly"/>
+        value = '<?php echo$users[0]->NoOfChildren; ?>' />
         </td>
         </tr>
         <tr>
         <td>Number Of Units</td>
         <td>
         <input class="form-control" type = 'text' name = 'NoOfUnits'
-        value = '<?php echo$users[0]->NoOfUnits; ?>' readonly="readonly"/>
+        value = '<?php echo$users[0]->NoOfUnits; ?>' />
         </td>
         </tr>
         <tr>
@@ -90,6 +98,13 @@
         </td>
         </tr>
         <tr>
+        <td>Comment By HOD/Dean</td>
+        <td>
+        <input class="form-control" type = 'textarea' name = 'HODComment'
+        value = '<?php echo$users[0]->HODComment; ?>' readonly="readonly"/>
+        </td>
+        </tr>
+        <tr>
         <td>Request VC Approval</td>
         @if( $users[0]->VCApproval == 1)
         <td>
@@ -104,10 +119,26 @@
         @endif
         
         </tr>
+        <tr>
+        <td>Comment By VC</td>
+        <td>
+        <input class="form-control" type = 'textarea' name = 'VCComment'
+        value = '<?php echo$users[0]->	VCComment; ?>' readonly="readonly"/>
+        </td>
+        </tr>
+
         <td>Status</td>
         <td>
         <input class="form-control" type = 'text' name = 'Status'
         value = '<?php echo$users[0]->Status; ?>' readonly="readonly"/>
+        </td>
+        </tr>
+
+         <tr>
+        <td>Registrar Comment</td>
+        <td>
+        <input class="form-control" type = 'textarea' name = 'RegComment'
+        value = '<?php echo$users[0]->	RegComment; ?>'readonly="readonly"/>
         </td>
         </tr>
         
@@ -115,12 +146,21 @@
         @if( $users[0]->VCApproval == 1)
         <td colspan = '2'>
         </br>
-        <input  type = 'submit' value = "Request VC Approval" />
+        <input  type = 'submit' value = "Update" />
         </td>
      
         @endif
         
         </tr>
+       
+        <!-- <tr>
+        
+        <td colspan = '2'>
+        </br>
+        <input  type = 'submit' value = "Request Recommendation" />
+        </td>
+     
+        </tr> -->
         </table>
         </form>
         

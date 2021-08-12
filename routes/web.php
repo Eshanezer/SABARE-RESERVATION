@@ -57,6 +57,8 @@ Route::get('/nestcoordinator','App\Http\Controllers\PagesController@nestcoordina
 Route::get('/agricoordinator','App\Http\Controllers\PagesController@agricoordinator' )->middleware('AgriFarmCoordinatorMiddleware');
 Route::get('/hrcoordinator','App\Http\Controllers\PagesController@hrcoordinator' )->middleware('HrCoordinatorMiddleware');
 
+Route::get('/hrreg','App\Http\Controllers\PagesController@hrreg' )->middleware('HrRegistarMiddleware');
+Route::get('/nestreg','App\Http\Controllers\PagesController@nestreg' )->middleware('NestRegistarMiddleware');
 
 Route::get('/dean_hod','App\Http\Controllers\PagesController@dean_hod' )->middleware('DeanHodMiddleware');
 
@@ -65,8 +67,10 @@ Route::get('/viewvcagribooking', 'App\Http\Controllers\SendEmailVCController@vie
 
 Route::get('/viewcthrbooking', 'App\Http\Controllers\ViewHrBookingController@viewcthrbooking')->name('viewcthrbooking')->middleware('CareTakerMiddleware');
 Route::get('/viewhrbooking', 'App\Http\Controllers\ViewHrBookingController@viewhrbooking')->name('viewhrbooking');
+Route::get('/viewreghrbooking', 'App\Http\Controllers\ViewHrBookingController@viewreghrbooking')->name('viewreghrbooking');
 Route::get('/viewvchrbooking', 'App\Http\Controllers\ViewHrBookingController@viewvchrbooking')->name('viewvchrbooking');
 
+Route::get('/viewregnestbooking', 'App\Http\Controllers\ViewNestBookingController@viewregnestbooking')->name('viewregnestbooking');
 Route::get('/viewnestbooking', 'App\Http\Controllers\ViewNestBookingController@viewnestbooking')->name('viewnestbooking');
 Route::get('/viewvcnestbooking', 'App\Http\Controllers\ViewNestBookingController@viewvcnestbooking')->name('viewvcnestbooking');
 
@@ -79,14 +83,23 @@ Route::get('/viewdeanhodagrisbooking', 'App\Http\Controllers\SendEmailVCControll
 Route::get('showadminhr/{id}','App\Http\Controllers\AdminHrBookingController@showhr');
 Route::post('showadminhr/{id}','App\Http\Controllers\AdminHrBookingController@vcapprove');
 Route::get('showhr/{id}','App\Http\Controllers\ViewHrBookingController@showhr');
+Route::get('showreghr/{id}','App\Http\Controllers\ViewHrBookingController@showreghr');
 Route::post('showhr/{id}','App\Http\Controllers\ViewHrBookingController@vcapprove');
+Route::post('showhrdean/{id}','App\Http\Controllers\ViewHrBookingController@addheadcomment');
+Route::post('showhrvc/{id}','App\Http\Controllers\ViewHrBookingController@addvccomment');
+Route::post('showreghr/{id}','App\Http\Controllers\ViewHrBookingController@addregcomment');
 Route::get('/viewdeanhodhrbooking', 'App\Http\Controllers\ViewHrBookingController@viewdeanhodhrbooking')->name('viewdeanhodhrbooking');  
-
 
 Route::get('showadminnest/{id}','App\Http\Controllers\AdminNestBookingController@shownest');
 Route::post('showadminnest/{id}','App\Http\Controllers\AdminNestBookingController@vcapprove');
 Route::get('shownest/{id}','App\Http\Controllers\ViewNestBookingController@shownest');
-Route::post('shownest/{id}','App\Http\Controllers\ViewNestBookingController@vcapprove');
+Route::get('showregnest/{id}','App\Http\Controllers\ViewNestBookingController@showregnest');
+Route::get('showvcnest/{id}','App\Http\Controllers\ViewNestBookingController@vcapprove');
+Route::post('shownest/{id}','App\Http\Controllers\ViewNestBookingController@Update');
+Route::get('showrecnest/{id}','App\Http\Controllers\ViewNestBookingController@getRecommendation');
+Route::post('shownestdean/{id}','App\Http\Controllers\ViewNestBookingController@addheadcomment');
+Route::post('shownestvc/{id}','App\Http\Controllers\ViewNestBookingController@addvccomment');
+Route::post('showregnest/{id}','App\Http\Controllers\ViewNestBookingController@addregcomment');
 Route::get('/viewdeanhodnestbooking', 'App\Http\Controllers\ViewNestBookingController@viewdeanhodnestbooking')->name('viewdeanhodnestbooking');  
 
 
@@ -133,6 +146,9 @@ Route::get('nestrecommend/{BookingId}','App\Http\Controllers\ViewNestBookingCont
 Route::get('nestnotrecommend/{BookingId}','App\Http\Controllers\ViewNestBookingController@notrecommend');
 Route::get('nestconfirm/{BookingId}','App\Http\Controllers\ViewNestBookingController@confirm');
 Route::get('nestnotconfirm/{BookingId}','App\Http\Controllers\ViewNestBookingController@reject');
+Route::get('nestregconfirm/{BookingId}','App\Http\Controllers\ViewNestBookingController@regconfirm');
+Route::get('nestregapprove/{BookingId}','App\Http\Controllers\ViewNestBookingController@regapprove');
+Route::get('nestregnotconfirm/{BookingId}','App\Http\Controllers\ViewNestBookingController@regreject');
 Route::get('nestadminconfirm/{BookingId}','App\Http\Controllers\AdminNestBookingController@confirm');
 Route::get('nestadminnotconfirm/{BookingId}','App\Http\Controllers\AdminNestBookingController@reject');
 
@@ -145,6 +161,9 @@ Route::get('hrrecommend/{BookingId}','App\Http\Controllers\ViewHrBookingControll
 Route::get('hrnotrecommend/{BookingId}','App\Http\Controllers\ViewHrBookingController@notrecommend');
 Route::get('hrconfirm/{BookingId}','App\Http\Controllers\ViewHrBookingController@confirm');
 Route::get('hrnotconfirm/{BookingId}','App\Http\Controllers\ViewHrBookingController@reject');
+Route::get('hrregconfirm/{BookingId}','App\Http\Controllers\ViewHrBookingController@regconfirm');
+Route::get('hrregapprove/{BookingId}','App\Http\Controllers\ViewHrBookingController@regapprove');
+Route::get('hrregnotconfirm/{BookingId}','App\Http\Controllers\ViewHrBookingController@regreject');
 Route::get('hradminconfirm/{BookingId}','App\Http\Controllers\AdminHrBookingController@confirm');
 Route::get('hradminnotconfirm/{BookingId}','App\Http\Controllers\AdminHrBookingController@reject');
 
