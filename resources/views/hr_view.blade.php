@@ -52,21 +52,21 @@
         <td>Number Of Adults</td>
         <td>
         <input class="form-control" type = 'text' name = 'NoOfAdults'
-        value = '<?php echo$users[0]->NoOfAdults; ?>' readonly="readonly"/>
+        value = '<?php echo$users[0]->NoOfAdults; ?>' />
         </td>
         </tr>
         <tr>
         <td>Number Of Children</td>
         <td>
         <input class="form-control" type = 'text' name = 'NoOfChildren'
-        value = '<?php echo$users[0]->NoOfChildren; ?>' readonly="readonly"/>
+        value = '<?php echo$users[0]->NoOfChildren; ?>' />
         </td>
         </tr>
         <tr>
         <td>Number Of Units</td>
         <td>
         <input class="form-control" type = 'text' name = 'NoOfUnits'
-        value = '<?php echo$users[0]->NoOfUnits; ?>' readonly="readonly"/>
+        value = '<?php echo$users[0]->NoOfUnits; ?>' />
         </td>
         </tr>
         <tr>

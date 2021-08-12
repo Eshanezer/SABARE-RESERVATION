@@ -53,7 +53,7 @@ class UserDetailsController extends Controller
             $users = DB::select('select * from users where id = ?',[$id]);
             return view('guest_update',['users'=>$users]);
             }
-            public function editguest(Request $request,$id) {
+        public function editguest(Request $request,$id) {
           
             $roleNo = $request->input('roleNo');
             DB::update('update users set roleNo=? where id = ?',[$roleNo,$id]);

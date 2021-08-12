@@ -9,7 +9,9 @@
 <table class="table table-striped">
 <tr>
 
+
 <td>Name</td>
+<td>Type</td>
 <td>Email</td>
 <td>Comment</td>
 
@@ -19,6 +21,7 @@
 <tr>
 
 <td>{{ $msg->name }}</td>
+<td>{{ $msg->type }}</td>
 <td>{{ $msg->email }}</td>
 <td>{{ $msg->message }}</td>
 

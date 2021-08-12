@@ -70,9 +70,14 @@
        
         <td>
         <a href = 'shownest/{{ $nestbooking->BookingId }}'>View</a></br>
+        <a href = 'showrecnest/{{ $nestbooking->BookingId }}'>Recommendation</a></br>
+        <a href = 'showvcnest/{{ $nestbooking->BookingId }}'>VC Approval</a></br>
+        <a href = 'nestregapprove/{{ $nestbooking->BookingId }}'>Registrar Approval</a></br>
+        
         <a href = 'nestconfirm/{{ $nestbooking->BookingId }}'>Confirm</a></br>
-        <a href = 'nestnotconfirm/{{ $nestbooking->BookingId }}'>Reject</a>
-       
+        <a href = 'nestnotconfirm/{{ $nestbooking->BookingId }}'>Reject</a></br>
+        
+
         </td>
        
        

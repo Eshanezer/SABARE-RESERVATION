@@ -22,7 +22,7 @@ class NestController extends Controller
         foreach($nestdetail as $n){
             $nestfill[$n->NestId] = $n->Type;
         }
-        $Users = User::where('roleNo','>=', 7)->get();
+        $Users = User::where('roleNo','>=', 11)->get();
         $select = [];
         foreach($Users as $User){
             $select[$User->id] = $User->name;
@@ -91,7 +91,7 @@ class NestController extends Controller
               $nestbooking-> NoOfUnits = $request->input('NoOfUnits');
               $nestbooking-> Description = $request->input('Description');
               $nestbooking-> BookingType = $request->input('BookingType');
-              $nestbooking-> Status = 'Send to Recommendation';
+              $nestbooking-> Status = 'Request Recommendation';
               $nestbooking-> Recommendation_from = $request->input('Recommendation_from');
               $nestbooking-> VCApproval = $request->input('VCApproval');
               $nestbooking-> GuestId = Auth::user()->id;
@@ -113,12 +113,12 @@ class NestController extends Controller
                   
               );
       
-              $Recommendation_From = $request->input('Recommendation_from');
-              $email = DB::select('select email from users where id = ?', [$Recommendation_From]);
+              //$Recommendation_From = $request->input('Recommendation_from');
+              //$email = DB::select('select email from users where id = ?', [$Recommendation_From]);
              
       
               $nestbooking->save();
-              Mail::to($email)->send(new RequestRecommendMail($data));
+              //Mail::to($email)->send(new RequestRecommendMail($data));
               return back()->with('success', 'Request Sent Successfuly!');
              }
         }
@@ -150,7 +150,7 @@ class NestController extends Controller
               $nestbooking-> NoOfUnits = $request->input('NoOfUnits');
               $nestbooking-> Description = $request->input('Description');
               $nestbooking-> BookingType = $request->input('BookingType');
-              $nestbooking-> Status = 'Send to Recommendation';
+              $nestbooking-> Status = 'Request Recommendation';
               $nestbooking-> Recommendation_from = $request->input('Recommendation_from');
               $nestbooking-> VCApproval = $request->input('VCApproval');
               $nestbooking-> GuestId = Auth::user()->id;
@@ -172,12 +172,12 @@ class NestController extends Controller
                   
               );
       
-              $Recommendation_From = $request->input('Recommendation_from');
-              $email = DB::select('select email from users where id = ?', [$Recommendation_From]);
+              //$Recommendation_From = $request->input('Recommendation_from');
+              //$email = DB::select('select email from users where id = ?', [$Recommendation_From]);
              
       
               $nestbooking->save();
-              Mail::to($email)->send(new RequestRecommendMail($data));
+             // Mail::to($email)->send(new RequestRecommendMail($data));
               return back()->with('success', 'Request Sent Successfuly!');
              }
         }

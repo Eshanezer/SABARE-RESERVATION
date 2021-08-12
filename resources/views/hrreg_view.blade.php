@@ -90,6 +90,15 @@
         <input class="form-control" type = 'textarea' name = 'name'
         value = '<?php echo$users[0]->name; ?>' readonly="readonly"/>
         </td>
+        </tr>
+        <tr>
+        <td>Comment By HOD/Dean </td>
+        <td>
+        <input class="form-control" type = 'textarea' name = 'HODComment'
+        value = '<?php echo$users[0]->HODComment; ?>' readonly="readonly"/>
+        </td>
+        </tr>
+
         @endif
         <tr>
         <td>Request VC Approval</td>
@@ -106,6 +115,15 @@
         @endif
         
         </tr>
+
+         <tr>
+        <td>Comment By VC</td>
+        <td>
+        <input class="form-control" type = 'textarea' name = 'VCComment'
+        value = '<?php echo$users[0]->	VCComment; ?>' readonly="readonly"/>
+        </td>
+        </tr>
+
         <td>Status</td>
         <td>
         <input class="form-control" type = 'text' name = 'Status'
@@ -113,6 +131,20 @@
         </td>
         </tr>
         
+        <tr>
+        <td>Comment</td>
+        <td>
+        <input class="form-control" type = 'textarea' name = 'RegComment'
+        value = '<?php echo$users[0]->	RegComment; ?>'/>
+        </td>
+        </tr>
+        
+        <tr>
+        <td colspan = '2'>
+        </br>
+        <input  type = 'submit' value = "Update Booking Details" />
+        </td>
+        </tr>
       
         </table>
         </form>

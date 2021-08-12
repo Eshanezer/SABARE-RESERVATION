@@ -13,6 +13,7 @@ use App\Mail\RejectMail;
 use App\Mail\ConfirmMail;
 use Auth;
 use App\Mail\SendMail;
+use App\Mail\RegistarMail;
 
 
 class ViewHrBookingController extends Controller
@@ -346,10 +347,41 @@ class ViewHrBookingController extends Controller
                 
                                 $email = DB::select('select email from users where roleNo = 7');
                     
-                                 Mail::to($email)->send(new SendMail($data));
+                                 Mail::to($email)->send(new RegistarMail($data));
                                 return back()->with('success', 'Message Sent Successfuly!');
                             }
+                            public function addheadcomment(Request $request,$BookingId) {
+          
+                                $HODComment = $request->input('HODComment');
+                                DB::update('update hrbookings set HODComment=? where BookingId = ?',[$HODComment,$BookingId]);
+                                echo "Record updated successfully.
+                                ";
+                                echo 'Click Here to go back.';
 
+                                return back()->with('success', 'Message Sent Successfuly!');
+                                }
+
+                                public function addvccomment(Request $request,$BookingId) {
+          
+                                    $VCComment = $request->input('VCComment');
+                                    DB::update('update hrbookings set VCComment=? where BookingId = ?',[$VCComment,$BookingId]);
+                                    echo "Record updated successfully.
+                                    ";
+                                    echo 'Click Here to go back.';
+    
+                                    return back()->with('success', 'Message Sent Successfuly!');
+                                    }
+
+                                public function addregcomment(Request $request,$BookingId) {
+          
+                                        $RegComment = $request->input('RegComment');
+                                        DB::update('update hrbookings set RegComment=? where BookingId = ?',[$RegComment,$BookingId]);
+                                        echo "Record updated successfully.
+                                        ";
+                                        echo 'Click Here to go back.';
+            
+                                        return back()->with('success', 'Message Sent Successfuly!');
+                                }
 
     //    public function edit(Request $request,$BookingId) {
     //     $VCApproval = 1;

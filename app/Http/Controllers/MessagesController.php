@@ -11,11 +11,13 @@ class MessagesController extends Controller
     public function submit(Request $request){
 
         $this->validate($request,[
+            'type'=>'required',
             'name'=>'required',
             'email'=>'required',
         ]);
         
         $message = new messages;
+        $message-> type = $request->input('type');
         $message-> name = $request->input('name');
         $message-> email = $request->input('email');
         $message-> message = $request->input('message');

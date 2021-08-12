@@ -7,7 +7,7 @@
     <h5 class="card-header">Details</h5>
     <div class="card-body">
      <div class="mb-4">
-        <form action = "/showdean/<?php echo $users[0]->BookingId; ?>" method = "post">
+        <form action = "/showhrdean/<?php echo $users[0]->BookingId; ?>" method = "post">
         <input type = "hidden" name = "_token" value = "<?php echo csrf_token(); ?>">
         <table>
         <tr>
@@ -92,7 +92,21 @@
         </td>
         </tr>
         
-      
+        <tr>
+        <td>Comment</td>
+        <td>
+        <input class="form-control" type = 'textarea' name = 'HODComment'
+        value = '<?php echo$users[0]->HODComment; ?>'/>
+        </td>
+        </tr>
+
+        <tr>
+        <td colspan = '2'>
+        </br>
+        <input  type = 'submit' value = "Update Booking Details" />
+        </td>
+        </tr>
+
         </table>
         </form>
         

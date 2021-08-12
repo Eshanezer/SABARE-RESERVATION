@@ -63,7 +63,8 @@
         <td>
         <a href = 'showhr/{{ $hrbooking->BookingId }}'>View</a></br>
         <a href = 'hrconfirm/{{ $hrbooking->BookingId }}'>Confirm</a></br>
-        <a href = 'hrnotconfirm/{{ $hrbooking->BookingId }}'>Reject</a>
+        <a href = 'hrnotconfirm/{{ $hrbooking->BookingId }}'>Reject</a></br>
+        <a href = 'hrregapprove/{{ $hrbooking->BookingId }}'>Registrar Approval </a></br>
        
         </td>
        
