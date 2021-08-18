@@ -143,13 +143,13 @@
         </tr>
         
         <tr>
-        @if( $users[0]->VCApproval == 1)
+       
         <td colspan = '2'>
         </br>
         <input  type = 'submit' value = "Update" />
         </td>
      
-        @endif
+       
         
         </tr>
        

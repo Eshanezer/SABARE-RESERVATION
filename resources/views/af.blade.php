@@ -4,28 +4,62 @@
 @section('content')
 <h1>Kabanas</h1>
 <!-- Agri Farm booking page -->
+<div class=" card border-primary ">
+</br>
+   <p style="margin-left: 10px;">
+   Agrifac Farm Stay is nested in the Belihuloya Ranges,Sabaragamuwa Province, Sri Lanka. It is managed by the Department of 
+   Agribusiness Management of the Sabaragamuwa University of Sri Lanka. Agrifac Farm Stay is a perfect stopover on 
+   the Colombo-Badulla Highway and a charming and peaceful holiday destination for much needed "gateway-from-it-all"
+    restful break. An unforgettable, warm, and friendly farm style Bed & Breakfast experience awaits you in this romantic 
+    and pleasant atmosphere. Here there are three (3) kabanas to stay and each kabana is facilitate to stay 2 adults and 2 children. 
+   </p>
+    <p style="margin-left: 10px;">Payments as follows</p>
+
     <table class="table">
   <thead class="table-primary">
          <tr>
-            <td>Type</td>
-            <td>Number Of Units</td>
-            <td>Number Of Adults</td>
-            <td>Number Of Children</td>
+            <td>Customer Type</td>
+        
+            <td>Monday – Thursday (LRK)</td>
+            <td>Friday – Sunday (LRK)</td>
          </tr>
+         
+         
+        
 </thead>
 <tbody>
-         @if(count($af)>0)
-    @foreach($af as $af)
-         <tr>
-            <td>{{ $af->Type }}</td>
-            <td>{{ $af->NoOfUnits }}</td>
-            <td>{{ $af->NoOfAdults }}</td>
-            <td>{{ $af->NoOfChildren }}</td>
+        <tr>
+        <td>Local Visitors</td>
+       
+        <td>3550.00 </td>
+        <td>4050.00  </td>
          </tr>
-         @endforeach
-         @endif
-         </tbody>
+        
+    <tr>
+    <td>University Staff</td>
+       
+            <td>3050.00</td>
+            <td>3550.00</td>
+         </tr>
+         <tr>
+         <td>Resource Persons</td>
+       
+            <td>Free of charge with Vice Chancellor Approval</td>
+            <td>Free of charge with Vice Chancellor Approval</td>
+         </tr>
+
+          <tr>
+    <td>Foreigners</td>
+       
+            <td>4800.00</td>
+            <td>5800.00</td>
+         </tr>
+         
+ </tbody>
       </table>
+
+   </div>
+</br>
 
       <div class="card p-3 mb-2 bg-secondary text-white" id="af_booking">
             <h5 class="card-header">Booking</h5>

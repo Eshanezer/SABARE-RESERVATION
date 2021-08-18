@@ -4,28 +4,61 @@
 @section('content')
 <h1>Holiday Resort</h1>
 <!-- Holiday Resort booking page -->
+<div class=" card border-primary ">
+</br>
+   <p style="margin-left: 10px;">
+   Holiday Resort is the main circuit bungalows of the Sabaragamuwa University of Sri Lanka. The university provides accommodation 
+   facility to the guest of the university by using these holiday resort bungalows. Mainly there are four (4) circuit bungalows 
+   named as C1-2, C1-3, C1-8 and C2-1. Each bungalow consist with 3 rooms. One master bedroom with attached bathroom 
+   (Accommodate to 2 adults and one child) and 2 bedrooms with shared bathroom and one single room consist with two single beds.
+   </p>
+    <p style="margin-left: 10px;">Payments as follows</p>
+
     <table class="table">
   <thead class="table-primary">
          <tr>
-            <td>Type</td>
-            <td>Number Of Units</td>
-            <td>Number Of Adults</td>
-            <td>Number Of Children</td>
+            <td>Customer Type</td>
+        
+            <td>Master Room</td>
+            <td>Single Room</td>
          </tr>
+         
+         
+        
 </thead>
 <tbody>
-         @if(count($hr)>0)
-    @foreach($hr as $hr)
-         <tr>
-            <td>{{ $hr->Type }}</td>
-            <td>{{ $hr->NoOfUnits }}</td>
-            <td>{{ $hr->NoOfAdults }}</td>
-            <td>{{ $hr->NoOfChildren }}</td>
+        <tr>
+        <td>Sabaragamuwa University Staff</td>
+       
+        <td>2400.00 </td>
+        <td>800.00   </td>
          </tr>
-         @endforeach
-         @endif
-         </tbody>
+        
+    <tr>
+    <td>Other University Staff </td>
+       
+            <td>3400.00</td>
+            <td>1100.00</td>
+         </tr>
+         <tr>
+         <td>Resource Persons</td>
+       
+            <td>-</td>
+            <td>400.00</td>
+         </tr>
+
+          <tr>
+    <td>Local Visitors</td>
+       
+            <td>10000.00</td>
+            <td>2000.00</td>
+         </tr>
+         
+ </tbody>
       </table>
+
+   </div>
+</br>
 
 <div class="card p-3 mb-2 bg-secondary text-white" id="holiday_resort_booking">
             <h5 class="card-header">Booking</h5>
@@ -36,7 +69,7 @@
 
                           <div class="form-group">
                         {{Form::label('BookingType', 'Booking for ') }}
-                        {{Form::select('BookingType', ['Resource Person' => 'Resource Person', 'SUSL Staff' => 'SUSL Staff','Local Visitor' => 'Local Visitor', ' Foreigners' => 'Foreigners'], null, ['class'=>'form-control','v-model' => 'booking_type'])}}
+                        {{Form::select('BookingType', ['Resource Person' => 'Resource Person', 'SUSL Staff' => 'SUSL Staff','Local Visitor' => 'Local Visitor', ' Foreigners' => 'Other University Staff '], null, ['class'=>'form-control','v-model' => 'booking_type'])}}
                             
                         </div>
 

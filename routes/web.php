@@ -69,9 +69,15 @@ Route::get('/viewcthrbooking', 'App\Http\Controllers\ViewHrBookingController@vie
 Route::get('/viewhrbooking', 'App\Http\Controllers\ViewHrBookingController@viewhrbooking')->name('viewhrbooking');
 Route::get('/viewreghrbooking', 'App\Http\Controllers\ViewHrBookingController@viewreghrbooking')->name('viewreghrbooking');
 Route::get('/viewvchrbooking', 'App\Http\Controllers\ViewHrBookingController@viewvchrbooking')->name('viewvchrbooking');
+Route::get('/download-hrpdf', 'App\Http\Controllers\ViewHrBookingController@downloadpdf')->name('downloadpdf');
+Route::get('/download-hrmonthpdf', 'App\Http\Controllers\ViewHrBookingController@downloadmonthpdf')->name('downloadmonthpdf');
+Route::get('/download-hryearpdf', 'App\Http\Controllers\ViewHrBookingController@downloadyearpdf')->name('downloadyearpdf');
 
 Route::get('/viewregnestbooking', 'App\Http\Controllers\ViewNestBookingController@viewregnestbooking')->name('viewregnestbooking');
 Route::get('/viewnestbooking', 'App\Http\Controllers\ViewNestBookingController@viewnestbooking')->name('viewnestbooking');
+Route::get('/download-pdf', 'App\Http\Controllers\ViewNestBookingController@downloadpdf')->name('downloadpdf');
+Route::get('/download-monthpdf', 'App\Http\Controllers\ViewNestBookingController@downloadmonthpdf')->name('downloadmonthpdf');
+Route::get('/download-yearpdf', 'App\Http\Controllers\ViewNestBookingController@downloadyearpdf')->name('downloadyearpdf');
 Route::get('/viewvcnestbooking', 'App\Http\Controllers\ViewNestBookingController@viewvcnestbooking')->name('viewvcnestbooking');
 
 Route::get('showadminaf/{id}','App\Http\Controllers\AdminAgriSBookingController@showaf');
@@ -84,7 +90,9 @@ Route::get('showadminhr/{id}','App\Http\Controllers\AdminHrBookingController@sho
 Route::post('showadminhr/{id}','App\Http\Controllers\AdminHrBookingController@vcapprove');
 Route::get('showhr/{id}','App\Http\Controllers\ViewHrBookingController@showhr');
 Route::get('showreghr/{id}','App\Http\Controllers\ViewHrBookingController@showreghr');
-Route::post('showhr/{id}','App\Http\Controllers\ViewHrBookingController@vcapprove');
+Route::get('showvchr/{id}','App\Http\Controllers\ViewHrBookingController@vcapprove');
+Route::post('showhr/{id}','App\Http\Controllers\ViewHrBookingController@Update');
+Route::get('showrechr/{id}','App\Http\Controllers\ViewHrBookingController@getRecommendation');
 Route::post('showhrdean/{id}','App\Http\Controllers\ViewHrBookingController@addheadcomment');
 Route::post('showhrvc/{id}','App\Http\Controllers\ViewHrBookingController@addvccomment');
 Route::post('showreghr/{id}','App\Http\Controllers\ViewHrBookingController@addregcomment');
@@ -129,6 +137,10 @@ Route::get('/viewadminavubooking', 'App\Http\Controllers\AdminAVUBookingControll
 Route::get('/viewavubooking', 'App\Http\Controllers\ViewAVUBookingController@viewavubooking')->name('viewavubooking');
 Route::get('/viewdeanhodavubooking', 'App\Http\Controllers\ViewAVUBookingController@viewdeanhodavubooking')->name('viewdeanhodavubooking');  
 Route::get('/viewSelectavubooking', 'App\Http\Controllers\ViewAVUBookingController@viewSelectavubooking')->name('viewSelectavubooking'); 
+
+Route::get('/download-avupdf', 'App\Http\Controllers\ViewAVUBookingController@downloadpdf')->name('downloadpdf');
+Route::get('/download-avumonthpdf', 'App\Http\Controllers\ViewAVUBookingController@downloadmonthpdf')->name('downloadmonthpdf');
+Route::get('/download-avuyearpdf', 'App\Http\Controllers\ViewAVUBookingController@downloadyearpdf')->name('downloadyearpdf');
 
 //Route::get('approve/{BookingId}','App\Http\Controllers\SendEmailVCController@edit');
 Route::get('hrapprove/{BookingId}','App\Http\Controllers\ViewHrBookingController@edit');

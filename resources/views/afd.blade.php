@@ -5,7 +5,16 @@
 <h1>Dining Room</h1>
 
 <!-- Agri Farm Dinning Room booking page -->
-      
+<div class=" card border-primary ">
+</br>
+   <p style="margin-left: 10px;">
+   Agri Farm Dining is a separate dining room which is located in the Agri Farm and coordinated by the Department of Agribusiness, 
+   Sabaragamuwa University of Sri Lanka. Anyone in the university staff can book this wonderful place and have a grate dining 
+   experience there.   
+   </p>
+
+   </div>
+</br>
 
            <div class="card p-3 mb-2 bg-secondary text-white">
             <h5 class="card-header">Booking</h5>

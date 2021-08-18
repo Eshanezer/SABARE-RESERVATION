@@ -14,6 +14,9 @@ use App\Mail\ConfirmMail;
 use Auth;
 use App\Mail\SendMail;
 use App\Mail\RegistarMail;
+use App\Mail\RequestRecommendMail;
+use PDF;
+use Carbon\Carbon;
 
 
 class ViewHrBookingController extends Controller
@@ -39,6 +42,68 @@ class ViewHrBookingController extends Controller
         return view('viewhrbooking',['hrbookings'=>$hrbookings]); 
         
        } 
+
+       public function downloadpdf(Request $request) { 
+      
+        //$hrbookings = DB::select('select * from hrbookings');
+        if($request->input('CheckInDate') != null){
+            $hrbookings =DB::table('hrbookings')
+            ->select('hrbookings.*','holidayresorts.Type')
+            ->join('holidayresorts','neholidayresortssts.HolodayResortId','=','hrbookings.HolodayResortId')
+            ->where('CheckInDate', $request->input('CheckInDate'))
+            ->get();
+                
+        }else{
+            $hrbookings =DB::table('hrbookings')
+            ->select('hrbookings.*','holidayresorts.Type')
+            ->join('holidayresorts','holidayresorts.HolodayResortId','=','hrbookings.HolodayResortId')
+            ->get();
+                
+        }
+
+        view()->share('hrbookings',$hrbookings);
+        $pdf = PDF::loadView('viewhrbooking_pdf',compact($hrbookings));
+        
+        return $pdf->download('details.pdf');
+        
+   
+       } 
+
+       public function downloadmonthpdf(Request $request) { 
+
+     
+            $hrbookings =DB::table('hrbookings')
+            ->select('hrbookings.*','holidayresorts.Type')
+            ->join('holidayresorts','holidayresorts.HolodayResortId','=','hrbookings.HolodayResortId')
+            ->whereMonth('CheckInDate',Carbon::now()->month)
+            ->get();
+        
+        view()->share('hrbookings',$hrbookings);
+        $pdf = PDF::loadView('viewhrbooking_pdf',compact($hrbookings));
+        
+        return $pdf->download('details.pdf');
+         
+   
+       } 
+
+
+       public function downloadyearpdf(Request $request) { 
+
+     
+        $hrbookings =DB::table('hrbookings')
+        ->select('hrbookings.*','holidayresorts.Type')
+        ->join('holidayresorts','holidayresorts.HolodayResortId','=','hrbookings.HolodayResortId')
+        ->whereYear('CheckInDate',Carbon::now()->year)
+        ->get();
+    
+        view()->share('hrbookings',$hrbookings);
+        $pdf = PDF::loadView('viewhrbooking_pdf',compact($hrbookings));
+        
+        return $pdf->download('details.pdf');
+     
+
+   } 
+
 
        public function viewreghrbooking(Request $request) { 
       
@@ -314,6 +379,18 @@ class ViewHrBookingController extends Controller
                             return view('hrreg_view',['users'=>$users]);
                             }
 
+                            public function update(Request $request,$BookingId) {
+                                  
+                                $NoOfUnits = $request->input('NoOfUnits');
+                                $NoOfChildren = $request->input('NoOfChildren');
+                                $NoOfAdults = $request->input('NoOfAdults');
+                                DB::update('update hrbookings set NoOfAdults=?,NoOfChildren=?,NoOfUnits=? where BookingId = ?',[$NoOfAdults,$NoOfChildren,$NoOfUnits,$BookingId]);
+                                echo "Record updated successfully.
+                                ";
+                                echo 'Click Here to go back.';
+
+                                return back()->with('success', 'Updated Successfuly!');
+                                }
 
                         public function vcapprove(Request $request,$BookingId) {
                             $data = $BookingId;
@@ -382,6 +459,31 @@ class ViewHrBookingController extends Controller
             
                                         return back()->with('success', 'Message Sent Successfuly!');
                                 }
+
+                                public function getRecommendation(Request $request,$BookingId) {
+                                    $data = $BookingId;
+                                    $Status = 'Send to Recommendation';
+                                    
+                    
+                                    DB::update('update hrbookings set Status = ? where BookingId = ?',[$Status,$BookingId]);
+                                    echo "Record updated successfully.
+                                    ";
+                                    echo 'Click Here to go back.';
+        
+                                    $email =DB::table('hrbookings')
+                                    ->select('users.email')
+                                    ->join('users','users.id','=','hrbookings.Recommendation_From')
+                                    ->where(['hrbookings.BookingId' => $BookingId])
+                                    ->get();
+        
+                                   //$Recommendation_From = DB::select('select Recommendation_From from nestbookings where BookingId =  ?',[$BookingId]);
+                                   
+                                   //$email = DB::select('select email from users where id = ?', [$Recommendation_From]);
+                                   //dd($Recommendation_From,$email);
+                                    Mail::to($email)->send(new RequestRecommendMail($data));
+                                    return back()->with('success', 'Message Sent Successfuly!');
+                                    }
+
 
     //    public function edit(Request $request,$BookingId) {
     //     $VCApproval = 1;
