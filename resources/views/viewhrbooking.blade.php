@@ -23,7 +23,10 @@
     {{Form::submit('Submit', ['class'=>'btn btn-primary', 'v-on:click'=>'formSubmit'])}}
     </div>
     {!! Form::close() !!}
-
+    <a class="nav-link btn btn-info " href="/download-hrpdf?CheckInDate={{request()->CheckInDate}}">Export Deatils</a></br>
+    <a class="nav-link btn btn-info " href="/download-hrmonthpdf?CheckInDate={{request()->CheckInDate}}">Export Monthly details </a></br>
+    <a class="nav-link btn btn-info " href="/download-hryearpdf?CheckInDate={{request()->CheckInDate}}">Export Year details </a></br>
+    
     </div>
 
 <div class="table-responsive">
@@ -62,9 +65,14 @@
        
         <td>
         <a href = 'showhr/{{ $hrbooking->BookingId }}'>View</a></br>
+
+         <a href = 'showrechr/{{ $hrbooking->BookingId }}'>Recommendation</a></br>
+        <a href = 'showvchr/{{ $hrbooking->BookingId }}'>VC Approval</a></br>
+        <a href = 'hrregapprove/{{ $hrbooking->BookingId }}'>Registrar Approval </a></br>
+
         <a href = 'hrconfirm/{{ $hrbooking->BookingId }}'>Confirm</a></br>
         <a href = 'hrnotconfirm/{{ $hrbooking->BookingId }}'>Reject</a></br>
-        <a href = 'hrregapprove/{{ $hrbooking->BookingId }}'>Registrar Approval </a></br>
+       
        
         </td>
        

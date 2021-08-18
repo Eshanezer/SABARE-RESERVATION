@@ -11,6 +11,8 @@ use Illuminate\Support\Facades\Mail;
 use App\Mail\RejectMail;
 use App\Mail\ConfirmMail;
 use Auth;
+use PDF;
+use Carbon\Carbon;
 
 class ViewAVUBookingController extends Controller
 {
@@ -43,6 +45,71 @@ class ViewAVUBookingController extends Controller
 
         return view('viewavubooking',['avubookings'=>$avubookings]); 
        } 
+
+       public function downloadpdf(Request $request) { 
+      
+        if($request->input('CheckInDate') != null){
+            $avubookings =DB::table('avubookings')
+            ->select('avubookings.*','users.name','audiovisualunits.Type')
+            ->join('users','users.id','=','avubookings.Recommendation_From')
+            ->join('audiovisualunits','audiovisualunits.AVUId','=','avubookings.AVUId')
+            ->where('CheckInDate', $request->input('CheckInDate'))
+            ->get();
+        }else{
+            $avubookings =DB::table('avubookings')
+            ->select('avubookings.*','users.name','audiovisualunits.Type')
+            ->join('users','users.id','=','avubookings.Recommendation_From')
+            ->join('audiovisualunits','audiovisualunits.AVUId','=','avubookings.AVUId')
+            ->get();
+        }
+
+        view()->share('avubookings',$avubookings);
+        $pdf = PDF::loadView('viewavubooking_pdf',compact($avubookings));
+        
+        return $pdf->download('details.pdf');
+        
+   
+       } 
+
+       public function downloadmonthpdf(Request $request) { 
+
+     
+     
+            $avubookings =DB::table('avubookings')
+            ->select('avubookings.*','users.name','audiovisualunits.Type')
+            ->join('users','users.id','=','avubookings.Recommendation_From')
+            ->join('audiovisualunits','audiovisualunits.AVUId','=','avubookings.AVUId')
+            ->whereMonth('CheckInDate',Carbon::now()->month)
+            ->get();
+      
+        
+        view()->share('avubookings',$avubookings);
+        $pdf = PDF::loadView('viewavubooking_pdf',compact($avubookings));
+        
+        return $pdf->download('details.pdf');
+         
+   
+       } 
+
+
+       public function downloadyearpdf(Request $request) { 
+
+        $avubookings =DB::table('avubookings')
+        ->select('avubookings.*','users.name','audiovisualunits.Type')
+        ->join('users','users.id','=','avubookings.Recommendation_From')
+        ->join('audiovisualunits','audiovisualunits.AVUId','=','avubookings.AVUId')
+        ->whereYear('CheckInDate',Carbon::now()->year)
+        ->get();
+     
+    
+        view()->share('avubookings',$avubookings);
+        $pdf = PDF::loadView('viewavubooking_pdf',compact($avubookings));
+        
+        return $pdf->download('details.pdf');
+     
+
+   } 
+
 
        public function viewSelectavubooking($BookingId) { 
       

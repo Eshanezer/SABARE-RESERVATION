@@ -4,29 +4,18 @@
 @section('content')
 <h1>NEST</h1>
 <!-- nest booking page -->
-    <table class="table">
-  <thead class="table-primary">
-         <tr>
-            <td>Type</td>
-            <td>Number Of Units</td>
-            <td>Number Of Adults</td>
-            <td>Number Of Children</td>
-         </tr>
-         
-</thead>
-<tbody>
-         @if(count($nest)>0)
-    @foreach($nest as $nest)
-         <tr>
-            <td>{{ $nest->Type }}</td>
-            <td>{{ $nest->NoOfUnits }}</td>
-            <td>{{ $nest->NoOfAdults }}</td>
-            <td>{{ $nest->NoOfChildren }}</td>
-         </tr>
-         @endforeach
-         @endif
-         </tbody>
-      </table>
+<div class=" card border-primary ">
+</br>
+   <p style="margin-left: 10px;">
+   NEST is the main circuit bungalow of the Faculty of Applied Sciences, coordinating from the Assistant Registrar of the Faculty of 
+   Applied Sciences. The guests to the NEST can be only the SUSL staff members or resource person to the university. It consist with 
+   one master bedroom with attached bathroom (Accommodate to 2 adults and one child) and 2 bedrooms with shared bathroom and one 
+   single room consist with two single beds. 
+   </p>
+   
+
+   </div>
+</br>
 
           <div class="card p-3 mb-2 bg-secondary text-white" id="nest_booking">
             <h5 class="card-header">Booking</h5>

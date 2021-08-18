@@ -4,37 +4,17 @@
 @section('content')
 <h1>Audio Visual Unit</h1>
 <!-- Audio Visual Unit booking page -->
-    <table class="table">
-  <thead class="table-primary">
-         <tr>
-            <td>Type</td>
-        
-            <td>Description</td>
-         </tr>
-         
-         
-        
-</thead>
-<tbody>
-        <tr>
-        <td>Photography</td>
-       
-        <td>Only Photography</td>
-         </tr>
-        
-    <tr>
-    <td>Videography</td>
-       
-            <td>Only Videography</td>
-         </tr>
-         <tr>
-         <td>Photography and Videography</td>
-       
-            <td>Both Photography and Videography</td>
-         </tr>
- </tbody>
-      </table>
+<div class=" card border-primary ">
+</br>
+   <p style="margin-left: 10px;">
+   Department of Agribusiness Management provides facilities through the Audio-Visual Unit. The unit support the faculty,
+    by means of producing audio video materials to supplement the regular teaching and learning activities through a skillful 
+    technical staff with free of charge. Apart from preparing teaching material for undergraduate studies, the unit covers the
+     social events of the university.
+   </p>
 
+   </div>
+</br>
            <div class="card p-3 mb-2 bg-secondary text-white">
             <h5 class="card-header">Booking</h5>
             <div class="card-body">

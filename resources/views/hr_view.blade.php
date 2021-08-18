@@ -91,6 +91,15 @@
         value = '<?php echo$users[0]->name; ?>' readonly="readonly"/>
         </td>
         @endif
+
+         <tr>
+        <td>Comment By HOD/Dean</td>
+        <td>
+        <input class="form-control" type = 'textarea' name = 'HODComment'
+        value = '<?php echo$users[0]->HODComment; ?>' readonly="readonly"/>
+        </td>
+        </tr>
+
         <tr>
         <td>Request VC Approval</td>
         @if( $users[0]->VCApproval == 1)
@@ -106,23 +115,43 @@
         @endif
         
         </tr>
+
+           </tr>
+        <tr>
+        <td>Comment By VC</td>
+        <td>
+        <input class="form-control" type = 'textarea' name = 'VCComment'
+        value = '<?php echo$users[0]->	VCComment; ?>' readonly="readonly"/>
+        </td>
+        </tr>
+
         <td>Status</td>
         <td>
         <input class="form-control" type = 'text' name = 'Status'
         value = '<?php echo$users[0]->Status; ?>' readonly="readonly"/>
         </td>
         </tr>
-        
+
         <tr>
-        @if( $users[0]->VCApproval == 1)
+        <td>Registrar Comment</td>
+        <td>
+        <input class="form-control" type = 'textarea' name = 'RegComment'
+        value = '<?php echo$users[0]->	RegComment; ?>'readonly="readonly"/>
+        </td>
+        </tr>
+        <tr>
+       
         <td colspan = '2'>
         </br>
-        <input  type = 'submit' value = "Request VC Approval" />
+        <input  type = 'submit' value = "Update" />
         </td>
      
-        @endif
+     
         
         </tr>
+
+      
+
         </table>
         </form>
         

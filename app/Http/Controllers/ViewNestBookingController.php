@@ -15,6 +15,8 @@ use Auth;
 use App\Mail\SendMail;
 use App\Mail\RegistarMail;
 use App\Mail\RequestRecommendMail;
+use PDF;
+use Carbon\Carbon;
 
 
 class ViewNestBookingController extends Controller
@@ -41,6 +43,71 @@ class ViewNestBookingController extends Controller
         return view('viewnestbooking',['nestbookings'=>$nestbookings]); 
    
        } 
+
+
+       public function downloadpdf(Request $request) { 
+      
+        //$nestbookings = DB::select('select * from nestbookings');
+        if($request->input('CheckInDate') != null){
+            $nestbookings =DB::table('nestbookings')
+            ->select('nestbookings.*','nests.Type')
+            ->join('nests','nests.NestId','=','nestbookings.NestId')
+            ->where('CheckInDate', $request->input('CheckInDate'))
+            ->get();
+                
+        }else{
+            $nestbookings =DB::table('nestbookings')
+            ->select('nestbookings.*','nests.Type')
+            ->join('nests','nests.NestId','=','nestbookings.NestId')
+            ->get();
+                
+        }
+
+        //dd($nestbookings);
+        //return view('viewnestbooking_pdf',['nestbookings'=>$nestbookings]); 
+        view()->share('nestbookings',$nestbookings);
+        $pdf = PDF::loadView('viewnestbooking_pdf',compact($nestbookings));
+        
+        return $pdf->download('details.pdf');
+        
+       // return view('viewnestbooking',['nestbookings'=>$nestbookings]); 
+   
+       } 
+
+       public function downloadmonthpdf(Request $request) { 
+
+     
+            $nestbookings =DB::table('nestbookings')
+            ->select('nestbookings.*','nests.Type')
+            ->join('nests','nests.NestId','=','nestbookings.NestId')
+            ->whereMonth('CheckInDate',Carbon::now()->month)
+            ->get();
+        
+        view()->share('nestbookings',$nestbookings);
+        $pdf = PDF::loadView('viewnestbooking_pdf',compact($nestbookings));
+        
+        return $pdf->download('details.pdf');
+         
+   
+       } 
+
+
+       public function downloadyearpdf(Request $request) { 
+
+     
+        $nestbookings =DB::table('nestbookings')
+        ->select('nestbookings.*','nests.Type')
+        ->join('nests','nests.NestId','=','nestbookings.NestId')
+        ->whereYear('CheckInDate',Carbon::now()->year)
+        ->get();
+    
+        view()->share('nestbookings',$nestbookings);
+        $pdf = PDF::loadView('viewnestbooking_pdf',compact($nestbookings));
+        
+        return $pdf->download('details.pdf');
+     
+
+   } 
 
        public function viewregnestbooking(Request $request) { 
       

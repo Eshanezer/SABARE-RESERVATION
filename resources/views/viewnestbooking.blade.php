@@ -24,7 +24,9 @@
     {{Form::submit('Submit', ['class'=>'btn btn-primary', 'v-on:click'=>'formSubmit'])}}
     </div>
     {!! Form::close() !!}
-
+    <a class="nav-link btn btn-info " href="/download-pdf?CheckInDate={{request()->CheckInDate}}">Export Deatils</a></br>
+    <a class="nav-link btn btn-info " href="/download-monthpdf?CheckInDate={{request()->CheckInDate}}">Export Monthly details </a></br>
+    <a class="nav-link btn btn-info " href="/download-yearpdf?CheckInDate={{request()->CheckInDate}}">Export Year details </a></br>
     </div>
 <div class="table-responsive">
     <table  class="table table-striped">

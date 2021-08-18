@@ -23,7 +23,7 @@ class HrController extends Controller
         foreach($hrdetail as $n){
             $hrfill[$n->HolodayResortId] = $n->Type;
         }
-        $Users = User::where('roleNo','>=', 7)->get();
+        $Users = User::where('roleNo','>=', 11)->get();
         $select = [];
         foreach($Users as $User){
             $select[$User->id] = $User->name;
@@ -91,7 +91,7 @@ class HrController extends Controller
                     if($request->input('BookingType') == "Resource Person" || $request->input('BookingType') == "SUSL Staff"){
                         $hrbooking-> Recommendation_from = $request->input('Recommendation_from');
                         $hrbooking-> VCApproval = $request->input('VCApproval');
-                        $hrbooking-> Status = 'Send to Recommendation';
+                        $hrbooking-> Status = 'Request Recommendation';
                       }
                       else{
                         $hrbooking-> Recommendation_from = 13;
@@ -157,7 +157,7 @@ class HrController extends Controller
                     if($request->input('BookingType') == "Resource Person" || $request->input('BookingType') == "SUSL Staff"){
                         $hrbooking-> Recommendation_from = $request->input('Recommendation_from');
                         $hrbooking-> VCApproval = $request->input('VCApproval');
-                        $hrbooking-> Status = 'Send to Recommendation';
+                        $hrbooking-> Status = 'Request Recommendation';
                       }
                       else{
                         $hrbooking-> Recommendation_from = 13;

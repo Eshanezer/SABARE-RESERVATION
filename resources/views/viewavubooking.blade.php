@@ -24,6 +24,10 @@
     </div>
     {!! Form::close() !!}
 
+    <a class="nav-link btn btn-info " href="/download-avupdf?CheckInDate={{request()->CheckInDate}}">Export Deatils</a></br>
+    <a class="nav-link btn btn-info " href="/download-avumonthpdf?CheckInDate={{request()->CheckInDate}}">Export Monthly details </a></br>
+    <a class="nav-link btn btn-info " href="/download-avuyearpdf?CheckInDate={{request()->CheckInDate}}">Export Year details </a></br>
+    
     </div>
 
 <div class="table-responsive">
