@@ -5,6 +5,15 @@
 <h1>Kabanas</h1>
 <!-- Agri Farm booking page -->
 <div class=" card border-primary ">
+
+<div class="flash-message">
+        @foreach (['danger', 'warning', 'success', 'info'] as $msg)
+            @if(Session::has('alert-' . $msg))
+                <p class="alert alert-{{ $msg }}">{{ Session::get('alert-' . $msg) }} <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a></p>
+            @endif
+        @endforeach
+    </div>
+    
 </br>
    <p style="margin-left: 10px;">
    Agrifac Farm Stay is nested in the Belihuloya Ranges,Sabaragamuwa Province, Sri Lanka. It is managed by the Department of 

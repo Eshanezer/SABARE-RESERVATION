@@ -5,6 +5,15 @@
 <h1>NEST</h1>
 <!-- nest booking page -->
 <div class=" card border-primary ">
+
+<div class="flash-message">
+        @foreach (['danger', 'warning', 'success', 'info'] as $msg)
+            @if(Session::has('alert-' . $msg))
+                <p class="alert alert-{{ $msg }}">{{ Session::get('alert-' . $msg) }} <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a></p>
+            @endif
+        @endforeach
+    </div>
+    
 </br>
    <p style="margin-left: 10px;">
    NEST is the main circuit bungalow of the Faculty of Applied Sciences, coordinating from the Assistant Registrar of the Faculty of 

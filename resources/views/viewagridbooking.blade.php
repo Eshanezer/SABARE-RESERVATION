@@ -23,7 +23,10 @@
     {{Form::submit('Submit', ['class'=>'btn btn-primary', 'v-on:click'=>'formSubmit'])}}
     </div>
     {!! Form::close() !!}
-
+    <a class="nav-link btn btn-info " href="/download-agridpdf?CheckInDate={{request()->CheckInDate}}">Export Deatils</a></br>
+    <a class="nav-link btn btn-info " href="/download-agridmonthpdf?CheckInDate={{request()->CheckInDate}}">Export Monthly details </a></br>
+    <a class="nav-link btn btn-info " href="/download-agridyearpdf?CheckInDate={{request()->CheckInDate}}">Export Year details </a></br>
+    
     </div>
 
 <div class="table-responsive">

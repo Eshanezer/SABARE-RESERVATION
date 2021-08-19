@@ -24,6 +24,10 @@
     </div>
     {!! Form::close() !!}
 
+    <a class="nav-link btn btn-info " href="/download-agrispdf?CheckInDate={{request()->CheckInDate}}">Export Deatils</a></br>
+    <a class="nav-link btn btn-info " href="/download-agrismonthpdf?CheckInDate={{request()->CheckInDate}}">Export Monthly details </a></br>
+    <a class="nav-link btn btn-info " href="/download-agriyearpdf?CheckInDate={{request()->CheckInDate}}">Export Year details </a></br>
+    
     </div>
 
     <table border = "1" class="table table-striped">

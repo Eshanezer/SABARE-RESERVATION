@@ -140,6 +140,21 @@
         </td>
         </tr>
         <tr>
+
+        <tr>
+        <td>Checked</td>
+        <td>
+        
+        <select class="selectpicker" name="Checked">
+                    <option value="0">No</option>
+                    <option value="1">Yes</option>
+                                                  
+        </select>
+
+      
+        </td>
+        </tr>
+        <tr>
        
         <td colspan = '2'>
         </br>

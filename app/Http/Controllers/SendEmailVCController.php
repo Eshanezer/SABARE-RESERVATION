@@ -13,6 +13,8 @@ use App\Mail\ConfirmMail;
 use Auth;
 use App\Mail\SendMail;
 use App\Models\agrsbooking;
+use PDF;
+use Carbon\Carbon;
 
 class SendEmailVCController extends Controller
 {
@@ -29,6 +31,18 @@ class SendEmailVCController extends Controller
             return view('viewagribooking',['agrsbookings'=>$agrsbookings]); 
         } 
         
+
+        public function viewreportagribooking(Request $request) { 
+        
+            if($request->input('CheckInDate') != null){
+                $agrsbookings = agrsbooking::whereDate('CheckInDate', $request->input('CheckInDate'))->paginate(10);
+            }else{
+                $agrsbookings = agrsbooking::paginate(10);
+            }
+        
+
+            return view('viewreportagribooking',['agrsbookings'=>$agrsbookings]); 
+        } 
         //load agri booking details in vc page
         public function viewvcagribooking(Request $request) { 
 
@@ -67,7 +81,50 @@ class SendEmailVCController extends Controller
     
             return view('viewdeanhodagrisbooking',['agrsbookings'=>$agrsbookings]); 
             } 
-
+            public function downloadpdf(Request $request) { 
+      
+                if($request->input('CheckInDate') != null){
+                    $agrsbookings = agrsbooking::whereDate('CheckInDate', $request->input('CheckInDate'))->get();
+                }else{
+                    $agrsbookings = agrsbooking::get();
+                }
+            
+        
+                view()->share('agrsbookings',$agrsbookings);
+                $pdf = PDF::loadView('viewagribooking_pdf',compact($agrsbookings));
+                
+                return $pdf->download('details.pdf');
+                
+           
+               } 
+        
+               public function downloadmonthpdf(Request $request) { 
+        
+             
+                $agrsbookings = agrsbooking::whereMonth('CheckInDate',Carbon::now()->month)->get();
+                
+                view()->share('agrsbookings',$agrsbookings);
+                $pdf = PDF::loadView('viewagribooking_pdf',compact($agrsbookings));
+                
+                return $pdf->download('details.pdf');
+                 
+           
+               } 
+        
+        
+               public function downloadyearpdf(Request $request) { 
+        
+             
+                $agrsbookings = agrsbooking::whereYear('CheckInDate',Carbon::now()->year)->get();
+            
+                view()->share('agrsbookings',$agrsbookings);
+                $pdf = PDF::loadView('viewagribooking_pdf',compact($agrsbookings));
+                
+                return $pdf->download('details.pdf');
+             
+        
+           } 
+        
 
 //confirm booking
             public function confirm(Request $request,$BookingId) {

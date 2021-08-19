@@ -15,6 +15,8 @@ use App\Mail\ConfirmMail;
 use Auth;
 use App\Mail\SendMail;
 use App\Models\agridbooking;
+use PDF;
+use Carbon\Carbon;
 
 class ViewAFDBookingController extends Controller
 {
@@ -37,6 +39,28 @@ class ViewAFDBookingController extends Controller
         return view('viewagridbooking',['agridbookings'=>$agridbookings]); 
    
        } 
+       
+
+       public function viewreportafdbooking(Request $request) { 
+      
+        if($request->input('CheckInDate') != null){
+            $agridbookings =DB::table('agridbookings')
+            ->select('agridbookings.*','users.name')
+            ->join('users','users.id','=','agridbookings.Recommendation_From')
+            ->where('CheckInDate', $request->input('CheckInDate'))
+            ->paginate(10);
+        }else{
+            $agridbookings =DB::table('agridbookings')
+            ->select('agridbookings.*','users.name')
+            ->join('users','users.id','=','agridbookings.Recommendation_From')
+            ->paginate(10);
+        }
+        //$agridbooking = DB::select('select * from agridbookings');
+       
+        return view('viewreportafdbooking',['agridbookings'=>$agridbookings]); 
+   
+       } 
+
        public function viewvcagridbooking(Request $request) { 
       
         if($request->input('CheckInDate') != null){
@@ -51,14 +75,69 @@ class ViewAFDBookingController extends Controller
             ->join('users','users.id','=','agridbookings.Recommendation_From')
             ->paginate(10);
         }
-
-    
-       
+ 
         return view('viewvcagridbooking',['agridbookings'=>$agridbookings]); 
    
        }
        
+       public function downloadpdf(Request $request) { 
+      
+        if($request->input('CheckInDate') != null){
+            $agridbookings =DB::table('agridbookings')
+            ->select('agridbookings.*','users.name')
+            ->join('users','users.id','=','agridbookings.Recommendation_From')
+            ->where('CheckInDate', $request->input('CheckInDate'))
+            ->get();
+        }else{
+            $agridbookings =DB::table('agridbookings')
+            ->select('agridbookings.*','users.name')
+            ->join('users','users.id','=','agridbookings.Recommendation_From')
+            ->get();
+        }
+    
 
+        view()->share('agridbookings',$agridbookings);
+        $pdf = PDF::loadView('viewagridbooking_pdf',compact($agridbookings));
+        
+        return $pdf->download('details.pdf');
+        
+   
+       } 
+
+       public function downloadmonthpdf(Request $request) { 
+
+     
+        $agridbookings =DB::table('agridbookings')
+            ->select('agridbookings.*','users.name')
+            ->join('users','users.id','=','agridbookings.Recommendation_From')
+            ->whereMonth('CheckInDate',Carbon::now()->month)
+            ->get();
+        
+        view()->share('agridbookings',$agridbookings);
+        $pdf = PDF::loadView('viewagridbooking_pdf',compact($agridbookings));
+        
+        return $pdf->download('details.pdf');
+         
+   
+       } 
+
+
+       public function downloadyearpdf(Request $request) { 
+
+     
+        $agridbookings =DB::table('agridbookings')
+            ->select('agridbookings.*','users.name')
+            ->join('users','users.id','=','agridbookings.Recommendation_From')
+            ->whereYear('CheckInDate',Carbon::now()->year)
+            ->get();
+    
+        view()->share('agridbookings',$agridbookings);
+        $pdf = PDF::loadView('viewagridbooking_pdf',compact($agridbookings));
+        
+        return $pdf->download('details.pdf');
+     
+
+   } 
 
     public function viewdeanhodagridbooking(Request $request) { 
         

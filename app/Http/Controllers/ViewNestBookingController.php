@@ -44,6 +44,30 @@ class ViewNestBookingController extends Controller
    
        } 
 
+       
+
+       public function viewreportnestbooking(Request $request) { 
+      
+        //$nestbookings = DB::select('select * from nestbookings');
+        if($request->input('CheckInDate') != null){
+            $nestbookings =DB::table('nestbookings')
+            ->select('nestbookings.*','nests.Type')
+            ->join('nests','nests.NestId','=','nestbookings.NestId')
+            ->where('CheckInDate', $request->input('CheckInDate'))
+            ->paginate(10);
+                
+        }else{
+            $nestbookings =DB::table('nestbookings')
+            ->select('nestbookings.*','nests.Type')
+            ->join('nests','nests.NestId','=','nestbookings.NestId')
+            ->paginate(10);
+                
+        }
+      
+
+        return view('viewreportnestbooking',['nestbookings'=>$nestbookings]); 
+   
+       } 
 
        public function downloadpdf(Request $request) { 
       
@@ -413,7 +437,9 @@ class ViewNestBookingController extends Controller
                                 $NoOfUnits = $request->input('NoOfUnits');
                                 $NoOfChildren = $request->input('NoOfChildren');
                                 $NoOfAdults = $request->input('NoOfAdults');
-                                DB::update('update nestbookings set NoOfAdults=?,NoOfChildren=?,NoOfUnits=? where BookingId = ?',[$NoOfAdults,$NoOfChildren,$NoOfUnits,$BookingId]);
+                                $Checked = $request->input('Checked');
+
+                                DB::update('update nestbookings set NoOfAdults=?,NoOfChildren=?,NoOfUnits=?,Checked=? where BookingId = ?',[$NoOfAdults,$NoOfChildren,$NoOfUnits,$Checked,$BookingId]);
                                 echo "Record updated successfully.
                                 ";
                                 echo 'Click Here to go back.';
