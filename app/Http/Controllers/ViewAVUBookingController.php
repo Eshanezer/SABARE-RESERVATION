@@ -46,6 +46,31 @@ class ViewAVUBookingController extends Controller
         return view('viewavubooking',['avubookings'=>$avubookings]); 
        } 
 
+       
+
+       
+       public function viewreportavubooking(Request $request) { 
+      
+        
+ 
+        if($request->input('CheckInDate') != null){
+         $avubookings =DB::table('avubookings')
+         ->select('avubookings.*','users.name','audiovisualunits.Type')
+         ->join('users','users.id','=','avubookings.Recommendation_From')
+         ->join('audiovisualunits','audiovisualunits.AVUId','=','avubookings.AVUId')
+         ->where('CheckInDate', $request->input('CheckInDate'))
+         ->paginate(10);
+     }else{
+         $avubookings =DB::table('avubookings')
+         ->select('avubookings.*','users.name','audiovisualunits.Type')
+         ->join('users','users.id','=','avubookings.Recommendation_From')
+         ->join('audiovisualunits','audiovisualunits.AVUId','=','avubookings.AVUId')
+         ->paginate(10);
+     }
+         
+         return view('viewreportavubooking',['avubookings'=>$avubookings]); 
+        }
+
        public function downloadpdf(Request $request) { 
       
         if($request->input('CheckInDate') != null){

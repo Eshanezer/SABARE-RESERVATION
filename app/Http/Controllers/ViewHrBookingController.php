@@ -42,14 +42,36 @@ class ViewHrBookingController extends Controller
         return view('viewhrbooking',['hrbookings'=>$hrbookings]); 
         
        } 
+       
 
+       public function viewreporthrbooking(Request $request) { 
+      
+        //$hrbookings = DB::select('select * from hrbookings');
+       
+        if($request->input('CheckInDate') != null){
+            $hrbookings =DB::table('hrbookings')
+            ->select('hrbookings.*','holidayresorts.Type')
+            ->join('holidayresorts','holidayresorts.HolodayResortId','=','hrbookings.HolodayResortId')
+            ->where('CheckInDate', $request->input('CheckInDate'))
+            ->paginate(10);
+        }else{
+            $hrbookings =DB::table('hrbookings')
+            ->select('hrbookings.*','holidayresorts.Type')
+            ->join('holidayresorts','holidayresorts.HolodayResortId','=','hrbookings.HolodayResortId')
+            ->paginate(10);
+          
+        }
+        
+        return view('viewreporthrbooking',['hrbookings'=>$hrbookings]); 
+        
+       } 
        public function downloadpdf(Request $request) { 
       
         //$hrbookings = DB::select('select * from hrbookings');
         if($request->input('CheckInDate') != null){
             $hrbookings =DB::table('hrbookings')
             ->select('hrbookings.*','holidayresorts.Type')
-            ->join('holidayresorts','neholidayresortssts.HolodayResortId','=','hrbookings.HolodayResortId')
+            ->join('holidayresorts','holidayresorts.HolodayResortId','=','hrbookings.HolodayResortId')
             ->where('CheckInDate', $request->input('CheckInDate'))
             ->get();
                 
@@ -384,7 +406,8 @@ class ViewHrBookingController extends Controller
                                 $NoOfUnits = $request->input('NoOfUnits');
                                 $NoOfChildren = $request->input('NoOfChildren');
                                 $NoOfAdults = $request->input('NoOfAdults');
-                                DB::update('update hrbookings set NoOfAdults=?,NoOfChildren=?,NoOfUnits=? where BookingId = ?',[$NoOfAdults,$NoOfChildren,$NoOfUnits,$BookingId]);
+                                $Checked = $request->input('Checked');
+                                DB::update('update hrbookings set NoOfAdults=?,NoOfChildren=?,NoOfUnits=?,Checked=? where BookingId = ?',[$NoOfAdults,$NoOfChildren,$NoOfUnits,$Checked,$BookingId]);
                                 echo "Record updated successfully.
                                 ";
                                 echo 'Click Here to go back.';

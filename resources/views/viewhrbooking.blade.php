@@ -3,6 +3,7 @@
 
 @section('content')
 <div class="card  ">
+
 <!-- View Holiday Resort booking details from coordinator side -->
 <h5 class="card-header bg-secondary text-white">Holiday Resort Booking Details</h5>
 <div class="card-body ">

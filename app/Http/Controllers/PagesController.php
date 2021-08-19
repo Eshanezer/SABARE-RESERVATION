@@ -77,9 +77,16 @@ class PagesController extends Controller
                 if( $check_cndition1 > 3 || $check_cndition2 > 3 || $check_cndition3 > 3){
                      return redirect()->back()->with(session()->flash('alert-danger', 'Sorry already booked!'));
                  }else{
-                
-                    return redirect()->back()->with(session()->flash('alert-success', 'Available'));
-                 }
+
+                    if (Auth::check()) {
+                       return redirect('/hr')->with(session()->flash('alert-success', 'Available'));
+                     
+                        
+                    }
+                    return redirect('/login')->with(session()->flash('alert-success', 'Available.Please loggin to the system for booking.'));
+                   
+                    
+                }
 
         }
 
@@ -97,7 +104,12 @@ class PagesController extends Controller
                     return redirect()->back()->with(session()->flash('alert-danger', 'Sorry already booked!'));
                 }else{
                 
-                    return redirect()->back()->with(session()->flash('alert-success', 'Available'));
+                    if (Auth::check()) {
+                        return redirect('/hr')->with(session()->flash('alert-success', 'Available'));
+                    }
+                   
+                    return redirect('/login')->with(session()->flash('alert-success', 'Available.Please loggin to the system for booking.'));
+                    
                 }
 
         }
@@ -140,7 +152,12 @@ class PagesController extends Controller
                  return redirect()->back()->with(session()->flash('alert-danger', 'Sorry already booked!'));
              }else{
             
-                return redirect()->back()->with(session()->flash('alert-success', 'Available'));
+                if (Auth::check()) {
+                    return redirect('/nest')->with(session()->flash('alert-success', 'Available'));
+                }
+               
+                return redirect('/login')->with(session()->flash('alert-success', 'Available.Please loggin to the system for booking.'));
+                
              }
 
     }
@@ -159,7 +176,12 @@ class PagesController extends Controller
                 return redirect()->back()->with(session()->flash('alert-danger', 'Sorry already booked!'));
             }else{
             
-                return redirect()->back()->with(session()->flash('alert-success', 'Available'));
+                if (Auth::check()) {
+                    return redirect('/nest')->with(session()->flash('alert-success', 'Available'));
+                }
+               
+                return redirect('/login')->with(session()->flash('alert-success', 'Available.Please loggin to the system for booking.'));
+                
             }
 
     }
@@ -200,7 +222,12 @@ if($request->input('property') == 'Agri Farm Kabana'){
              return redirect()->back()->with(session()->flash('alert-danger', 'Sorry already booked!'));
          }else{
         
-            return redirect()->back()->with(session()->flash('alert-success', 'Available'));
+            if (Auth::check()) {
+                return redirect('/af')->with(session()->flash('alert-success', 'Available'));
+            }
+           
+            return redirect('/login')->with(session()->flash('alert-success', 'Available.Please loggin to the system for booking.'));
+            
          }
 
 
@@ -232,7 +259,12 @@ if($request->input('property') == 'Agri Farm Dining Room'){
     
     if ($CheckInDate === null) {
     
-        return redirect()->back()->with(session()->flash('alert-success', 'Available'));
+        if (Auth::check()) {
+            return redirect('/afd')->with(session()->flash('alert-success', 'Available'));
+        }
+       
+        return redirect('/login')->with(session()->flash('alert-success', 'Available.Please loggin to the system for booking.'));
+        ;
         
         
     }else{
@@ -244,7 +276,12 @@ if($request->input('property') == 'Agri Farm Dining Room'){
             return redirect()->back()->with(session()->flash('alert-danger', 'Sorry already booked!'));
 
         }else{
-            return redirect()->back()->with(session()->flash('alert-success', 'Available'));
+            if (Auth::check()) {
+                return redirect('/afd')->with(session()->flash('alert-success', 'Available'));
+            }
+           
+            return redirect('/login')->with(session()->flash('alert-success', 'Available.Please loggin to the system for booking.'));
+            ;
          }
         }
     
@@ -273,7 +310,12 @@ if($request->input('property') == 'Agri Farm Dining Room'){
         
         if ($CheckInDate === null) {
         
-            return redirect()->back()->with(session()->flash('alert-success', 'Available'));
+            if (Auth::check()) {
+                return redirect('/avu')->with(session()->flash('alert-success', 'Available'));
+            }
+           
+            return redirect('/login')->with(session()->flash('alert-success', 'Available.Please loggin to the system for booking.'));
+            ;
             
             
         }else{
@@ -285,7 +327,12 @@ if($request->input('property') == 'Agri Farm Dining Room'){
                 return redirect()->back()->with(session()->flash('alert-danger', 'Sorry already booked!'));
     
             }else{
-                return redirect()->back()->with(session()->flash('alert-success', 'Available'));
+                if (Auth::check()) {
+                    return redirect('/avu')->with(session()->flash('alert-success', 'Available'));
+                }
+               
+                return redirect('/login')->with(session()->flash('alert-success', 'Available.Please loggin to the system for booking.'));
+                
              }
             }
         
@@ -350,5 +397,9 @@ if($request->input('property') == 'Agri Farm Dining Room'){
 
     public function hrreg(Request $req){
         return view('hrreg');
+    }
+
+    public function view_reports(Request $req){
+        return view('view_reports');
     }
 }

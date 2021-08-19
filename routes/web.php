@@ -50,6 +50,8 @@ Route::post('/af/send', 'App\Http\Controllers\AgriFarmController@send');
 Route::post('/hr/send', 'App\Http\Controllers\HrController@send');
 Route::post('/nest/send', 'App\Http\Controllers\NestController@send');
 
+Route::get('/view_reports','App\Http\Controllers\PagesController@view_reports' )->middleware('ReportGeneratorMiddleware');
+
 Route::get('/admin','App\Http\Controllers\PagesController@admin' )->middleware('AdminMiddleware');
 Route::get('/vc','App\Http\Controllers\PagesController@vc' )->middleware('VCMiddleware');
 Route::get('/avucoordinator','App\Http\Controllers\PagesController@avucoordinator' )->middleware('AVUCoordinator');
@@ -64,6 +66,9 @@ Route::get('/dean_hod','App\Http\Controllers\PagesController@dean_hod' )->middle
 
 Route::get('/viewagribooking', 'App\Http\Controllers\SendEmailVCController@viewagribooking')->name('viewagribooking');
 Route::get('/viewvcagribooking', 'App\Http\Controllers\SendEmailVCController@viewvcagribooking')->name('viewvcagribooking');
+Route::get('/download-agrispdf', 'App\Http\Controllers\SendEmailVCController@downloadpdf')->name('downloadpdf');
+Route::get('/download-agrismonthpdf', 'App\Http\Controllers\SendEmailVCController@downloadmonthpdf')->name('downloadmonthpdf');
+Route::get('/download-agriyearpdf', 'App\Http\Controllers\SendEmailVCController@downloadyearpdf')->name('downloadyearpdf');
 
 Route::get('/viewcthrbooking', 'App\Http\Controllers\ViewHrBookingController@viewcthrbooking')->name('viewcthrbooking')->middleware('CareTakerMiddleware');
 Route::get('/viewhrbooking', 'App\Http\Controllers\ViewHrBookingController@viewhrbooking')->name('viewhrbooking');
@@ -113,6 +118,9 @@ Route::get('/viewdeanhodnestbooking', 'App\Http\Controllers\ViewNestBookingContr
 
 Route::get('/viewagridbooking', 'App\Http\Controllers\ViewAFDBookingController@viewagridbooking')->name('viewagridbooking');
 Route::get('/viewvcagridbooking', 'App\Http\Controllers\ViewAFDBookingController@viewvcagridbooking')->name('viewvcagridbooking');
+Route::get('/download-agridpdf', 'App\Http\Controllers\ViewAFDBookingController@downloadpdf')->name('downloadpdf');
+Route::get('/download-agridmonthpdf', 'App\Http\Controllers\ViewAFDBookingController@downloadmonthpdf')->name('downloadmonthpdf');
+Route::get('/download-agridyearpdf', 'App\Http\Controllers\ViewAFDBookingController@downloadyearpdf')->name('downloadyearpdf');
 
 Route::get('showadmin/{id}','App\Http\Controllers\AdminDBookingController@show');
 Route::post('showadmin/{id}','App\Http\Controllers\AdminDBookingController@vcapprove');
@@ -132,6 +140,11 @@ Route::get('/viewadminafdbooking', 'App\Http\Controllers\AdminDBookingController
 Route::get('/viewadminhrbooking', 'App\Http\Controllers\AdminHrBookingController@viewadminhrbooking')->name('viewadminhrbooking')->middleware('AdminMiddleware');
 Route::get('/viewadminavubooking', 'App\Http\Controllers\AdminAVUBookingController@viewadminavubooking')->name('viewadminavubooking')->middleware('AdminMiddleware'); 
 
+Route::get('/viewreportagribooking', 'App\Http\Controllers\SendEmailVCController@viewreportagribooking')->name('viewreportagribooking')->middleware('ReportGeneratorMiddleware');
+Route::get('/viewreportnestbooking', 'App\Http\Controllers\ViewNestBookingController@viewreportnestbooking')->name('viewreportnestbooking')->middleware('ReportGeneratorMiddleware'); 
+Route::get('/viewreportagridbooking', 'App\Http\Controllers\ViewAFDBookingController@viewreportafdbooking')->name('viewreportafdbooking')->middleware('ReportGeneratorMiddleware');
+Route::get('/viewreporthrbooking', 'App\Http\Controllers\ViewHrBookingController@viewreporthrbooking')->name('viewreporthrbooking')->middleware('ReportGeneratorMiddleware');
+Route::get('/viewreportavubooking', 'App\Http\Controllers\ViewAVUBookingController@viewreportavubooking')->name('viewreportavubooking')->middleware('ReportGeneratorMiddleware'); 
 
 
 Route::get('/viewavubooking', 'App\Http\Controllers\ViewAVUBookingController@viewavubooking')->name('viewavubooking');
