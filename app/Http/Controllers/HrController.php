@@ -9,7 +9,7 @@ use Auth;
 
 use App\Models\User;
 use Illuminate\Support\Facades\Mail;
-use App\Mail\RequestRecommendMail;
+use App\Mail\hremail;
 use DB;
 
 //to handle holiday resort details
@@ -52,7 +52,6 @@ class HrController extends Controller
             'NoOfChildren'=>'required|numeric|min:0',
             'NoOfUnits'=>'required|numeric|min:1',
             'Description'=>'required', 
-            'VCApproval'=>"required_if:BookingType,==,Resource Person,SUSL Staff",
             'Recommendation_from'=>"required_if:BookingType,==,Resource Person,SUSL Staff",
             'HolodayResortId'=>'required',
         ]);
@@ -87,16 +86,17 @@ class HrController extends Controller
                     $hrbooking-> NoOfChildren = $request->input('NoOfChildren');
                     $hrbooking-> NoOfUnits = $request->input('NoOfUnits');
                     $hrbooking-> Description = $request->input('Description');
+                    $hrbooking-> Status = 'Request for Booking';
                     
                     if($request->input('BookingType') == "Resource Person" || $request->input('BookingType') == "SUSL Staff"){
                         $hrbooking-> Recommendation_from = $request->input('Recommendation_from');
-                        $hrbooking-> VCApproval = $request->input('VCApproval');
-                        $hrbooking-> Status = 'Request Recommendation';
+                        //$hrbooking-> VCApproval = $request->input('VCApproval');
+                        
                       }
                       else{
                         $hrbooking-> Recommendation_from = 13;
-                        $hrbooking-> VCApproval = 0;
-                        $hrbooking-> Status = 'Send to confermation';
+                        //$hrbooking-> VCApproval = 0;
+                        
                       }
                       
                     $hrbooking-> GuestId = Auth::user()->id;
@@ -115,11 +115,11 @@ class HrController extends Controller
                     );
 
                     //$Recommendation_From = $request->input('Recommendation_from');
-                   // $email = DB::select('select email from users where id = ?', [$Recommendation_From]);
+                   $email = DB::select('select email from users where id = 12');
                     //$CheckInDate = hrbooking::where('CheckInDate', '=', $request->input('CheckInDate'))->first();
 
                     
-                   // Mail::to($email)->send(new RequestRecommendMail($data));
+                   Mail::to($email)->send(new hremail($data));
                     return back()->with('success', 'Request Sent Successfuly!');
              }
         }
@@ -153,16 +153,17 @@ class HrController extends Controller
                     $hrbooking-> NoOfChildren = $request->input('NoOfChildren');
                     $hrbooking-> NoOfUnits = $request->input('NoOfUnits');
                     $hrbooking-> Description = $request->input('Description');
+                    $hrbooking-> Status = 'Request for Booking';
                     
                     if($request->input('BookingType') == "Resource Person" || $request->input('BookingType') == "SUSL Staff"){
                         $hrbooking-> Recommendation_from = $request->input('Recommendation_from');
-                        $hrbooking-> VCApproval = $request->input('VCApproval');
-                        $hrbooking-> Status = 'Request Recommendation';
+                       // $hrbooking-> VCApproval = $request->input('VCApproval');
+                        
                       }
                       else{
                         $hrbooking-> Recommendation_from = 13;
-                        $hrbooking-> VCApproval = 0;
-                        $hrbooking-> Status = 'Send to confermation';
+                       // $hrbooking-> VCApproval = 0;
+                        
                       }
                       
                     $hrbooking-> GuestId = Auth::user()->id;
@@ -181,11 +182,11 @@ class HrController extends Controller
                     );
 
                     //$Recommendation_From = $request->input('Recommendation_from');
-                    //$email = DB::select('select email from users where id = ?', [$Recommendation_From]);
+                    $email = DB::select('select email from users where id = 12');
                     //$CheckInDate = hrbooking::where('CheckInDate', '=', $request->input('CheckInDate'))->first();
 
                     
-                   // Mail::to($email)->send(new RequestRecommendMail($data));
+                    Mail::to($email)->send(new hremail($data));
                     return back()->with('success', 'Request Sent Successfuly!');
              }
         }

@@ -59,19 +59,14 @@
         <td>{{ $hrbooking->Status }}</td>
        
 
-        @if($hrbooking->VCApproval == 0)
-        <td>
-        <a href = 'showhrvc/{{ $hrbooking->BookingId }}'>View</a></br>
        
-        </td>
-        @else
         <td>
         <a href = 'showhrvc/{{ $hrbooking->BookingId }}'>View</a></br>
         <a href = 'hrapprove/{{ $hrbooking->BookingId }}'>Approve</a></br>
         <a href = 'hrnotapprove/{{ $hrbooking->BookingId }}'>Reject</a>
        
         </td>
-        @endif
+      
         
        
        

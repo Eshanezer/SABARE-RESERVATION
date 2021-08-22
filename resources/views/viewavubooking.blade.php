@@ -25,8 +25,8 @@
     {!! Form::close() !!}
 
     <a class="nav-link btn btn-info " href="/download-avupdf?CheckInDate={{request()->CheckInDate}}">Export Deatils</a></br>
-    <a class="nav-link btn btn-info " href="/download-avumonthpdf?CheckInDate={{request()->CheckInDate}}">Export Monthly details </a></br>
-    <a class="nav-link btn btn-info " href="/download-avuyearpdf?CheckInDate={{request()->CheckInDate}}">Export Year details </a></br>
+    <a class="nav-link btn btn-info " href="/download-avumonthpdf?CheckInDate={{request()->CheckInDate}}">Export Monthly Details </a></br>
+    <a class="nav-link btn btn-info " href="/download-avuyearpdf?CheckInDate={{request()->CheckInDate}}">Export Year Details </a></br>
     
     </div>
 
@@ -68,6 +68,9 @@
         <td>{{ $avubooking->Status }}</td>
        
         <td>
+        
+       
+        <a href = 'showrecavu/{{ $avubooking->BookingId }}'>HOD/Dean Approval</a></br>
         <a href = 'avuconfirm/{{ $avubooking->BookingId }}'>Confirm</a>
         <a href = 'avunotconfirm/{{ $avubooking->BookingId }}'>Reject</a>
         </td>

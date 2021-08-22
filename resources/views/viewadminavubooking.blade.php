@@ -41,7 +41,7 @@
         <td>Recommendation from</td>
         <!-- <td> IS Recommended </td> -->
         <td>Status</td>
-        <td>Confirm</td>
+        <!-- <td>Confirm</td> -->
         
         
         
@@ -63,10 +63,10 @@
         
         <td>{{ $avubooking->Status }}</td>
        
-        <td>
+        <!-- <td>
         <a href = 'avuadminconfirm/{{ $avubooking->BookingId }}'>Confirm</a>
         <a href = 'avuadminnotconfirm/{{ $avubooking->BookingId }}'>Reject</a>
-        </td>
+        </td> -->
        
     </tr>
     @endforeach

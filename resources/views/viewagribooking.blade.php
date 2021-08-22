@@ -25,8 +25,8 @@
     {!! Form::close() !!}
 
     <a class="nav-link btn btn-info " href="/download-agrispdf?CheckInDate={{request()->CheckInDate}}">Export Deatils</a></br>
-    <a class="nav-link btn btn-info " href="/download-agrismonthpdf?CheckInDate={{request()->CheckInDate}}">Export Monthly details </a></br>
-    <a class="nav-link btn btn-info " href="/download-agriyearpdf?CheckInDate={{request()->CheckInDate}}">Export Year details </a></br>
+    <a class="nav-link btn btn-info " href="/download-agrismonthpdf?CheckInDate={{request()->CheckInDate}}">Export Monthly Details </a></br>
+    <a class="nav-link btn btn-info " href="/download-agriyearpdf?CheckInDate={{request()->CheckInDate}}">Export Year Details </a></br>
     
     </div>
 
@@ -37,7 +37,6 @@
         <td>Check In Date</td>
         <td>Check Out Date</td>
         <td>Number Of Unit</td>
-        <td>Request VC Approval</td>
         <td>Status</td>
         <td>Option</td>
         
@@ -49,16 +48,13 @@
         <td>{{ $agrsbooking->CheckInDate }}</td>
         <td>{{ $agrsbooking->CheckOutDate }}</td>
         <td>{{ $agrsbooking->NoOfUnits }}</td>
-        @if($agrsbooking->VCApproval == 0)
-        <td>Not Request</td>
-        @else
-        <td>Requested</td>
-        @endif
         
         <td>{{ $agrsbooking->Status }}</td>
        
         <td>
         <a href = 'showaf/{{ $agrsbooking->BookingId }}'>View</a></br>
+        <a href = 'showrecagri/{{ $agrsbooking->BookingId }}'>HOD/Dean Approval</a></br>
+        <a href = 'showvcagri/{{ $agrsbooking->BookingId }}'>VC Approval</a></br>
         <a href = 'afconfirm/{{ $agrsbooking->BookingId }}'>Confirm</a></br>
         <a href = 'afnotconfirm/{{ $agrsbooking->BookingId }}'>Reject</a>
        

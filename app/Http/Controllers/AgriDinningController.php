@@ -9,7 +9,7 @@ use App\Models\agridbooking;
 use App\Models\User;
 use Auth;
 use Illuminate\Support\Facades\Mail;
-use App\Mail\RequestRecommendMail;
+use App\Mail\agriemail;
 use DB;
 
 //to handle Agri dinning booking details 
@@ -52,7 +52,7 @@ class AgriDinningController extends Controller
             'StartTime'=>'required|after:CurrentTime',
             'EndTime'=>'required|after:StartTime',
             'Description'=>'required',
-            'VCApproval'=>'required',
+            
         ],
         [
             'NoOfGuest.required' => 'Please Add the Number of Guests',
@@ -60,7 +60,7 @@ class AgriDinningController extends Controller
             'StartTime.after' => 'Please Enter a Valid Start Time',
             'EndTime.after' => 'Please Enter a Valid End Time',
             'Description.required' => 'Please Add a Description',
-            'VCApproval.required' => 'Please Select Whether You Need VC Approval',
+            
         ]);
         
 
@@ -71,12 +71,12 @@ class AgriDinningController extends Controller
         $agridbooking-> EndTime = $request->input('EndTime');
         $agridbooking-> NoOfGuest = $request->input('NoOfGuest');
         $agridbooking-> Description = $request->input('Description');
-        $agridbooking-> Status = 'Send to Recommendation';
+        $agridbooking-> Status = 'Request for Booking';
         $agridbooking-> Recommendation_from = $request->input('Recommendation_from');
         $agridbooking-> GuestId = Auth::user()->id;
         $agridbooking-> GuestName = Auth::user()->name;
         $agridbooking-> AgriFarmDiningId = '1';
-        $agridbooking-> VCApproval = $request->input('VCApproval');
+        // $agridbooking-> VCApproval = $request->input('VCApproval');
         $agridbooking-> BookingType = 'SUSL Staff';
 
         $data = array(
@@ -89,8 +89,8 @@ class AgriDinningController extends Controller
             'Description'=>$request->input('Description')
         );
 
-        $Recommendation_From = $request->input('Recommendation_from');
-        $email = DB::select('select email from users where id = ?', [$Recommendation_From]);
+        // $Recommendation_From = $request->input('Recommendation_from');
+         $email = DB::select('select email from users where id = 11');
         //$email = 'pmakwije@gmail.com';
 
         //$CheckInDate = avubooking::where(['CheckInDate' => $request->input('CheckInDate'), 'Status' => 'Conformed'])->get();
@@ -100,7 +100,7 @@ class AgriDinningController extends Controller
         
             
                 $agridbooking->save();
-                Mail::to($email)->send(new RequestRecommendMail($data));
+                Mail::to($email)->send(new agriemail($data));
                 return back()->with('success', 'Request Sent Successfuly!');
 
                 //return redirect('/')->with('success','Request Sent Successfuly !');
@@ -115,7 +115,7 @@ class AgriDinningController extends Controller
             }else{
                // dd("available");
                 $agridbooking->save();
-                Mail::to($email)->send(new RequestRecommendMail($data));
+                Mail::to($email)->send(new agriemail($data));
                 return back()->with('success', 'Request Sent Successfuly!');
             }
         }

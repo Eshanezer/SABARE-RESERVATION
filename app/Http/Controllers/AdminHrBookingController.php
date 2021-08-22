@@ -24,11 +24,13 @@ class AdminHrBookingController extends Controller
             ->select('hrbookings.*','holidayresorts.Type')
             ->join('holidayresorts','holidayresorts.HolodayResortId','=','hrbookings.HolodayResortId')
             ->where('CheckInDate', $request->input('CheckInDate'))
+            ->orderBy('BookingId', 'DESC')
             ->paginate(10);
         }else{
             $hrbookings =DB::table('hrbookings')
             ->select('hrbookings.*','holidayresorts.Type')
             ->join('holidayresorts','holidayresorts.HolodayResortId','=','hrbookings.HolodayResortId')
+            ->orderBy('BookingId', 'DESC')
             ->paginate(10);
           
         }
@@ -82,8 +84,8 @@ class AdminHrBookingController extends Controller
                     public function showhr($id) {
 
                         $users =DB::table('hrbookings')
-                        ->select('hrbookings.*','users.name','holidayresorts.Type')
-                        ->join('users','users.id','=','hrbookings.Recommendation_From')
+                        ->select('hrbookings.*','users.*','holidayresorts.Type')
+                        ->join('users','users.id','=','hrbookings.GuestId')
                         ->join('holidayresorts','holidayresorts.HolodayResortId','=','hrbookings.HolodayResortId')
                         ->where(['hrbookings.BookingId' => $id])
                         ->get();

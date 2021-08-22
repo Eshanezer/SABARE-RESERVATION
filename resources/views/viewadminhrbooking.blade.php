@@ -37,7 +37,7 @@
         <td>Check In Date</td>
         <td>Check Out Date</td>
         <!-- <td>Number Of Units</td> -->
-        <td>Request VC Approval</td>
+        <!-- <td>Request VC Approval</td> -->
         <td>Status</td>
         <td>Option</td>
         
@@ -53,18 +53,18 @@
         <td>{{ $hrbooking->Type   }}</td>
         <td>{{ $hrbooking->CheckInDate }}</td>
         <td>{{ $hrbooking->CheckOutDate }}</td>
-        @if($hrbooking->VCApproval == 0)
+        <!-- @if($hrbooking->VCApproval == 0)
         <td>Not Request</td>
         @else
         <td>Requested</td>
-        @endif
+        @endif -->
         
         <td>{{ $hrbooking->Status }}</td>
        
         <td>
         <a href = 'showadminhr/{{ $hrbooking->BookingId }}'>View</a></br>
-        <a href = 'hradminconfirm/{{ $hrbooking->BookingId }}'>Confirm</a></br>
-        <a href = 'hradminnotconfirm/{{ $hrbooking->BookingId }}'>Reject</a>
+        <!-- <a href = 'hradminconfirm/{{ $hrbooking->BookingId }}'>Confirm</a></br>
+        <a href = 'hradminnotconfirm/{{ $hrbooking->BookingId }}'>Reject</a> -->
        
         </td>
        

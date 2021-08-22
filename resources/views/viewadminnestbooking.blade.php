@@ -40,7 +40,7 @@
         <!-- <td>Number Of Units</td> -->
         <!-- <td>Guest Tye</td>
         <td>Description</td> -->
-        <td>Request VC Approval</td>
+        <!-- <td>Request VC Approval</td> -->
         <td>Status</td>
         <td>Option</td>
         
@@ -56,18 +56,18 @@
         <td>{{ $nestbooking->Type    }}</td>
         <td>{{ $nestbooking->CheckInDate }}</td>
         <td>{{ $nestbooking->CheckOutDate }}</td>
-        @if($nestbooking->VCApproval == 0)
+        <!-- @if($nestbooking->VCApproval == 0)
         <td>Not Request</td>
         @else
         <td>Requested</td>
-        @endif
+        @endif -->
         
         <td>{{ $nestbooking->Status }}</td>
        
         <td>
         <a href = 'showadminnest/{{ $nestbooking->BookingId }}'>View</a></br>
-        <a href = 'nestadminconfirm/{{ $nestbooking->BookingId }}'>Confirm</a></br>
-        <a href = 'nestadminnotconfirm/{{ $nestbooking->BookingId }}'>Reject</a>
+        <!-- <a href = 'nestadminconfirm/{{ $nestbooking->BookingId }}'>Confirm</a></br>
+        <a href = 'nestadminnotconfirm/{{ $nestbooking->BookingId }}'>Reject</a> -->
        
         </td>
        

@@ -8,7 +8,7 @@ use App\Models\nestbooking;
 use Auth;
 use App\Models\User;
 use Illuminate\Support\Facades\Mail;
-use App\Mail\RequestRecommendMail;
+use App\Mail\nestemail;
 use DB;
 
 //to hanlde nest booking details
@@ -49,7 +49,6 @@ class NestController extends Controller
             'NoOfUnits'=>'required|numeric|min:1',
             'NoOfChildren'=>'required|numeric|min:0',
             'Description'=>'required',
-            'VCApproval'=>'required',
             'BookingType'=>'required',
             'Recommendation_from'=>'required',
             
@@ -62,7 +61,6 @@ class NestController extends Controller
             'NoOfChildren.required' => 'Please Enter The Number of Children',
             'NoOfUnits.required' => 'Please Enter The Number of Units',
             'Description.required' => 'Please Add a Description',
-            'VCApproval.required' => 'Please Select Whether You Need VC Approval',
             'Recommendation_from' => 'Please Select From Whom You Need to Get Recommendation',
         ]);
         
@@ -91,9 +89,9 @@ class NestController extends Controller
               $nestbooking-> NoOfUnits = $request->input('NoOfUnits');
               $nestbooking-> Description = $request->input('Description');
               $nestbooking-> BookingType = $request->input('BookingType');
-              $nestbooking-> Status = 'Request Recommendation';
+              $nestbooking-> Status = 'Request for Booking';
               $nestbooking-> Recommendation_from = $request->input('Recommendation_from');
-              $nestbooking-> VCApproval = $request->input('VCApproval');
+              //$nestbooking-> VCApproval = $request->input('VCApproval');
               $nestbooking-> GuestId = Auth::user()->id;
               $nestbooking-> GuestName = Auth::user()->name;
               $nestbooking-> NestId = $request->input('NestId');
@@ -114,11 +112,11 @@ class NestController extends Controller
               );
       
               //$Recommendation_From = $request->input('Recommendation_from');
-              //$email = DB::select('select email from users where id = ?', [$Recommendation_From]);
+              $email = DB::select('select email from users where id = 10');
              
       
               $nestbooking->save();
-              //Mail::to($email)->send(new RequestRecommendMail($data));
+              Mail::to($email)->send(new nestemail($data));
               return back()->with('success', 'Request Sent Successfuly!');
              }
         }
@@ -150,9 +148,9 @@ class NestController extends Controller
               $nestbooking-> NoOfUnits = $request->input('NoOfUnits');
               $nestbooking-> Description = $request->input('Description');
               $nestbooking-> BookingType = $request->input('BookingType');
-              $nestbooking-> Status = 'Request Recommendation';
+              $nestbooking-> Status = 'Request for Booking';
               $nestbooking-> Recommendation_from = $request->input('Recommendation_from');
-              $nestbooking-> VCApproval = $request->input('VCApproval');
+              //$nestbooking-> VCApproval = $request->input('VCApproval');
               $nestbooking-> GuestId = Auth::user()->id;
               $nestbooking-> GuestName = Auth::user()->name;
               $nestbooking-> NestId = $request->input('NestId');
@@ -173,11 +171,11 @@ class NestController extends Controller
               );
       
               //$Recommendation_From = $request->input('Recommendation_from');
-              //$email = DB::select('select email from users where id = ?', [$Recommendation_From]);
+              $email = DB::select('select email from users where id = 10');
              
       
               $nestbooking->save();
-             // Mail::to($email)->send(new RequestRecommendMail($data));
+              Mail::to($email)->send(new nestemail($data));
               return back()->with('success', 'Request Sent Successfuly!');
              }
         }

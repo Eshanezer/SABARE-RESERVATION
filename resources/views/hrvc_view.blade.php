@@ -27,6 +27,24 @@
         value = '<?php echo$users[0]->GuestName; ?>'readonly="readonly"/>
         </td>
         </tr>
+        <td>Guest NIC</td>
+        <td>
+        <input class="form-control" type = 'text' name = 'NIC'
+        value = '<?php echo$users[0]->NIC; ?>'readonly="readonly"/>
+        </td>
+        </tr>
+        <td>Guest Phone Number</td>
+        <td>
+        <input class="form-control" type = 'text' name = 'ContactNo'
+        value = '<?php echo$users[0]->ContactNo; ?>'readonly="readonly"/>
+        </td>
+        </tr>
+        <td>Guest Address</td>
+        <td>
+        <input class="form-control" type = 'text' name = 'Address'
+        value = '<?php echo$users[0]->Address; ?>'readonly="readonly"/>
+        </td>
+        </tr>
         <tr>
         <td>Room Type</td>
         <td>
@@ -85,17 +103,6 @@
         </tr>
 
 
-          @if( $users[0]->name != 'None')
-        <tr>
-        <td>Recommendation From</td>
-        <td>
-        <input class="form-control" type = 'textarea' name = 'name'
-        value = '<?php echo$users[0]->name; ?>' readonly="readonly"/>
-        </td>
-        </tr>
-     
-        @endif
-
         <tr>
         <td>Comment By HOD/Dean</td>
         <td>
@@ -124,7 +131,7 @@
         <tr>
         <td colspan = '2'>
         </br>
-        <input  type = 'submit' value = "Update Booking Details" />
+        <input  type = 'submit' value = "Save Comment" />
         </td>
         </tr>
 

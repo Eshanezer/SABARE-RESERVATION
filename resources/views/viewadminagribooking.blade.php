@@ -36,7 +36,7 @@
         <td>Check In Date</td>
         <td>Check Out Date</td>
         <td>Number Of Unit</td>
-        <td>Request VC Approval</td>
+        <!-- <td>Request VC Approval</td> -->
         <td>Status</td>
         <td>Option</td>
         
@@ -48,19 +48,19 @@
         <td>{{ $agrsbooking->CheckInDate }}</td>
         <td>{{ $agrsbooking->CheckOutDate }}</td>
         <td>{{ $agrsbooking->NoOfUnits }}</td>
-        @if($agrsbooking->VCApproval == 0)
+        <!-- @if($agrsbooking->VCApproval == 0)
         <td>Not Request</td>
         @else
         <td>Requested</td>
-        @endif
+        @endif -->
         
         <td>{{ $agrsbooking->Status }}</td>
        
         <td>
         <a href = 'showadminaf/{{ $agrsbooking->BookingId }}'>View</a></br>
-        <a href = 'afadminconfirm/{{ $agrsbooking->BookingId }}'>Confirm</a></br>
+        <!-- <a href = 'afadminconfirm/{{ $agrsbooking->BookingId }}'>Confirm</a></br>
         <a href = 'afadminnotconfirm/{{ $agrsbooking->BookingId }}'>Reject</a>
-       
+        -->
         </td>
     </tr>
     @endforeach

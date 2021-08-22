@@ -61,20 +61,14 @@
         <td>{{ $nestbooking->Status }}</td>
        
 
-        @if($nestbooking->VCApproval == 0)
-        <td>
-        <a href = 'shownestvc/{{ $nestbooking->BookingId }}'>View</a></br>
        
-        </td>
-        @else
         <td>
         <a href = 'shownestvc/{{ $nestbooking->BookingId }}'>View</a></br>
         <a href = 'nestapprove/{{ $nestbooking->BookingId }}'>Approve</a></br>
         <a href = 'nestnotapprove/{{ $nestbooking->BookingId }}'>Reject</a>
        
         </td>
-        @endif
-        
+       
        
        
     </tr>

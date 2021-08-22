@@ -24,8 +24,8 @@
     </div>
     {!! Form::close() !!}
     <a class="nav-link btn btn-info " href="/download-agridpdf?CheckInDate={{request()->CheckInDate}}">Export Deatils</a></br>
-    <a class="nav-link btn btn-info " href="/download-agridmonthpdf?CheckInDate={{request()->CheckInDate}}">Export Monthly details </a></br>
-    <a class="nav-link btn btn-info " href="/download-agridyearpdf?CheckInDate={{request()->CheckInDate}}">Export Year details </a></br>
+    <a class="nav-link btn btn-info " href="/download-agridmonthpdf?CheckInDate={{request()->CheckInDate}}">Export Monthly Details </a></br>
+    <a class="nav-link btn btn-info " href="/download-agridyearpdf?CheckInDate={{request()->CheckInDate}}">Export Year Details </a></br>
     
     </div>
 
@@ -39,7 +39,6 @@
         <td>EndTime</td>
         <!-- <td>Description</td> -->
         <td>Recommendation from</td>
-        <td>Request VC Approval</td>
         <td>Status</td>
         <td>Option</td>
         
@@ -57,15 +56,13 @@
         <td>{{ $agridbooking->EndTime }}</td>
         <!-- <td>{{ $agridbooking->Description }}</td> -->
         <td>{{ $agridbooking->name }}</td>
-        @if($agridbooking->VCApproval == 0)
-        <td>Not Request</td>
-        @else
-        <td>Requested</td>
-        @endif
+        
         <td>{{ $agridbooking->Status }}</td>
        
         <td>
         <a href = 'show/{{ $agridbooking->BookingId }}'>View</a></br>
+        <a href = 'showrecagrid/{{ $agridbooking->BookingId }}'>HOD/Dean Approval</a></br>
+        <a href = 'showvcagrid/{{ $agridbooking->BookingId }}'>VC Approval</a></br>
         <a href = 'afdconfirm/{{ $agridbooking->BookingId }}'>Confirm</a></br>
         <a href = 'afdnotconfirm/{{ $agridbooking->BookingId }}'>Reject</a>
         </td>

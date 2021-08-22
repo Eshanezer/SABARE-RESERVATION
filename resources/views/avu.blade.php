@@ -71,7 +71,7 @@
                         <div class="form-group">
 
                           <div class="form-group ">
-                            {!! Form::label('Request Recommendation from')!!}
+                            {!! Form::label('Dean/HOD')!!}
                             {!! Form::select('Recommendation_from', $select, null, ['class'=>'form-control']) !!}
                         </div>
                         

@@ -68,6 +68,7 @@
         <td>{{ $agrsbooking->Status }}</td>
        
         <td>
+        <a href = 'showafdean/{{ $agrsbooking->BookingId }}'>View</a></br>
         <a href = 'afrecommend/{{ $agrsbooking->BookingId }}'>Recommend</a> </br>
         <a href = 'afnotrecommend/{{ $agrsbooking->BookingId }}'>Reject</a>
         </td>

@@ -24,12 +24,14 @@ class AdminNestBookingController extends Controller
                 ->select('nestbookings.*','nests.Type')
                 ->join('nests','nests.NestId','=','nestbookings.NestId')
                 ->where('CheckInDate', $request->input('CheckInDate'))
+                ->orderBy('BookingId', 'DESC')
                 ->paginate(10);
                     
             }else{
                 $nestbookings =DB::table('nestbookings')
                 ->select('nestbookings.*','nests.Type')
                 ->join('nests','nests.NestId','=','nestbookings.NestId')
+                ->orderBy('BookingId', 'DESC')
                 ->paginate(10);
                     
             }
@@ -79,11 +81,11 @@ class AdminNestBookingController extends Controller
                     public function shownest($id) {
 
                         $users =DB::table('nestbookings')
-                        ->select('nestbookings.*','users.name','nests.Type')
-                        ->join('users','users.id','=','nestbookings.Recommendation_From')
-                        ->join('nests','nests.NestId','=','nestbookings.NestId')
-                        ->where(['nestbookings.BookingId' => $id])
-                        ->get();
+                            ->select('nestbookings.*','users.*','nests.Type')
+                            ->join('users','users.id','=','nestbookings.GuestId')
+                            ->join('nests','nests.NestId','=','nestbookings.NestId')
+                            ->where(['nestbookings.BookingId' => $id])
+                            ->get();
 
                        // $users = DB::select('select * from nestbookings where BookingId = ?',[$id]);
                         return view('nest_adminview',['users'=>$users]);

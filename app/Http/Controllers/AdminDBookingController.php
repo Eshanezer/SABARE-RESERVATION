@@ -29,11 +29,13 @@ class AdminDBookingController extends Controller
             ->select('agridbookings.*','users.name')
             ->join('users','users.id','=','agridbookings.Recommendation_From')
             ->where('CheckInDate', $request->input('CheckInDate'))
+            ->orderBy('BookingId', 'DESC')
             ->paginate(10);
         }else{
             $agridbookings =DB::table('agridbookings')
             ->select('agridbookings.*','users.name')
             ->join('users','users.id','=','agridbookings.Recommendation_From')
+            ->orderBy('BookingId', 'DESC')
             ->paginate(10);
         }
       
@@ -85,11 +87,12 @@ class AdminDBookingController extends Controller
 //show selected details
                 public function show($id) {
 
-                        $users =DB::table('agridbookings')
-                        ->select('agridbookings.*','users.name')
-                        ->join('users','users.id','=','agridbookings.Recommendation_From')
-                        ->where(['agridbookings.BookingId' => $id])
-                        ->get();
+                    $users =DB::table('agridbookings')
+                    ->select('agridbookings.*','users.*')
+                    ->join('users','users.id','=','agridbookings.GuestId')
+                    ->where(['agridbookings.BookingId' => $id])
+                    ->get();
+
 
                            // $users = DB::select('select * from agridbookings where BookingId = ?',[$id]);
                          return view('afd_adminview',['users'=>$users]);

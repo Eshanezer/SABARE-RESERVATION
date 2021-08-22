@@ -60,6 +60,7 @@
         <td>{{ $avubooking->Status }}</td>
        
         <td>
+        <a href = 'showavudean/{{ $avubooking->BookingId }}'>View</a></br>
         <a href = 'avurecommend/{{ $avubooking->BookingId }}'>Recommend</a> </br>
         <a href = 'avunnotrecommend/{{ $avubooking->BookingId }}'>Reject</a>
         </td>

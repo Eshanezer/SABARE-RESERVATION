@@ -88,8 +88,10 @@ Route::get('/viewvcnestbooking', 'App\Http\Controllers\ViewNestBookingController
 Route::get('showadminaf/{id}','App\Http\Controllers\AdminAgriSBookingController@showaf');
 Route::post('showadminaf/{id}','App\Http\Controllers\AdminAgriSBookingController@vcapprove');
 Route::get('showaf/{id}','App\Http\Controllers\SendEmailVCController@showaf');
-Route::post('showaf/{id}','App\Http\Controllers\SendEmailVCController@vcapprove');
+Route::post('showaf/{id}','App\Http\Controllers\SendEmailVCController@addvccomment');
 Route::get('/viewdeanhodagrisbooking', 'App\Http\Controllers\SendEmailVCController@viewdeanhodagrisbooking')->name('viewdeanhodagrisbooking');  
+Route::get('showrecagri/{id}','App\Http\Controllers\SendEmailVCController@getRecommendation');
+Route::get('showvcagri/{id}','App\Http\Controllers\SendEmailVCController@vcapprove');
 
 Route::get('showadminhr/{id}','App\Http\Controllers\AdminHrBookingController@showhr');
 Route::post('showadminhr/{id}','App\Http\Controllers\AdminHrBookingController@vcapprove');
@@ -125,9 +127,11 @@ Route::get('/download-agridyearpdf', 'App\Http\Controllers\ViewAFDBookingControl
 Route::get('showadmin/{id}','App\Http\Controllers\AdminDBookingController@show');
 Route::post('showadmin/{id}','App\Http\Controllers\AdminDBookingController@vcapprove');
 Route::get('show/{id}','App\Http\Controllers\ViewAFDBookingController@show');
-Route::post('show/{id}','App\Http\Controllers\ViewAFDBookingController@vcapprove');
+//Route::post('show/{id}','App\Http\Controllers\ViewAFDBookingController@vcapprove');
+Route::post('show/{id}','App\Http\Controllers\ViewAFDBookingController@addvccomment');
 Route::get('/viewdeanhodagridbooking', 'App\Http\Controllers\ViewAFDBookingController@viewdeanhodagridbooking')->name('viewdeanhodagridbooking');  
-
+Route::get('showrecagrid/{id}','App\Http\Controllers\ViewAFDBookingController@getRecommendation');
+Route::get('showvcagrid/{id}','App\Http\Controllers\ViewAFDBookingController@vcapprove');
 
 
 //Route::get('/viewhrbooking', 'App\Http\Controllers\ViewHrBookingController@viewhrbooking')->name('viewhrbooking'); 
@@ -166,6 +170,10 @@ Route::get('avuadminnotconfirm/{BookingId}','App\Http\Controllers\AdminAVUBookin
 
 Route::get('avurecommend/{BookingId}','App\Http\Controllers\ViewAVUBookingController@recommend');
 Route::get('avunnotrecommend/{BookingId}','App\Http\Controllers\ViewAVUBookingController@notrecommend');
+Route::get('showavudean/{id}','App\Http\Controllers\ViewAVUBookingController@showavudean');
+Route::post('showavudean/{id}','App\Http\Controllers\ViewAVUBookingController@addheadcomment');
+Route::get('showrecavu/{id}','App\Http\Controllers\ViewAVUBookingController@getRecommendation');
+
 
 Route::get('nestrecommend/{BookingId}','App\Http\Controllers\ViewNestBookingController@recommend');
 Route::get('nestnotrecommend/{BookingId}','App\Http\Controllers\ViewNestBookingController@notrecommend');
@@ -208,7 +216,8 @@ Route::get('afadminnotconfirm/{BookingId}','App\Http\Controllers\AdminAgriSBooki
 Route::get('afsapprove/{BookingId}','App\Http\Controllers\SendEmailVCController@afsapprove');
 Route::get('afsnotapprove/{BookingId}','App\Http\Controllers\SendEmailVCController@afsnotapprove');
 Route::get('showafsvc/{id}','App\Http\Controllers\SendEmailVCController@showafsvc');
-
+Route::get('showafdean/{id}','App\Http\Controllers\SendEmailVCController@showafdean');
+Route::post('showafdean/{id}','App\Http\Controllers\SendEmailVCController@addheadcomment');
 
 Route::get('afdrecommend/{BookingId}','App\Http\Controllers\ViewAFDBookingController@recommend');
 Route::get('afdnotrecommend/{BookingId}','App\Http\Controllers\ViewAFDBookingController@notrecommend');
@@ -220,6 +229,8 @@ Route::get('afdadminnotconfirm/{BookingId}','App\Http\Controllers\AdminDBookingC
 Route::get('afdapprove/{BookingId}','App\Http\Controllers\ViewAFDBookingController@afdapprove');
 Route::get('afdnotapprove/{BookingId}','App\Http\Controllers\ViewAFDBookingController@afdnotapprove');
 Route::get('showafdvc/{id}','App\Http\Controllers\ViewAFDBookingController@showafdvc');
+Route::get('showafddean/{id}','App\Http\Controllers\ViewAFDBookingController@showafddean');
+Route::post('showafddean/{id}','App\Http\Controllers\ViewAFDBookingController@addheadcomment');
 
 
 

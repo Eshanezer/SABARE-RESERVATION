@@ -27,8 +27,26 @@
         value = '<?php echo$users[0]->GuestName; ?>'readonly="readonly"/>
         </td>
         </tr>
+        <td>Guest NIC</td>
+        <td>
+        <input class="form-control" type = 'text' name = 'NIC'
+        value = '<?php echo$users[0]->NIC; ?>'readonly="readonly"/>
+        </td>
+        </tr>
+        <td>Guest Phone Number</td>
+        <td>
+        <input class="form-control" type = 'text' name = 'ContactNo'
+        value = '<?php echo$users[0]->ContactNo; ?>'readonly="readonly"/>
+        </td>
+        </tr>
+        <td>Guest Address</td>
+        <td>
+        <input class="form-control" type = 'text' name = 'Address'
+        value = '<?php echo$users[0]->Address; ?>'readonly="readonly"/>
+        </td>
+        </tr>
         <tr>
-        <td>Resort Id</td>
+        <td>Room Type</td>
         <td>
         <input class="form-control" type = 'text' name = 'Type'
         value = '<?php echo$users[0]->Type; ?>'readonly="readonly"/>
@@ -52,21 +70,21 @@
         <td>Number Of Adults</td>
         <td>
         <input class="form-control" type = 'text' name = 'NoOfAdults'
-        value = '<?php echo$users[0]->NoOfAdults; ?>' />
+        value = '<?php echo$users[0]->NoOfAdults; ?>' readonly="readonly"/>
         </td>
         </tr>
         <tr>
         <td>Number Of Children</td>
         <td>
         <input class="form-control" type = 'text' name = 'NoOfChildren'
-        value = '<?php echo$users[0]->NoOfChildren; ?>' />
+        value = '<?php echo$users[0]->NoOfChildren; ?>' readonly="readonly"/>
         </td>
         </tr>
         <tr>
         <td>Number Of Units</td>
         <td>
         <input class="form-control" type = 'text' name = 'NoOfUnits'
-        value = '<?php echo$users[0]->NoOfUnits; ?>' />
+        value = '<?php echo$users[0]->NoOfUnits; ?>' readonly="readonly"/>
         </td>
         </tr>
         <tr>
@@ -83,14 +101,7 @@
         value = '<?php echo$users[0]->Description; ?>' readonly="readonly"/>
         </td>
         </tr>
-        @if( $users[0]->name != 'None')
-        <tr>
-        <td>Recommendation From</td>
-        <td>
-        <input class="form-control" type = 'textarea' name = 'name'
-        value = '<?php echo$users[0]->name; ?>' readonly="readonly"/>
-        </td>
-        @endif
+        
 
          <tr>
         <td>Comment By HOD/Dean</td>
@@ -100,7 +111,7 @@
         </td>
         </tr>
 
-        <tr>
+        <!-- <tr>
         <td>Request VC Approval</td>
         @if( $users[0]->VCApproval == 1)
         <td>
@@ -114,7 +125,7 @@
         </td>
         @endif
         
-        </tr>
+        </tr> -->
 
            </tr>
         <tr>
@@ -141,7 +152,7 @@
         </tr>
         <tr>
 
-        <tr>
+        <!-- <tr>
         <td>Checked</td>
         <td>
         
@@ -153,13 +164,13 @@
 
       
         </td>
-        </tr>
+        </tr> -->
         <tr>
        
-        <td colspan = '2'>
+        <!-- <td colspan = '2'>
         </br>
         <input  type = 'submit' value = "Update" />
-        </td>
+        </td> -->
      
      
         

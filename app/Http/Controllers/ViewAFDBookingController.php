@@ -17,6 +17,7 @@ use App\Mail\SendMail;
 use App\Models\agridbooking;
 use PDF;
 use Carbon\Carbon;
+use App\Mail\RequestRecommendMail;
 
 class ViewAFDBookingController extends Controller
 {
@@ -27,11 +28,13 @@ class ViewAFDBookingController extends Controller
             ->select('agridbookings.*','users.name')
             ->join('users','users.id','=','agridbookings.Recommendation_From')
             ->where('CheckInDate', $request->input('CheckInDate'))
+            ->orderBy('BookingId', 'DESC')
             ->paginate(10);
         }else{
             $agridbookings =DB::table('agridbookings')
             ->select('agridbookings.*','users.name')
             ->join('users','users.id','=','agridbookings.Recommendation_From')
+            ->orderBy('BookingId', 'DESC')
             ->paginate(10);
         }
         //$agridbooking = DB::select('select * from agridbookings');
@@ -68,11 +71,13 @@ class ViewAFDBookingController extends Controller
             ->select('agridbookings.*','users.name')
             ->join('users','users.id','=','agridbookings.Recommendation_From')
             ->where('CheckInDate', $request->input('CheckInDate'))
+            ->orderBy('BookingId', 'DESC')
             ->paginate(10);
         }else{
             $agridbookings =DB::table('agridbookings')
             ->select('agridbookings.*','users.name')
             ->join('users','users.id','=','agridbookings.Recommendation_From')
+            ->orderBy('BookingId', 'DESC')
             ->paginate(10);
         }
  
@@ -146,11 +151,11 @@ class ViewAFDBookingController extends Controller
 
         if($request->input('CheckInDate') != null){
                 
-            $agridbookings = agridbooking::where('Recommendation_From', '=', [$Recommendation_From])->whereDate('CheckInDate', $request->input('CheckInDate'))->paginate(10);
+            $agridbookings = agridbooking::where('Recommendation_From', '=', [$Recommendation_From])->whereDate('CheckInDate', $request->input('CheckInDate'))->orderBy('BookingId', 'DESC')->paginate(10);
        
         }else{
             
-            $agridbookings = agridbooking::where('Recommendation_From', '=', [$Recommendation_From])->paginate(10);
+            $agridbookings = agridbooking::where('Recommendation_From', '=', [$Recommendation_From])->orderBy('BookingId', 'DESC')->paginate(10);
        
         }
         
@@ -248,18 +253,29 @@ class ViewAFDBookingController extends Controller
                         public function showafdvc($id) {
                                // $users = DB::select('select * from agridbookings where BookingId = ?',[$id]);
                                $users =DB::table('agridbookings')
-                                ->select('agridbookings.*','users.name')
-                                ->join('users','users.id','=','agridbookings.Recommendation_From')
+                                ->select('agridbookings.*','users.*')
+                                ->join('users','users.id','=','agridbookings.GuestId')
                                 ->where(['agridbookings.BookingId' => $id])
                                 ->get();
                                 return view('afdvc_view',['users'=>$users]);
                                 }
-
+                                
+                                public function addvccomment(Request $request,$BookingId) {
+          
+                                    $VCComment = $request->input('VCComment');
+                                    DB::update('update agridbookings set VCComment=? where BookingId = ?',[$VCComment,$BookingId]);
+                                    echo "Record updated successfully.
+                                    ";
+                                    echo 'Click Here to go back.';
+    
+                                    return back()->with('success', 'Message Sent Successfuly!');
+                                    }
+    
                         public function show($id) {
 
                             $users =DB::table('agridbookings')
-                            ->select('agridbookings.*','users.name')
-                            ->join('users','users.id','=','agridbookings.Recommendation_From')
+                            ->select('agridbookings.*','users.*')
+                            ->join('users','users.id','=','agridbookings.GuestId')
                             ->where(['agridbookings.BookingId' => $id])
                             ->get();
 
@@ -284,7 +300,52 @@ class ViewAFDBookingController extends Controller
                                 Mail::to($email)->send(new SendMail($data));
                                 return back()->with('success', 'Message Sent Successfuly!');
                                 }
-                            
-                            
 
+                            
+                            
+                                public function showafddean($id) {
+
+                                    $users =DB::table('agridbookings')
+                                    ->select('agridbookings.*','users.*','agrifarmdinings.Type')
+                                    ->join('users','users.id','=','agridbookings.GuestId')
+                                    ->join('agrifarmdinings','agrifarmdinings.AgriFarmDiningId','=','agridbookings.AgriFarmDiningId')
+                                    ->where(['agridbookings.BookingId' => $id])
+                                    ->get();
+            
+                                       
+                                        return view('afddean_view',['users'=>$users]);
+                                }
+        
+                                public function addheadcomment(Request $request,$BookingId) {
+                  
+                                    $HODComment = $request->input('HODComment');
+                                    DB::update('update agridbookings set HODComment=? where BookingId = ?',[$HODComment,$BookingId]);
+                                    echo "Record updated successfully.
+                                    ";
+                                    echo 'Click Here to go back.';
+        
+                                    return back()->with('success', 'Message Sent Successfuly!');
+                                    }
+
+                                    public function getRecommendation(Request $request,$BookingId) {
+                                        $data = $BookingId;
+                                        $Status = 'Send to Recommendation';
+                                        
+                        
+                                        DB::update('update agridbookings set Status = ? where BookingId = ?',[$Status,$BookingId]);
+                                        echo "Record updated successfully.
+                                        ";
+                                        echo 'Click Here to go back.';
+            
+                                        $email =DB::table('agridbookings')
+                                        ->select('users.email')
+                                        ->join('users','users.id','=','agridbookings.Recommendation_From')
+                                        ->where(['agridbookings.BookingId' => $BookingId])
+                                        ->get();
+            
+                                       
+                                        Mail::to($email)->send(new RequestRecommendMail($data));
+                                        return back()->with('success', 'Message Sent Successfuly!');
+                                        }
+            
 }
