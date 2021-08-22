@@ -8,7 +8,7 @@ use App\Models\avubooking;
 use App\Models\User;
 use Auth;
 use Illuminate\Support\Facades\Mail;
-use App\Mail\RequestRecommendMail;
+use App\Mail\avuemail;
 use DB;
 use Carbon\Carbon;
 
@@ -68,7 +68,7 @@ class AVUController extends Controller
         $avubooking-> StartTime = $request->input('StartTime');
         $avubooking-> EndTime = $request->input('EndTime');
         $avubooking-> Description = $request->input('Description');
-        $avubooking-> Status = 'Send to Recommendation';
+        $avubooking-> Status = 'Request for Booking';
         $avubooking-> Recommendation_from = $request->input('Recommendation_from');
         $avubooking-> GuestId = Auth::user()->id;
         $avubooking-> GuestName = Auth::user()->name;
@@ -86,8 +86,8 @@ class AVUController extends Controller
             'Description'=>$request->input('Description')
         );
 
-        $Recommendation_From = $request->input('Recommendation_from');
-        $email = DB::select('select email from users where id = ?', [$Recommendation_From]);
+        //$Recommendation_From = $request->input('Recommendation_from');
+        $email = DB::select('select email from users where id = 3');
         //$email = 'pmakwije@gmail.com';
 
         //$CheckInDate = avubooking::where(['CheckInDate' => $request->input('CheckInDate'), 'Status' => 'Conformed'])->get();
@@ -97,7 +97,7 @@ class AVUController extends Controller
         
             
                 $avubooking->save();
-                Mail::to($email)->send(new RequestRecommendMail($data));
+                Mail::to($email)->send(new avuemail($data));
                 return back()->with('success', 'Request Sent Successfuly!');
 
                 //return redirect('/')->with('success','Request Sent Successfuly !');
@@ -112,7 +112,7 @@ class AVUController extends Controller
             }else{
                // dd("available");
                 $avubooking->save();
-                Mail::to($email)->send(new RequestRecommendMail($data));
+                Mail::to($email)->send(new avuemail($data));
                 return back()->with('success', 'Request Sent Successfuly!');
             }
         }

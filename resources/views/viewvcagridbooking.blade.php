@@ -62,19 +62,14 @@
         <td>{{ $agridbooking->Status }}</td>
        
        
-        @if($agridbooking->VCApproval == 0)
-        <td>
-        <a href = 'showafdvc/{{ $agridbooking->BookingId }}'>View</a></br>
        
-        </td>
-        @else
         <td>
         <a href = 'showafdvc/{{ $agridbooking->BookingId }}'>View</a></br>
         <a href = 'afdapprove/{{ $agridbooking->BookingId }}'>Approve</a></br>
         <a href = 'afdnotapprove/{{ $agridbooking->BookingId }}'>Reject</a>
        
         </td>
-        @endif
+      
        
     
        

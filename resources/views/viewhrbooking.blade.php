@@ -25,8 +25,8 @@
     </div>
     {!! Form::close() !!}
     <a class="nav-link btn btn-info " href="/download-hrpdf?CheckInDate={{request()->CheckInDate}}">Export Deatils</a></br>
-    <a class="nav-link btn btn-info " href="/download-hrmonthpdf?CheckInDate={{request()->CheckInDate}}">Export Monthly details </a></br>
-    <a class="nav-link btn btn-info " href="/download-hryearpdf?CheckInDate={{request()->CheckInDate}}">Export Year details </a></br>
+    <a class="nav-link btn btn-info " href="/download-hrmonthpdf?CheckInDate={{request()->CheckInDate}}">Export Monthly Details </a></br>
+    <a class="nav-link btn btn-info " href="/download-hryearpdf?CheckInDate={{request()->CheckInDate}}">Export Year Details </a></br>
     
     </div>
 
@@ -38,8 +38,7 @@
         <td>Room Type </td>
         <td>Check In Date</td>
         <td>Check Out Date</td>
-        <!-- <td>Number Of Units</td> -->
-        <td>Request VC Approval</td>
+        <td>Number Of Units</td>
         <td>Status</td>
         <td>Option</td>
         
@@ -55,21 +54,17 @@
         <td>{{ $hrbooking->Type   }}</td>
         <td>{{ $hrbooking->CheckInDate }}</td>
         <td>{{ $hrbooking->CheckOutDate }}</td>
-        <!-- <td>{{ $hrbooking->NoOfUnits }}</td> -->
-        @if($hrbooking->VCApproval == 0)
-        <td>Not Request</td>
-        @else
-        <td>Requested</td>
-        @endif
+        <td>{{ $hrbooking->NoOfUnits }}</td>
+     
         
         <td>{{ $hrbooking->Status }}</td>
        
         <td>
         <a href = 'showhr/{{ $hrbooking->BookingId }}'>View</a></br>
 
-         <a href = 'showrechr/{{ $hrbooking->BookingId }}'>Recommendation</a></br>
+         <a href = 'showrechr/{{ $hrbooking->BookingId }}'>HOD/Dean Approval</a></br>
         <a href = 'showvchr/{{ $hrbooking->BookingId }}'>VC Approval</a></br>
-        <a href = 'hrregapprove/{{ $hrbooking->BookingId }}'>Registrar Approval </a></br>
+        <!-- <a href = 'hrregapprove/{{ $hrbooking->BookingId }}'>Registrar Approval </a></br> -->
 
         <a href = 'hrconfirm/{{ $hrbooking->BookingId }}'>Confirm</a></br>
         <a href = 'hrnotconfirm/{{ $hrbooking->BookingId }}'>Reject</a></br>

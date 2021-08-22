@@ -25,8 +25,8 @@
     </div>
     {!! Form::close() !!}
     <a class="nav-link btn btn-info " href="/download-pdf?CheckInDate={{request()->CheckInDate}}">Export Deatils</a></br>
-    <a class="nav-link btn btn-info " href="/download-monthpdf?CheckInDate={{request()->CheckInDate}}">Export Monthly details </a></br>
-    <a class="nav-link btn btn-info " href="/download-yearpdf?CheckInDate={{request()->CheckInDate}}">Export Year details </a></br>
+    <a class="nav-link btn btn-info " href="/download-monthpdf?CheckInDate={{request()->CheckInDate}}">Export Monthly Details </a></br>
+    <a class="nav-link btn btn-info " href="/download-yearpdf?CheckInDate={{request()->CheckInDate}}">Export Year Details </a></br>
     </div>
 <div class="table-responsive">
     <table  class="table table-striped">
@@ -74,7 +74,7 @@
         <a href = 'shownest/{{ $nestbooking->BookingId }}'>View</a></br>
         <a href = 'showrecnest/{{ $nestbooking->BookingId }}'>Recommendation</a></br>
         <a href = 'showvcnest/{{ $nestbooking->BookingId }}'>VC Approval</a></br>
-        <a href = 'nestregapprove/{{ $nestbooking->BookingId }}'>Registrar Approval</a></br>
+        <!-- <a href = 'nestregapprove/{{ $nestbooking->BookingId }}'>Registrar Approval</a></br> -->
         
         <a href = 'nestconfirm/{{ $nestbooking->BookingId }}'>Confirm</a></br>
         <a href = 'nestnotconfirm/{{ $nestbooking->BookingId }}'>Reject</a></br>

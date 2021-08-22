@@ -13,6 +13,7 @@ use App\Mail\ConfirmMail;
 use Auth;
 use PDF;
 use Carbon\Carbon;
+use App\Mail\RequestRecommendMail;
 
 class ViewAVUBookingController extends Controller
 {
@@ -29,12 +30,14 @@ class ViewAVUBookingController extends Controller
         ->join('users','users.id','=','avubookings.Recommendation_From')
         ->join('audiovisualunits','audiovisualunits.AVUId','=','avubookings.AVUId')
         ->where('CheckInDate', $request->input('CheckInDate'))
+        ->orderBy('BookingId', 'DESC')
         ->paginate(10);
     }else{
         $avubookings =DB::table('avubookings')
         ->select('avubookings.*','users.name','audiovisualunits.Type')
         ->join('users','users.id','=','avubookings.Recommendation_From')
         ->join('audiovisualunits','audiovisualunits.AVUId','=','avubookings.AVUId')
+        ->orderBy('BookingId', 'DESC')
         ->paginate(10);
     }
         
@@ -161,7 +164,7 @@ class ViewAVUBookingController extends Controller
             ->join('audiovisualunits','audiovisualunits.AVUId','=','avubookings.AVUId')
             ->where(['avubookings.Recommendation_From' => $Recommendation_From])
             ->where('CheckInDate', $request->input('CheckInDate'))
-            ->orderBy('avubookings.BookingId')
+            ->orderBy('avubookings.BookingId', 'DESC')
             ->paginate(10);
 
         }else{
@@ -170,7 +173,7 @@ class ViewAVUBookingController extends Controller
             ->join('users','users.id','=','avubookings.Recommendation_From')
             ->join('audiovisualunits','audiovisualunits.AVUId','=','avubookings.AVUId')
             ->where(['avubookings.Recommendation_From' => $Recommendation_From])
-            ->orderBy('avubookings.BookingId')
+            ->orderBy('avubookings.BookingId','DESC')
             ->paginate(10);
         }
  
@@ -242,4 +245,49 @@ class ViewAVUBookingController extends Controller
                         
                         return back()->with('success', 'Updated Successfuly!');
                         }
+
+                        public function showavudean($id) {
+
+                            $users =DB::table('avubookings')
+                            ->select('avubookings.*','users.*','audiovisualunits.Type')
+                            ->join('users','users.id','=','avubookings.GuestId')
+                            ->join('audiovisualunits','audiovisualunits.AVUId','=','avubookings.AVUId')
+                            ->where(['avubookings.BookingId' => $id])
+                            ->get();
+    
+                               
+                                return view('avudean_view',['users'=>$users]);
+                        }
+
+                        public function addheadcomment(Request $request,$BookingId) {
+          
+                            $HODComment = $request->input('HODComment');
+                            DB::update('update avubookings set HODComment=? where BookingId = ?',[$HODComment,$BookingId]);
+                            echo "Record updated successfully.
+                            ";
+                            echo 'Click Here to go back.';
+
+                            return back()->with('success', 'Message Sent Successfuly!');
+                            }
+
+                            public function getRecommendation(Request $request,$BookingId) {
+                                $data = $BookingId;
+                                $Status = 'Send to Recommendation';
+                                
+                
+                                DB::update('update avubookings set Status = ? where BookingId = ?',[$Status,$BookingId]);
+                                echo "Record updated successfully.
+                                ";
+                                echo 'Click Here to go back.';
+    
+                                $email =DB::table('avubookings')
+                                ->select('users.email')
+                                ->join('users','users.id','=','avubookings.Recommendation_From')
+                                ->where(['avubookings.BookingId' => $BookingId])
+                                ->get();
+    
+                               
+                                Mail::to($email)->send(new RequestRecommendMail($data));
+                                return back()->with('success', 'Message Sent Successfuly!');
+                                }
 }

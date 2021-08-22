@@ -25,12 +25,14 @@ class AdminAVUBookingController extends Controller
             ->join('users','users.id','=','avubookings.Recommendation_From')
             ->join('audiovisualunits','audiovisualunits.AVUId','=','avubookings.AVUId')
             ->where('CheckInDate', $request->input('CheckInDate'))
+            ->orderBy('BookingId', 'DESC')
             ->paginate(10);
         }else{
             $avubookings =DB::table('avubookings')
             ->select('avubookings.*','users.name','audiovisualunits.Type')
             ->join('users','users.id','=','avubookings.Recommendation_From')
             ->join('audiovisualunits','audiovisualunits.AVUId','=','avubookings.AVUId')
+            ->orderBy('BookingId', 'DESC')
             ->paginate(10);
         }
  

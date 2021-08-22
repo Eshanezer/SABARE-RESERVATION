@@ -21,9 +21,9 @@ class AdminAgriSBookingController extends Controller
     public function viewadminagribooking(Request $request) { 
       
         if($request->input('CheckInDate') != null){
-            $agrsbookings = agrsbooking::whereDate('CheckInDate', $request->input('CheckInDate'))->paginate(10);
+            $agrsbookings = agrsbooking::whereDate('CheckInDate', $request->input('CheckInDate'))->orderBy('BookingId', 'DESC')->paginate(10);
         }else{
-            $agrsbookings = agrsbooking::paginate(10);
+            $agrsbookings = agrsbooking::orderBy('BookingId', 'DESC')->paginate(10);
         }
 
         return view('viewadminagribooking',['agrsbookings'=>$agrsbookings]); 
@@ -73,12 +73,11 @@ class AdminAgriSBookingController extends Controller
                 //show selected agri farm details
                 public function showaf($id) {
 
-                    $users =DB::table('agrsbookings')
-                            ->select('agrsbookings.*','users.name')
-                            ->join('users','users.id','=','agrsbookings.Recommendation_From')
+                            $users =DB::table('agrsbookings')
+                            ->select('agrsbookings.*','users.*')
+                            ->join('users','users.id','=','agrsbookings.GuestId')
                             ->where(['agrsbookings.BookingId' => $id])
                             ->get();
-
                         //$users = DB::select('select * from agrsbookings where BookingId = ?',[$id]);
                     return view('af_adminview',['users'=>$users]);
                 }

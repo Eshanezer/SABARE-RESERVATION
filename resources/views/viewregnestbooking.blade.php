@@ -70,9 +70,9 @@
        
         <td>
         <a href = 'showregnest/{{ $nestbooking->BookingId }}'>View</a></br>
-        <a href = 'nestregconfirm/{{ $nestbooking->BookingId }}'>Approve</a></br>
+        <!-- <a href = 'nestregconfirm/{{ $nestbooking->BookingId }}'>Approve</a></br>
         <a href = 'nestregnotconfirm/{{ $nestbooking->BookingId }}'>Reject</a>
-       
+        -->
         </td>
        
        

@@ -70,6 +70,7 @@
                         {{Form::select('BookingType', ['Resource Person' => 'Yes', ' SUSL Staff' => 'No'], null, ['placeholder' => 'Please select ...','class'=>'form-control'])}}
                         
                         </div>
+
                         <div class="form-group">
                         {{Form::label('Description', 'Description') }}
                         {{Form::textarea('Description', '',['class'=>'form-control','placeholder'=>'Description'])}}
@@ -77,15 +78,15 @@
                         <div class="form-group">
                         
                         <div class="form-group ">
-                            {!! Form::label('Request Recommendation from')!!}
+                            {!! Form::label('Dean/HOD')!!}
                             {!! Form::select('Recommendation_from', $select, null, ['class'=>'form-control']) !!}
                         </div>
 
-                        <div class="form-group">
+                        <!-- <div class="form-group">
                         {{Form::label('VCApproval', 'Request VC Approval') }}
                         {{Form::select('VCApproval', [1 => 'Yes', 0 => 'No'], null, ['placeholder' => 'Please select ...','class'=>'form-control'])}}
                         
-                        </div>
+                        </div> -->
 
                         </br>
                         {{Form::button('Submit', ['class'=>'btn btn-primary', 'v-on:click'=>'formSubmit'])}}

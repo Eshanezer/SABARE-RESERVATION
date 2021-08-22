@@ -116,15 +116,15 @@
 
  
                     <div class="form-group" v-if="booking_type === `Resource Person` || booking_type === `SUSL Staff`">
-                    {!! Form::label('Request Recommendation from')!!}
+                    {!! Form::label('Dean/HOD')!!}
                     {!! Form::select('Recommendation_from', $select, null, ['class'=>'form-control', 'placeholder' => 'Please select ...']) !!}
                     </div>
 
-                    <div class="form-group" v-if="booking_type === `Resource Person` || booking_type === `SUSL Staff`">
+                    <!-- <div class="form-group" v-if="booking_type === `Resource Person` || booking_type === `SUSL Staff`">
                     {{Form::label('VCApproval', 'Request VC Approval') }}
                     {{Form::select('VCApproval', [1 => 'Yes', 0 => 'No'], null, ['placeholder' => 'Please select ...'])}}
 
-                    </div>
+                    </div> -->
                                
 
                   

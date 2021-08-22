@@ -7,13 +7,12 @@
     <h5 class="card-header">Details</h5>
     <div class="card-body">
      <div class="mb-4">
-        <form action = "/show/<?php echo $users[0]->BookingId; ?>" method = "post">
+        <form action = "/showafdean/<?php echo $users[0]->BookingId; ?>" method = "post">
         <input type = "hidden" name = "_token" value = "<?php echo csrf_token(); ?>">
         <table>
         <tr>
         <td>
         Booking Id
-        
         </td>
         <td>
         <input  class="form-control" type = 'text' name = 'BookingId'
@@ -52,15 +51,41 @@
         value = '<?php echo$users[0]->CheckInDate; ?>' readonly="readonly"/>
         </td>
         </tr>
-     
         <tr>
-        <td>Number Of Guest</td>
+        <td>Check Out Date</td>
         <td>
-        <input class="form-control" type = 'text' name = 'NoOfGuest'
-        value = '<?php echo$users[0]->NoOfGuest; ?>' readonly="readonly"/>
+        <input class="form-control" type = 'text' name = 'CheckOutDate'
+        value = '<?php echo$users[0]->CheckOutDate; ?>' readonly="readonly"/>
         </td>
         </tr>
-        
+        <tr>
+        <td>Number Of Adults</td>
+        <td>
+        <input class="form-control" type = 'text' name = 'NoOfAdults'
+        value = '<?php echo$users[0]->NoOfAdults; ?>' readonly="readonly"/>
+        </td>
+        </tr>
+        <tr>
+        <td>Number Of Children</td>
+        <td>
+        <input class="form-control" type = 'text' name = 'NoOfChildren'
+        value = '<?php echo$users[0]->NoOfChildren; ?>' readonly="readonly"/>
+        </td>
+        </tr>
+        <tr>
+        <td>Number Of Units</td>
+        <td>
+        <input class="form-control" type = 'text' name = 'NoOfUnits'
+        value = '<?php echo$users[0]->NoOfUnits; ?>' readonly="readonly"/>
+        </td>
+        </tr>
+        <tr>
+        <td>Guest Type</td>
+        <td>
+        <input class="form-control" type = 'text' name = 'BookingType'
+        value = '<?php echo$users[0]->BookingType; ?>' readonly="readonly"/>
+        </td>
+        </tr>
         <tr>
         <td>Description</td>
         <td>
@@ -68,7 +93,8 @@
         value = '<?php echo$users[0]->Description; ?>' readonly="readonly"/>
         </td>
         </tr>
-       
+      
+    
         <td>Status</td>
         <td>
         <input class="form-control" type = 'text' name = 'Status'
@@ -77,27 +103,17 @@
         </tr>
         
         <tr>
-        <td>Comment By HOD/Dean</td>
+        <td>Comment</td>
         <td>
         <input class="form-control" type = 'textarea' name = 'HODComment'
-        value = '<?php echo$users[0]->HODComment; ?>' readonly="readonly"/>
+        value = '<?php echo$users[0]->	HODComment; ?>'/>
         </td>
         </tr>
-       
+        
         <tr>
-        <td>Comment By VC</td>
-        <td>
-        <input class="form-control" type = 'textarea' name = 'VCComment'
-        value = '<?php echo$users[0]->	VCComment; ?>' readonly="readonly"/>
-        </td>
-        </tr>
-
-
-         <tr>
-        <td>Comment By Registrar </td>
-        <td>
-        <input class="form-control" type = 'textarea' name = 'RegComment'
-        value = '<?php echo$users[0]->	RegComment; ?>'readonly="readonly"/>
+        <td colspan = '2'>
+        </br>
+        <input  type = 'submit' value = "Save Comment" />
         </td>
         </tr>
         </table>

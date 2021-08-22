@@ -57,6 +57,8 @@
         <td>{{ $agridbooking->Status }}</td>
        
         <td>
+        
+        <a href = 'showafddean/{{ $agridbooking->BookingId }}'>View</a></br>
         <a href = 'afdrecommend/{{ $agridbooking->BookingId }}'>Recommend</a> </br>
         <a href = 'afdnotrecommend/{{ $agridbooking->BookingId }}'>Reject</a>
         </td>

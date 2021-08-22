@@ -26,7 +26,24 @@
         value = '<?php echo$users[0]->GuestName; ?>'readonly="readonly"/>
         </td>
         </tr>
-       
+        <td>Guest NIC</td>
+        <td>
+        <input class="form-control" type = 'text' name = 'NIC'
+        value = '<?php echo$users[0]->NIC; ?>'readonly="readonly"/>
+        </td>
+        </tr>
+        <td>Guest Phone Number</td>
+        <td>
+        <input class="form-control" type = 'text' name = 'ContactNo'
+        value = '<?php echo$users[0]->ContactNo; ?>'readonly="readonly"/>
+        </td>
+        </tr>
+        <td>Guest Address</td>
+        <td>
+        <input class="form-control" type = 'text' name = 'Address'
+        value = '<?php echo$users[0]->Address; ?>'readonly="readonly"/>
+        </td>
+        </tr>
         <tr>
         <td>Check In Date</td>
         <td>
@@ -76,30 +93,8 @@
         value = '<?php echo$users[0]->Description; ?>' readonly="readonly"/>
         </td>
         </tr>
-        
-        <tr>
-        <td>Recommendation From</td>
-        <td>
-        <input class="form-control" type = 'textarea' name = 'name'
-        value = '<?php echo$users[0]->name; ?>' readonly="readonly"/>
-        </td>
-        </tr>
-        
-        <tr>
-        <td>Request VC Approval</td>
-        @if( $users[0]->VCApproval == 1)
-        <td>
-        <label class="form-control" type = 'text' name = 'VCApproval'
-         readonly="readonly"> Request Approval </label>
-        </td>
-        @else
-        <td>
-        <label class="form-control" type = 'text' name = 'VCApproval'
-         readonly="readonly"> Not Request </label>
-        </td>
-        @endif
-        
-        </tr>
+      
+    
         <td>Status</td>
         <td>
         <input class="form-control" type = 'text' name = 'Status'
@@ -107,7 +102,20 @@
         </td>
         </tr>
         
-      
+        <tr>
+        <td>Comment</td>
+        <td>
+        <input class="form-control" type = 'textarea' name = 'VCComment'
+        value = '<?php echo$users[0]->	VCComment; ?>'/>
+        </td>
+        </tr>
+        
+        <tr>
+        <td colspan = '2'>
+        </br>
+        <input  type = 'submit' value = "Save Comment" />
+        </td>
+        </tr>
         </table>
         </form>
         

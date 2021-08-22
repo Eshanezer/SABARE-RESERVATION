@@ -29,12 +29,14 @@ class ViewNestBookingController extends Controller
             ->select('nestbookings.*','nests.Type')
             ->join('nests','nests.NestId','=','nestbookings.NestId')
             ->where('CheckInDate', $request->input('CheckInDate'))
+            ->orderBy('BookingId', 'DESC')
             ->paginate(10);
                 
         }else{
             $nestbookings =DB::table('nestbookings')
             ->select('nestbookings.*','nests.Type')
             ->join('nests','nests.NestId','=','nestbookings.NestId')
+            ->orderBy('BookingId', 'DESC')
             ->paginate(10);
                 
         }
@@ -141,12 +143,14 @@ class ViewNestBookingController extends Controller
             ->select('nestbookings.*','nests.Type')
             ->join('nests','nests.NestId','=','nestbookings.NestId')
             ->where('CheckInDate', $request->input('CheckInDate'))
+            ->orderBy('BookingId', 'DESC')
             ->paginate(10);
                 
         }else{
             $nestbookings =DB::table('nestbookings')
             ->select('nestbookings.*','nests.Type')
             ->join('nests','nests.NestId','=','nestbookings.NestId')
+            ->orderBy('BookingId', 'DESC')
             ->paginate(10);
                 
         }
@@ -163,12 +167,14 @@ class ViewNestBookingController extends Controller
             ->select('nestbookings.*','nests.Type')
             ->join('nests','nests.NestId','=','nestbookings.NestId')
             ->where('CheckInDate', $request->input('CheckInDate'))
+            ->orderBy('BookingId', 'DESC')
             ->paginate(10);
                 
         }else{
             $nestbookings =DB::table('nestbookings')
             ->select('nestbookings.*','nests.Type')
             ->join('nests','nests.NestId','=','nestbookings.NestId')
+            ->orderBy('BookingId', 'DESC')
             ->paginate(10);
                 
         }
@@ -201,6 +207,7 @@ class ViewNestBookingController extends Controller
             ->join('nests','nests.NestId','=','nestbookings.NestId')
             ->where(['nestbookings.Recommendation_From' => $Recommendation_From])
             ->where('CheckInDate', $request->input('CheckInDate'))
+            ->orderBy('BookingId', 'DESC')
             ->paginate(10);
                 
         }else{
@@ -208,6 +215,7 @@ class ViewNestBookingController extends Controller
             ->select('nestbookings.*','nests.Type')
             ->join('nests','nests.NestId','=','nestbookings.NestId')
             ->where(['nestbookings.Recommendation_From' => $Recommendation_From])
+            ->orderBy('BookingId', 'DESC')
             ->paginate(10);
                 
         }
@@ -383,8 +391,8 @@ class ViewNestBookingController extends Controller
                             public function shownestvc($id) {
 
                                 $users =DB::table('nestbookings')
-                                ->select('nestbookings.*','users.name','nests.Type')
-                                ->join('users','users.id','=','nestbookings.Recommendation_From')
+                                ->select('nestbookings.*','users.*','nests.Type')
+                                ->join('users','users.id','=','nestbookings.GuestId')
                                 ->join('nests','nests.NestId','=','nestbookings.NestId')
                                 ->where(['nestbookings.BookingId' => $id])
                                 ->get();
@@ -396,8 +404,8 @@ class ViewNestBookingController extends Controller
                            public function shownestdean($id) {
 
                                 $users =DB::table('nestbookings')
-                                ->select('nestbookings.*','users.name','nests.Type')
-                                ->join('users','users.id','=','nestbookings.Recommendation_From')
+                                ->select('nestbookings.*','users.*','nests.Type')
+                                ->join('users','users.id','=','nestbookings.GuestId')
                                 ->join('nests','nests.NestId','=','nestbookings.NestId')
                                 ->where(['nestbookings.BookingId' => $id])
                                 ->get();
@@ -409,8 +417,8 @@ class ViewNestBookingController extends Controller
                         public function shownest($id) {
 
                             $users =DB::table('nestbookings')
-                            ->select('nestbookings.*','users.name','users.ContactNo','nests.Type')
-                            ->join('users','users.id','=','nestbookings.Recommendation_From')
+                            ->select('nestbookings.*','users.*','nests.Type')
+                            ->join('users','users.id','=','nestbookings.GuestId')
                             ->join('nests','nests.NestId','=','nestbookings.NestId')
                             ->where(['nestbookings.BookingId' => $id])
                             ->get();
@@ -422,8 +430,8 @@ class ViewNestBookingController extends Controller
                             public function showregnest($id) {
 
                                 $users =DB::table('nestbookings')
-                                ->select('nestbookings.*','users.name','nests.Type')
-                                ->join('users','users.id','=','nestbookings.Recommendation_From')
+                                ->select('nestbookings.*','users.*','nests.Type')
+                                ->join('users','users.id','=','nestbookings.GuestId')
                                 ->join('nests','nests.NestId','=','nestbookings.NestId')
                                 ->where(['nestbookings.BookingId' => $id])
                                 ->get();

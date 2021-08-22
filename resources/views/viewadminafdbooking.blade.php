@@ -37,7 +37,7 @@
         <td>EndTime</td>
         <!-- <td>Description</td> -->
         <td>Recommendation from</td>
-        <td>Request VC Approval</td>
+        <!-- <td>Request VC Approval</td> -->
         <td>Status</td>
         <td>Option</td>
         
@@ -55,17 +55,17 @@
         <td>{{ $agridbooking->EndTime }}</td>
         <!-- <td>{{ $agridbooking->Description }}</td> -->
         <td>{{ $agridbooking->name }}</td>
-        @if($agridbooking->VCApproval == 0)
+        <!-- @if($agridbooking->VCApproval == 0)
         <td>Not Request</td>
         @else
         <td>Requested</td>
-        @endif
+        @endif -->
         <td>{{ $agridbooking->Status }}</td>
        
         <td>
         <a href = 'showadmin/{{ $agridbooking->BookingId }}'>View</a></br>
-        <a href = 'afdadminconfirm/{{ $agridbooking->BookingId }}'>Confirm</a></br>
-        <a href = 'afdadminnotconfirm/{{ $agridbooking->BookingId }}'>Reject</a>
+        <!-- <a href = 'afdadminconfirm/{{ $agridbooking->BookingId }}'>Confirm</a></br>
+        <a href = 'afdadminnotconfirm/{{ $agridbooking->BookingId }}'>Reject</a> -->
         </td>
        
     </tr>

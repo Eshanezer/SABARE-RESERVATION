@@ -30,11 +30,13 @@ class ViewHrBookingController extends Controller
             ->select('hrbookings.*','holidayresorts.Type')
             ->join('holidayresorts','holidayresorts.HolodayResortId','=','hrbookings.HolodayResortId')
             ->where('CheckInDate', $request->input('CheckInDate'))
+            ->orderBy('BookingId', 'DESC')
             ->paginate(10);
         }else{
             $hrbookings =DB::table('hrbookings')
             ->select('hrbookings.*','holidayresorts.Type')
             ->join('holidayresorts','holidayresorts.HolodayResortId','=','hrbookings.HolodayResortId')
+            ->orderBy('BookingId', 'DESC')
             ->paginate(10);
           
         }
@@ -136,11 +138,13 @@ class ViewHrBookingController extends Controller
             ->select('hrbookings.*','holidayresorts.Type')
             ->join('holidayresorts','holidayresorts.HolodayResortId','=','hrbookings.HolodayResortId')
             ->where('CheckInDate', $request->input('CheckInDate'))
+            ->orderBy('BookingId', 'DESC')
             ->paginate(10);
         }else{
             $hrbookings =DB::table('hrbookings')
             ->select('hrbookings.*','holidayresorts.Type')
             ->join('holidayresorts','holidayresorts.HolodayResortId','=','hrbookings.HolodayResortId')
+            ->orderBy('BookingId', 'DESC')
             ->paginate(10);
           
         }
@@ -158,11 +162,13 @@ class ViewHrBookingController extends Controller
             ->select('hrbookings.*','holidayresorts.Type')
             ->join('holidayresorts','holidayresorts.HolodayResortId','=','hrbookings.HolodayResortId')
             ->where('CheckInDate', $request->input('CheckInDate'))
+            ->orderBy('BookingId', 'DESC')
             ->paginate(10);
         }else{
             $hrbookings =DB::table('hrbookings')
             ->select('hrbookings.*','holidayresorts.Type')
             ->join('holidayresorts','holidayresorts.HolodayResortId','=','hrbookings.HolodayResortId')
+            ->orderBy('BookingId', 'DESC')
             ->paginate(10);
           
         }
@@ -179,11 +185,13 @@ class ViewHrBookingController extends Controller
             ->select('hrbookings.*','holidayresorts.Type')
             ->join('holidayresorts','holidayresorts.HolodayResortId','=','hrbookings.HolodayResortId')
             ->where('CheckInDate', $request->input('CheckInDate'))
+            ->orderBy('BookingId', 'DESC')
             ->paginate(10);
         }else{
             $hrbookings =DB::table('hrbookings')
             ->select('hrbookings.*','holidayresorts.Type')
             ->join('holidayresorts','holidayresorts.HolodayResortId','=','hrbookings.HolodayResortId')
+            ->orderBy('BookingId', 'DESC')
             ->paginate(10);
           
         }
@@ -203,14 +211,14 @@ class ViewHrBookingController extends Controller
             ->join('holidayresorts','holidayresorts.HolodayResortId','=','hrbookings.HolodayResortId')
             ->where('CheckInDate', $request->input('CheckInDate'))
             ->where(['hrbookings.Recommendation_From' => $Recommendation_From])
-            ->orderBy('hrbookings.BookingId')
+            ->orderBy('hrbookings.BookingId', 'DESC')
             ->paginate(10);
         }else{
             $hrbookings =DB::table('hrbookings')
             ->select('hrbookings.*','holidayresorts.Type')
             ->join('holidayresorts','holidayresorts.HolodayResortId','=','hrbookings.HolodayResortId')
             ->where(['hrbookings.Recommendation_From' => $Recommendation_From])
-            ->orderBy('hrbookings.BookingId')
+            ->orderBy('hrbookings.BookingId', 'DESC')
             ->paginate(10);
           
         }
@@ -354,8 +362,8 @@ class ViewHrBookingController extends Controller
                     public function showhrvc($id) {
 
                         $users =DB::table('hrbookings')
-                        ->select('hrbookings.*','users.name','holidayresorts.Type')
-                        ->join('users','users.id','=','hrbookings.Recommendation_From')
+                        ->select('hrbookings.*','users.*','holidayresorts.Type')
+                        ->join('users','users.id','=','hrbookings.GuestId')
                         ->join('holidayresorts','holidayresorts.HolodayResortId','=','hrbookings.HolodayResortId')
                         ->where(['hrbookings.BookingId' => $id])
                         ->get();
@@ -367,8 +375,8 @@ class ViewHrBookingController extends Controller
                       public function showhrdean($id) {
 
                         $users =DB::table('hrbookings')
-                        ->select('hrbookings.*','users.name','holidayresorts.Type')
-                        ->join('users','users.id','=','hrbookings.Recommendation_From')
+                        ->select('hrbookings.*','users.*','holidayresorts.Type')
+                        ->join('users','users.id','=','hrbookings.GuestId')
                         ->join('holidayresorts','holidayresorts.HolodayResortId','=','hrbookings.HolodayResortId')
                         ->where(['hrbookings.BookingId' => $id])
                         ->get();
@@ -380,8 +388,8 @@ class ViewHrBookingController extends Controller
                     public function showhr($id) {
 
                         $users =DB::table('hrbookings')
-                        ->select('hrbookings.*','users.name','holidayresorts.Type')
-                        ->join('users','users.id','=','hrbookings.Recommendation_From')
+                        ->select('hrbookings.*','users.*','holidayresorts.Type')
+                        ->join('users','users.id','=','hrbookings.GuestId')
                         ->join('holidayresorts','holidayresorts.HolodayResortId','=','hrbookings.HolodayResortId')
                         ->where(['hrbookings.BookingId' => $id])
                         ->get();
@@ -392,8 +400,8 @@ class ViewHrBookingController extends Controller
                         public function showreghr($id) {
 
                             $users =DB::table('hrbookings')
-                            ->select('hrbookings.*','users.name','holidayresorts.Type')
-                            ->join('users','users.id','=','hrbookings.Recommendation_From')
+                            ->select('hrbookings.*','users.*','holidayresorts.Type')
+                            ->join('users','users.id','=','hrbookings.GuestId')
                             ->join('holidayresorts','holidayresorts.HolodayResortId','=','hrbookings.HolodayResortId')
                             ->where(['hrbookings.BookingId' => $id])
                             ->get();

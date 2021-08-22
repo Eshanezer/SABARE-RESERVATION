@@ -9,7 +9,7 @@ use Illuminate\Support\Facades\Mail;
 use App\Mail\SendMail;
 use App\Models\User;
 use Auth;
-use App\Mail\RequestRecommendMail;
+use App\Mail\agriemail;
 use DB;
 
 
@@ -48,7 +48,6 @@ class AgriFarmController extends Controller
             'NoOfChildren'=>'required|numeric|min:0',
             'NoOfUnits'=>'required|numeric|min:1',
             'Description'=>'required',   
-            'VCApproval'=>"required_if:BookingType,==,Resource Person,SUSL Staff",
             'Recommendation_from'=>"required_if:BookingType,==,Resource Person,SUSL Staff",
         ], 
         [
@@ -84,16 +83,17 @@ class AgriFarmController extends Controller
               $agrsbooking-> NoOfChildren = $request->input('NoOfChildren');
               $agrsbooking-> NoOfUnits = $request->input('NoOfUnits');
               $agrsbooking-> Description = $request->input('Description');
+              $agrsbooking-> Status = 'Request for Booking';
               
               if($request->input('BookingType') == "Resource Person" || $request->input('BookingType') == "SUSL Staff"){
                 $agrsbooking-> Recommendation_from = $request->input('Recommendation_from');
-                $agrsbooking-> VCApproval = $request->input('VCApproval');
-                $agrsbooking-> Status = 'Send to Recommendation';
+                // $agrsbooking-> VCApproval = $request->input('VCApproval');
+                
               }
               else{
                 $agrsbooking-> Recommendation_from = 13;
-                $agrsbooking-> VCApproval = 0;
-                $agrsbooking-> Status = 'Send to confermation';
+                //$agrsbooking-> VCApproval = 0;
+              
               }
               
               $agrsbooking-> GuestId = Auth::user()->id;
@@ -111,11 +111,11 @@ class AgriFarmController extends Controller
               );
       
 
-              $Recommendation_From = $request->input('Recommendation_from');
-              $email = DB::select('select email from users where id = ?', [$Recommendation_From]);
+              //$Recommendation_From = $request->input('Recommendation_from');
+              $email = DB::select('select email from users where id = 11');
 
                     
-                    Mail::to($email)->send(new RequestRecommendMail($data));
+                    Mail::to($email)->send(new agriemail($data));
                     return back()->with('success', 'Request Sent Successfuly!');
              }
       

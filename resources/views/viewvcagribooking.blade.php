@@ -67,19 +67,13 @@
         <td>{{ $agrsbooking->Status }}</td>
        
 
-        @if($agrsbooking->VCApproval == 0)
-        <td>
-        <a href = 'showafsvc/{{ $agrsbooking->BookingId }}'>View</a></br>
-       
-        </td>
-        @else
         <td>
         <a href = 'showafsvc/{{ $agrsbooking->BookingId }}'>View</a></br>
         <a href = 'afsapprove/{{ $agrsbooking->BookingId }}'>Approve</a></br>
         <a href = 'afsnotapprove/{{ $agrsbooking->BookingId }}'>Reject</a>
        
         </td>
-        @endif
+   
         
        
        
