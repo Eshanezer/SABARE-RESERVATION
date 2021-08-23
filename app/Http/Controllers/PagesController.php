@@ -70,15 +70,15 @@ class PagesController extends Controller
     
             if($request->input('HolodayResortId') == 1){
     
-                $CheckInDate = hrbooking::whereDate('CheckInDate', '<=', $request->input('CheckInDate'))->whereDate('CheckOutDate', '>=', $request->input('CheckInDate'))->where('Status', 'Confirmed')->get();
-                $CheckInDate2 = hrbooking::whereDate('CheckInDate', '>=', $request->input('CheckInDate'))->whereDate('CheckInDate', '<=', $request->input('CheckOutDate'))->where('Status', 'Confirmed')->get();
+                $CheckInDate = hrbooking::whereDate('CheckInDate', '<=', $request->input('CheckInDate'))->whereDate('CheckOutDate', '>=', $request->input('CheckInDate'))->where('HolodayResortId', '1')->where('Status', 'Confirmed')->get();
+                $CheckInDate2 = hrbooking::whereDate('CheckInDate', '>=', $request->input('CheckInDate'))->whereDate('CheckInDate', '<=', $request->input('CheckOutDate'))->where('HolodayResortId', '1')->where('Status', 'Confirmed')->get();
             
     
                 $check_cndition1 = $CheckInDate->sum('NoOfUnits') + $request->input('NoOfUnits');
                 $check_cndition2 = $CheckInDate2->sum('NoOfUnits') + $request->input('NoOfUnits');
                 $check_cndition3 = ($CheckInDate->sum('NoOfUnits') + $CheckInDate2->sum('NoOfUnits')) + $request->input('NoOfUnits');
                 
-                if( $check_cndition1 > 3 || $check_cndition2 > 3 || $check_cndition3 > 3){
+                if( $check_cndition1 > 7 || $check_cndition2 > 7 || $check_cndition3 > 7){
                      return redirect()->back()->with(session()->flash('alert-danger', 'Sorry already booked!'));
                  }else{
 
@@ -96,15 +96,15 @@ class PagesController extends Controller
 
             if($request->input('HolodayResortId') == 2){
         
-                $CheckInDate = hrbooking::whereDate('CheckInDate', '<=', $request->input('CheckInDate'))->whereDate('CheckOutDate', '>=', $request->input('CheckInDate'))->where('Status', 'Confirmed')->get();
-                $CheckInDate2 = hrbooking::whereDate('CheckInDate', '>=', $request->input('CheckInDate'))->whereDate('CheckInDate', '<=', $request->input('CheckOutDate'))->where('Status', 'Confirmed')->get();
+                $CheckInDate = hrbooking::whereDate('CheckInDate', '<=', $request->input('CheckInDate'))->whereDate('CheckOutDate', '>=', $request->input('CheckInDate'))->where('HolodayResortId', '2')->where('Status', 'Confirmed')->get();
+                $CheckInDate2 = hrbooking::whereDate('CheckInDate', '>=', $request->input('CheckInDate'))->whereDate('CheckInDate', '<=', $request->input('CheckOutDate'))->where('HolodayResortId', '2')->where('Status', 'Confirmed')->get();
             
 
                 $check_cndition1 = $CheckInDate->sum('NoOfUnits') + $request->input('NoOfUnits');
                 $check_cndition2 = $CheckInDate2->sum('NoOfUnits') + $request->input('NoOfUnits');
                 $check_cndition3 = ($CheckInDate->sum('NoOfUnits') + $CheckInDate2->sum('NoOfUnits')) + $request->input('NoOfUnits');
                 
-                if( $check_cndition1 > 12 || $check_cndition2 > 12 || $check_cndition3 >12){
+                if( $check_cndition1 > 28 || $check_cndition2 > 28 || $check_cndition3 >28){
                     return redirect()->back()->with(session()->flash('alert-danger', 'Sorry already booked!'));
                 }else{
                 

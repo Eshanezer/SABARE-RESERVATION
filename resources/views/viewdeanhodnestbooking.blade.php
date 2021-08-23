@@ -56,23 +56,30 @@
         <td>{{ $nestbooking->Type    }}</td>
         <td>{{ $nestbooking->CheckInDate }}</td>
         <td>{{ $nestbooking->CheckOutDate }}</td>
-        <!-- <td>{{ $nestbooking->NoOfAdults }}</td>
+         {{-- <td>{{ $nestbooking->NoOfAdults }}</td>
         <td>{{ $nestbooking->NoOfChildren  }}</td>
-        <td>{{ $nestbooking->NoOfUnits }}</td> -->
+        <td>{{ $nestbooking->NoOfUnits }}</td>  --}}
         <td>{{ $nestbooking->BookingType }}</td>
-        <!-- <td>{{ $nestbooking->Description }}</td>
-        @if($nestbooking->VCApproval == 0)
+         {{-- <td>{{ $nestbooking->Description }}</td> --}}
+        {{-- @if($nestbooking->VCApproval == 0)
         <td>Not Request</a></td>
         @else
         <td>Requested</a></td>
-        @endif -->
+        @endif --}}
         
         <td>{{ $nestbooking->Status }}</td>
        
         <td>
         <a href = 'shownestdean/{{ $nestbooking->BookingId }}'>View</a></br>
+
+        @if($nestbooking->Status == 'Send to Recommendation')
         <a href = 'nestrecommend/{{ $nestbooking->BookingId }}'>Recommend</a> </br>
         <a href = 'nestnotrecommend/{{ $nestbooking->BookingId }}'>Reject</a>
+        @else
+        
+        @endif
+       
+       
         </td>
        
     </tr>

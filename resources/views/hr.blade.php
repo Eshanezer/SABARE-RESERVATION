@@ -17,7 +17,7 @@
 </br>
    <p style="margin-left: 10px;">
    Holiday Resort is the main circuit bungalows of the Sabaragamuwa University of Sri Lanka. The university provides accommodation 
-   facility to the guest of the university by using these holiday resort bungalows. Mainly there are four (4) circuit bungalows 
+   facility to the guest of the university by using these holiday resort bungalows. Mainly there are seven (7) circuit bungalows 
    named as C1-2, C1-3, C1-8 and C2-1. Each bungalow consist with 3 rooms. One master bedroom with attached bathroom 
    (Accommodate to 2 adults and one child) and 2 bedrooms with shared bathroom and one single room consist with two single beds.
    </p>
@@ -164,20 +164,20 @@
 
                 checkUnitsCount(){
             
-                    if(this.room_type == 1 &&  this.no_of_units > 3){
+                    if(this.room_type == 1 &&  this.no_of_units > 7){
                         this.no_of_units = 0;
-                        alert('Sorry, You can not book more than 3 units.')
+                        alert('Sorry, You can not book more than 7 units.')
                     }
-                    if(this.room_type == 2 &&  this.no_of_units > 12){
+                    if(this.room_type == 2 &&  this.no_of_units > 28){
                         this.no_of_units = 0;
-                        alert('Sorry, You can not book more than 12 units.')
+                        alert('Sorry, You can not book more than 28 units.')
                     }
                    
                 },
 
                 formSubmit(){
                     if(this.room_type == 1){
-                        if(this.no_of_adults > 2*this.no_of_units || this.no_of_children > 2*this.no_of_units){
+                        if(this.no_of_adults > 2*this.no_of_units || this.no_of_children > 1*this.no_of_units){
                             alert("Sorry, the maximum number of people that can be accommodated has been exceeded. Please check the number of units and number of guests");
                         }else{
                             $("#booking_form").submit();

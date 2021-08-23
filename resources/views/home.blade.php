@@ -117,13 +117,13 @@
 
                 checkUnitsCount(){
             
-                    if(this.room_type_hr == 1 &&  this.no_of_units > 3){
+                    if(this.room_type_hr == 1 &&  this.no_of_units > 7){
                         this.no_of_units = 0;
-                        alert('Sorry, You can not book more than 3 units.')
+                        alert('Sorry, You can not book more than 7 units.')
                     }
-                    if(this.room_type_hr == 2 &&  this.no_of_units > 12){
+                    if(this.room_type_hr == 2 &&  this.no_of_units > 28){
                         this.no_of_units = 0;
-                        alert('Sorry, You can not book more than 12 units.')
+                        alert('Sorry, You can not book more than 28 units.')
                     }
 
                     if(this.room_type_nest == 1 &&  this.no_of_units > 1){
@@ -145,7 +145,7 @@
                 formSubmit(){
             
                     if(this.room_type_hr == 1){
-                        if(this.no_of_adults > 2*this.no_of_units || this.no_of_children > 2*this.no_of_units){
+                        if(this.no_of_adults > 2*this.no_of_units || this.no_of_children > 1*this.no_of_units){
                             alert("Sorry, the maximum number of people that can be accommodated has been exceeded.");
                         }else{
                             $("#check_form").submit();
