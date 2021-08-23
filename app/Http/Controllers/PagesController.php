@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Session;
 
 use App\Models\holidayresort;
 use App\Models\hrbooking;
@@ -43,6 +44,9 @@ class PagesController extends Controller
     
 
     public function checkavailable(Request $request){
+
+        Session::put('CheckAvailabilityRequest', $request->input());
+
         if($request->input('property') == 'Holiday Resort'){
                
             
@@ -117,8 +121,7 @@ class PagesController extends Controller
 
 
 
-    if($request->input('property') == 'NEST'){
-               
+    if($request->input('property') == 'NEST'){           
             
         $this->validate($request,[
             'CheckInDate'=>'required|date|after:yesterday',
@@ -244,7 +247,8 @@ if($request->input('property') == 'Agri Farm Dining Room'){
     $this->validate($request,[
         
         'CheckInDate'=>'required|date|after:yesterday',
-        'StartTime'=>'required|after:CurrentTime',
+        'StartTime'=>'exclude_if:CheckInDate,today|required|after:CurrentTime',
+        //'StartTime'=>'required|after:CurrentTime',
         'EndTime'=>'required|after:StartTime',
     ],
     [

@@ -11,6 +11,8 @@ use Auth;
 use Illuminate\Support\Facades\Mail;
 use App\Mail\agriemail;
 use DB;
+use Session;
+use Illuminate\Support\Facades\Input;
 
 //to handle Agri dinning booking details 
 class AgriDinningController extends Controller
@@ -19,28 +21,51 @@ class AgriDinningController extends Controller
 
     public function getdinning(){
        
-        
+        $sessionData = [];
+
+        // Check the availability session exist or not
+        if(Session::has('CheckAvailabilityRequest')){
+            $sessionData = (object)Session::get('CheckAvailabilityRequest');
+            //dd(Session::all());
+            if($sessionData->property !== "Agri Farm Dining Room"){
+                Session::forget('CheckAvailabilityRequest');
+                $sessionData=NULL;
+            }
+        }
+
         $afd = agrifarmdining::all();
 
-        return view('afd')->with('afd',$afd);
+        $afddetail = DB::select('select * from agrifarmstays');
+        $afdfill = [];
+        foreach($afddetail as $n){
+            $afdfill[$n->AgriFarmStayId] = $n->Type;
+        }
+        $Users = User::where('roleNo','>=', 11)->get();
+        $select = [];
+        foreach($Users as $User){
+            $select[$User->id] = $User->name;
+        }
+
+       // return view('afd')->with('afd',$afd);
+        return view('afd', compact('select','afdfill','afd','sessionData'));
     }
 
 
   
 
 
-    public function dropDownShow()
-{
+//     public function dropDownShow()
+// {
   
-        //$Users = User::all();
-        $Users = User::where('roleNo','>=', 11)->get();
-        $select = [];
-        foreach($Users as $User){
-            $select[$User->id] = $User->name;
-        }
-        return view('afd', compact('select'));
+//         //$Users = User::all();
+//         $Users = User::where('roleNo','>=', 11)->get();
+//         $select = [];
+//         foreach($Users as $User){
+//             $select[$User->id] = $User->name;
+//         }
+//         return view('afd', compact('select'));
       
-}
+// }
 
 
 

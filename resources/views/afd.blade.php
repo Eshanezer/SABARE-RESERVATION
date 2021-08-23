@@ -29,25 +29,29 @@
             <div class="card-body">
             <div class="mb-3">
 
-                        {!! Form::open(['url' => 'afd/submit']) !!}
-
                         
+
+                        {!! Form::model($sessionData, array('route' => array('afd_submit'), 'method' => 'POST', 'id' =>'booking_form')) !!}
+
                         
 
                         <div class="form-group">
                         {{Form::label('CheckInDate', 'Booking Date') }}
-                        {{ Form::date('CheckInDate', new \DateTime(), ['class' => 'form-control']) }}
+                        {{ Form::date('CheckInDate', !empty($sessionData) ? Input::old('CheckInDate') : new \DateTime() , ['class' => 'form-control']) }}
+
                        
                         </div>
 
                         <div class="form-group">
                         {{Form::label('StartTime', 'Start Time') }}
-                        {{ Form::time('StartTime', \Carbon\Carbon::now(),['class'=>'form-control']) }}
+                        {{ Form::time('StartTime', !empty($sessionData) ? Input::old('StartTime') : \Carbon\Carbon::now(),['class'=>'form-control']) }}
+                       
                        
                         </div>
                         <div class="form-group">
                         {{Form::label('EndTime', 'End Time') }}
-                        {{ Form::time('EndTime', \Carbon\Carbon::now(),['class'=>'form-control']) }}
+                        {{ Form::time('EndTime', !empty($sessionData) ? Input::old('EndTime') : \Carbon\Carbon::now(),['class'=>'form-control']) }}
+                       
                         </div>
 
                         <div hidden class="form-group">

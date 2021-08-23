@@ -11,11 +11,26 @@ use App\Models\User;
 use Illuminate\Support\Facades\Mail;
 use App\Mail\hremail;
 use DB;
+use Session;
+use Illuminate\Support\Facades\Input;
 
 //to handle holiday resort details
 class HrController extends Controller
 {
     public function gethr(){
+
+        $sessionData = [];
+
+        // Check the availability session exist or not
+        if(Session::has('CheckAvailabilityRequest')){
+            $sessionData = (object)Session::get('CheckAvailabilityRequest');
+            //dd(Session::all());
+
+            if($sessionData->property !== "Holiday Resort"){
+                Session::forget('CheckAvailabilityRequest');
+                $sessionData=NULL;
+            }
+        }
 
         $hr = holidayresort::all();
         $hrdetail = DB::select('select * from holidayresorts');
@@ -29,10 +44,7 @@ class HrController extends Controller
             $select[$User->id] = $User->name;
         }
 
-        
-        
-        
-        return view('hr', compact('select','hrfill','hr'));
+        return view('hr', compact('select','hrfill','hr', 'sessionData'));
 
         
     }

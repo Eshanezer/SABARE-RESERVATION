@@ -11,34 +11,59 @@ use Illuminate\Support\Facades\Mail;
 use App\Mail\avuemail;
 use DB;
 use Carbon\Carbon;
+use Session;
+use Illuminate\Support\Facades\Input;
 
 //to hanlde audio visual unit details
 class AVUController extends Controller
 {
     public function getavu(){
-       
+      
+        $sessionData = [];
+
+        // Check the availability session exist or not
+        if(Session::has('CheckAvailabilityRequest')){
+            $sessionData = (object)Session::get('CheckAvailabilityRequest');
+            //dd(Session::all());
+            if($sessionData->property !== "Audio Visual Unit"){
+                Session::forget('CheckAvailabilityRequest');
+                $sessionData=NULL;
+            }
+        }
         
         $avu = audiovisualunit::all();
 
-        return view('avu')->with('avu',$avu);
+        $avudetail = DB::select('select * from audiovisualunits');
+        $avufill = [];
+        foreach($avudetail as $n){
+            $avufill[$n->AVUId] = $n->Type;
+        }
+        $Users = User::where('roleNo','>=', 11)->get();
+        $select = [];
+        foreach($Users as $User){
+            $select[$User->id] = $User->name;
+        }
+
+        return view('avu', compact('select','avufill','avu','sessionData'));
+       // return view('avu')->with('avu',$avu,$sessionData );
     }
 
 
   
 
 
-    public function dropDownShow()
-{
-  
-        //$Users = User::all();
-        $Users = User::where('roleNo','>=', 11)->get();
-        $select = [];
-        foreach($Users as $User){
-            $select[$User->id] = $User->name;
-        }
-        return view('avu', compact('select'));
-       // return view('avu')->with('select', $select);
-}
+//     public function dropDownShow()
+// {
+//     dd("working");
+//         //$Users = User::all();
+//         $Users = User::where('roleNo','>=', 11)->get();
+//         $select = [];
+//         foreach($Users as $User){
+//             $select[$User->id] = $User->name;
+//         }
+//         return view('avu', compact('select'));
+//        // return view('avu')->with('select', $select);
+// }
 
 
 

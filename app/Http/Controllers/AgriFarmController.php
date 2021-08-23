@@ -11,7 +11,8 @@ use App\Models\User;
 use Auth;
 use App\Mail\agriemail;
 use DB;
-
+use Session;
+use Illuminate\Support\Facades\Input;
 
 
 // to handle agri farm booking details
@@ -19,6 +20,17 @@ class AgriFarmController extends Controller
 {
     public function getagrifarm(){
 
+        $sessionData = [];
+
+        // Check the availability session exist or not
+        if(Session::has('CheckAvailabilityRequest')){
+            $sessionData = (object)Session::get('CheckAvailabilityRequest');
+            //dd(Session::all());
+            if($sessionData->property !== "Agri Farm Kabana"){
+                Session::forget('CheckAvailabilityRequest');
+                $sessionData=NULL;
+            }
+        }
 
         $Users = User::where('roleNo','>=', 11)->get();
         $select = [];
@@ -26,11 +38,10 @@ class AgriFarmController extends Controller
             $select[$User->id] = $User->name;
         }
 
-        
 
         $af = agrifarmstay::all();
 
-        return view('af', compact('select','af'));
+        return view('af', compact('select','af', 'sessionData'));
         
     }
 

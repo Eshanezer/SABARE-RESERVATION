@@ -75,7 +75,8 @@
             <div class="card-body">
             <div class="mb-3">
 
-                        {!! Form::open(['url' => 'af/submit', 'id' => 'booking_form']) !!}
+                        
+                    {!! Form::model($sessionData, array('route' => array('af_submit'), 'method' => 'POST', 'id' =>'booking_form')) !!}
 
                     
                     <div class="form-group">
@@ -84,14 +85,14 @@
 
                     </div>
                     <div class="form-group">
-                    {{Form::label('CheckInDate', 'Check In Date') }}
-                    {{ Form::date('CheckInDate', new \DateTime(), ['class' => 'form-control']) }}
+                        {{Form::label('CheckInDate', 'Check In Date') }}
+                        {{ Form::date('CheckInDate', !empty($sessionData) ? Input::old('CheckInDate') : new \DateTime() , ['class' => 'form-control']) }}
 
-                    </div>
-                    <div class="form-group">
-                    {{Form::label('CheckOutDate', 'Check Out Date') }}
-                    {{ Form::date('CheckOutDate', new \DateTime(), ['class' => 'form-control']) }}
-                    </div>
+                        </div>
+                        <div class="form-group">
+                        {{Form::label('CheckOutDate', 'Check Out Date') }}
+                        {{ Form::date('CheckOutDate', !empty($sessionData) ? Input::old('CheckOutDate') : new \DateTime(), ['class' => 'form-control']) }}
+                        </div>
 
                     <div class="form-group">
                     {{Form::label('NoOfUnits', 'Number Of Units') }}
@@ -147,9 +148,11 @@
                 return {
                     booking_type:null,
                     room_type:null,
-                    no_of_units:0,
-                    no_of_adults:0,
-                    no_of_children:0               
+                    no_of_units:{{ !empty($sessionData) ? $sessionData->NoOfUnits : 0 }},
+                    no_of_adults: {{ !empty($sessionData) ? $sessionData->NoOfAdults : 0 }},
+                    no_of_children:{{ !empty($sessionData) ? $sessionData->NoOfChildren : 0 }}      
+
+                         
                 }
             },
 

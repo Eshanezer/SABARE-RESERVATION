@@ -28,7 +28,7 @@ Route::get('/af', 'App\Http\Controllers\AgriFarmController@getagrifarm')->middle
 Route::post('/af/submit', 'App\Http\Controllers\AgriFarmController@submit')->name('af_submit');;
 
 Route::get('/afd', 'App\Http\Controllers\AgriDinningController@getdinning')->middleware('CustomAuth');
-Route::get('/afd', 'App\Http\Controllers\AgriDinningController@dropDownShow')->middleware('CustomAuth');
+//Route::get('/afd', 'App\Http\Controllers\AgriDinningController@dropDownShow')->middleware('CustomAuth');
 Route::post('/afd/submit', 'App\Http\Controllers\AgriDinningController@submit')->name('afd_submit');
 
 
@@ -42,7 +42,7 @@ Route::get('/hr', 'App\Http\Controllers\HrController@gethr')->middleware('Custom
 Route::post('/hr/submit', 'App\Http\Controllers\HrController@submit')->name('hr_submit');
 
 Route::get('/avu', 'App\Http\Controllers\AVUController@getavu')->middleware('CustomAuth');
-Route::get('/avu', 'App\Http\Controllers\AVUController@dropDownShow')->middleware('CustomAuth');
+//Route::get('/avu', 'App\Http\Controllers\AVUController@dropDownShow')->middleware('CustomAuth');
 Route::post('/avu/submit', 'App\Http\Controllers\AVUController@submit')->name('avu_submit');;
 
 // Route::get('/af', 'App\Http\Controllers\SendEmailVCController@index');
