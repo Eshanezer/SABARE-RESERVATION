@@ -13,6 +13,9 @@ use App\Models\nestbooking;
 use Auth;
 use DB;
 
+use Session;
+use Illuminate\Support\Facades\Input;
+
 use App\Models\User;
 
 class HomeController extends Controller
@@ -34,6 +37,26 @@ class HomeController extends Controller
      */
     public function index()
     {
+        $sessionData = [];
+
+        if(Session::has('CheckAvailabilityRequest')){
+            $sessionData = (object)Session::get('CheckAvailabilityRequest');
+            if($sessionData->property == "NEST"){
+                return redirect('/nest');
+            }
+            if($sessionData->property == "Holiday Resort"){
+                return redirect('/hr');
+            }
+            if($sessionData->property == "Audio Visual Unit"){
+                return redirect('/avu');
+            }
+            if($sessionData->property == "Agri Farm Kabana"){
+                return redirect('/af');
+            }
+            if($sessionData->property == "Agri Farm Dining Room"){
+                return redirect('/afd');
+            }
+        }
 
         $hr = holidayresort::all();
         $hrdetail = DB::select('select * from holidayresorts');

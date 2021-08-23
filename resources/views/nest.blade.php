@@ -33,22 +33,23 @@
 
 
 
-                        {!! Form::open(['url' => 'nest/submit','id' => 'booking_form']) !!}
+                        {!! Form::model($sessionData, array('route' => array('nest_submit'), 'method' => 'POST', 'id' =>'booking_form')) !!}
 
                         <div class="form-group ">
                             {!! Form::label('Room Type')!!}
                             {!! Form::select('NestId', $nestfill, null, ['class'=>'form-control', 'v-model' => 'room_type']) !!}
                         </div>
 
-                        <div class="form-group">
+                     <div class="form-group">
                         {{Form::label('CheckInDate', 'Check In Date') }}
-                        {{ Form::date('CheckInDate', new \DateTime(), ['class' => 'form-control']) }}
-                       
+                        {{ Form::date('CheckInDate', !empty($sessionData) ? Input::old('CheckInDate') : new \DateTime() , ['class' => 'form-control']) }}
+
                         </div>
                         <div class="form-group">
                         {{Form::label('CheckOutDate', 'Check Out Date') }}
-                        {{ Form::date('CheckOutDate', new \DateTime(), ['class' => 'form-control']) }}
+                        {{ Form::date('CheckOutDate', !empty($sessionData) ? Input::old('CheckOutDate') : new \DateTime(), ['class' => 'form-control']) }}
                         </div>
+
 
                         <div class="form-group">
                         {{Form::label('NoOfUnits', 'Number Of Units') }}
@@ -106,10 +107,10 @@
             data() {
                 return {
                     
-                    room_type:null,
-                    no_of_units:0,
-                    no_of_adults:0,
-                    no_of_children:0               
+                    room_type: {{  !empty($sessionData) ? $sessionData->NestId : 'null' }},
+                    no_of_units:{{ !empty($sessionData) ? $sessionData->NoOfUnits : 0 }},
+                    no_of_adults: {{ !empty($sessionData) ? $sessionData->NoOfAdults : 0 }},
+                    no_of_children:{{ !empty($sessionData) ? $sessionData->NoOfChildren : 0 }}             
                 }
             },
 

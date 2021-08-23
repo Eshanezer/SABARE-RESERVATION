@@ -9,7 +9,6 @@
         <td>No: Guest</td>
         <td>Description</td>
         <td>Recommendation from</td>
-        <td>Request VC Approval</td>
         <td>Status</td>
         
         
@@ -27,11 +26,7 @@
         <td>{{ $agridbooking->NoOfGuest }}</td>
         <td>{{ $agridbooking->Description }}</td>
         <td>{{ $agridbooking->name }}</td>
-        @if($agridbooking->VCApproval == 0)
-        <td>Not Request</td>
-        @else
-        <td>Requested</td>
-        @endif
+       
         <td>{{ $agridbooking->Status }}</td>
      
        

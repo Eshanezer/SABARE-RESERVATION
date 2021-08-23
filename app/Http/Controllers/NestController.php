@@ -10,11 +10,26 @@ use App\Models\User;
 use Illuminate\Support\Facades\Mail;
 use App\Mail\nestemail;
 use DB;
+use Session;
+use Illuminate\Support\Facades\Input;
 
 //to hanlde nest booking details
 class NestController extends Controller
 {
     public function getnest(){
+
+        $sessionData = [];
+
+        // Check the availability session exist or not
+        if(Session::has('CheckAvailabilityRequest')){
+            $sessionData = (object)Session::get('CheckAvailabilityRequest');
+            //dd(Session::all());
+
+            if($sessionData->property !== "NEST"){
+                Session::forget('CheckAvailabilityRequest');
+                $sessionData=NULL;
+            }
+        }
  
         $nest = nest::all();
         $nestdetail = DB::select('select * from nests');
@@ -28,7 +43,7 @@ class NestController extends Controller
             $select[$User->id] = $User->name;
         }
         
-        return view('nest', compact('select','nestfill','nest'));
+        return view('nest', compact('select','nestfill','nest', 'sessionData'));
 
         //return view('nest')->with('nest',$nest);
     }
