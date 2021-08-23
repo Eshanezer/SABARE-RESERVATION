@@ -59,8 +59,13 @@
         <td>
         
         <a href = 'showafddean/{{ $agridbooking->BookingId }}'>View</a></br>
+        @if($agridbooking->Status == 'Send to Recommendation')
         <a href = 'afdrecommend/{{ $agridbooking->BookingId }}'>Recommend</a> </br>
         <a href = 'afdnotrecommend/{{ $agridbooking->BookingId }}'>Reject</a>
+        @else
+        
+        @endif
+       
         </td>
        
     </tr>

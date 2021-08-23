@@ -71,8 +71,14 @@
        
         <td>
         <a href = 'showhrdean/{{ $hrbooking->BookingId }}'>View</a></br>
+
+        @if($hrbooking->Status == 'Send to Recommendation')
         <a href = 'hrrecommend/{{ $hrbooking->BookingId }}'>Recommend</a> </br>
         <a href = 'hrnotrecommend/{{ $hrbooking->BookingId }}'>Reject</a>
+        @else
+        
+        @endif
+       
         </td>
        
     </tr>

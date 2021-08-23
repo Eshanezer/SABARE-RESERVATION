@@ -39,7 +39,7 @@
         <td>Number Of Units</td>
         <td>Guest Tye</td>
         <td>Description</td>
-        <td>Request VC Approval</td>
+        {{-- <td>Request VC Approval</td> --}}
         <td>Status</td>
         <td>Option</td>
         
@@ -59,18 +59,23 @@
         <td>{{ $agrsbooking->NoOfUnits }}</td>
         <td>{{ $agrsbooking->BookingType }}</td>
         <td>{{ $agrsbooking->Description }}</td>
-        @if($agrsbooking->VCApproval == 0)
+        {{-- @if($agrsbooking->VCApproval == 0)
         <td>Not Request</a></td>
         @else
         <td>Requested</a></td>
         @endif
-        
+         --}}
         <td>{{ $agrsbooking->Status }}</td>
        
         <td>
         <a href = 'showafdean/{{ $agrsbooking->BookingId }}'>View</a></br>
+        @if($agrsbooking->Status == 'Send to Recommendation')
         <a href = 'afrecommend/{{ $agrsbooking->BookingId }}'>Recommend</a> </br>
         <a href = 'afnotrecommend/{{ $agrsbooking->BookingId }}'>Reject</a>
+        @else
+        
+        @endif
+        
         </td>
        
     </tr>

@@ -75,17 +75,19 @@ class HrController extends Controller
             //$bookings1 = hrbooking::whereBetween('CheckInDate', [$request->input('CheckInDate'), $request->input('CheckOutDate')])->get();
             //$bookings2 = hrbooking::whereBetween('CheckOutDate', [$request->input('CheckInDate'), $request->input('CheckOutDate')])->get();
 
-            $CheckInDate = hrbooking::whereDate('CheckInDate', '<=', $request->input('CheckInDate'))->whereDate('CheckOutDate', '>=', $request->input('CheckInDate'))->where('Status', 'Confirmed')->get();
-            $CheckInDate2 = hrbooking::whereDate('CheckInDate', '>=', $request->input('CheckInDate'))->whereDate('CheckInDate', '<=', $request->input('CheckOutDate'))->where('Status', 'Confirmed')->get();
+            $CheckInDate = hrbooking::whereDate('CheckInDate', '<=', $request->input('CheckInDate'))->whereDate('CheckOutDate', '>=', $request->input('CheckInDate'))->where('HolodayResortId', '1')->where('Status', 'Confirmed')->get();
+            $CheckInDate2 = hrbooking::whereDate('CheckInDate', '>=', $request->input('CheckInDate'))->whereDate('CheckInDate', '<=', $request->input('CheckOutDate'))->where('HolodayResortId', '1')->where('Status', 'Confirmed')->get();
             //dd($CheckInDate->sum('NoOfUnits'),$CheckInDate2);
 
             $check_cndition1 = $CheckInDate->sum('NoOfUnits') + $request->input('NoOfUnits');
             $check_cndition2 = $CheckInDate2->sum('NoOfUnits') + $request->input('NoOfUnits');
             $check_cndition3 = ($CheckInDate->sum('NoOfUnits') + $CheckInDate2->sum('NoOfUnits')) + $request->input('NoOfUnits');
             
-            if( $check_cndition1 > 3 || $check_cndition2 > 3 || $check_cndition3 > 3){
+            if( $check_cndition1 > 7 || $check_cndition2 > 7 || $check_cndition3 > 7){
              //  dd("already booked");
                 // return redirect('/')->with('danger','Sorry Allready Booked!');
+                //dd( $CheckInDate->sum('NoOfUnits'));
+                //dd($check_cndition1,$check_cndition2,$check_cndition3);
                  return back()->with('success','Sorry Allready Booked!');
              }else{
               // dd("available");
@@ -142,15 +144,15 @@ class HrController extends Controller
             //$bookings1 = hrbooking::whereBetween('CheckInDate', [$request->input('CheckInDate'), $request->input('CheckOutDate')])->get();
             //$bookings2 = hrbooking::whereBetween('CheckOutDate', [$request->input('CheckInDate'), $request->input('CheckOutDate')])->get();
 
-            $CheckInDate = hrbooking::whereDate('CheckInDate', '<=', $request->input('CheckInDate'))->whereDate('CheckOutDate', '>=', $request->input('CheckInDate'))->where('Status', 'Confirmed')->get();
-            $CheckInDate2 = hrbooking::whereDate('CheckInDate', '>=', $request->input('CheckInDate'))->whereDate('CheckInDate', '<=', $request->input('CheckOutDate'))->where('Status', 'Confirmed')->get();
+            $CheckInDate = hrbooking::whereDate('CheckInDate', '<=', $request->input('CheckInDate'))->whereDate('CheckOutDate', '>=', $request->input('CheckInDate'))->where('HolodayResortId', '2')->where('Status', 'Confirmed')->get();
+            $CheckInDate2 = hrbooking::whereDate('CheckInDate', '>=', $request->input('CheckInDate'))->whereDate('CheckInDate', '<=', $request->input('CheckOutDate'))->where('HolodayResortId', '2')->where('Status', 'Confirmed')->get();
             //dd($CheckInDate->sum('NoOfUnits'),$CheckInDate2);
 
             $check_cndition1 = $CheckInDate->sum('NoOfUnits') + $request->input('NoOfUnits');
             $check_cndition2 = $CheckInDate2->sum('NoOfUnits') + $request->input('NoOfUnits');
             $check_cndition3 = ($CheckInDate->sum('NoOfUnits') + $CheckInDate2->sum('NoOfUnits')) + $request->input('NoOfUnits');
             
-            if( $check_cndition1 > 12 || $check_cndition2 > 12 || $check_cndition3 > 12){
+            if( $check_cndition1 > 28 || $check_cndition2 > 28 || $check_cndition3 > 28){
              //  dd("already booked");
                 // return redirect('/')->with('danger','Sorry Allready Booked!');
                 return back()->with('success','Sorry Allready Booked!');
