@@ -185,7 +185,7 @@ class HrController extends Controller
                     $hrbooking-> HolodayResortId =  $request->input('HolodayResortId');
                     $hrbooking->save();
 
-
+                   //data array which pass details to hrmail    
                     $data = array(
                         'id'      =>  Auth::user()->id,
                         'name'      =>  Auth::user()->name,
@@ -195,12 +195,16 @@ class HrController extends Controller
                         'Description'=>$request->input('Description')
                     );
 
-                    //$Recommendation_From = $request->input('Recommendation_from');
+                   
                     $email = DB::select('select email from users where id = 12');
+                    //send mail to hr coordinator
+                    Mail::to($email)->send(new hremail($data));
+
+                     //$Recommendation_From = $request->input('Recommendation_from');
                     //$CheckInDate = hrbooking::where('CheckInDate', '=', $request->input('CheckInDate'))->first();
 
                     
-                    Mail::to($email)->send(new hremail($data));
+                    
                     return back()->with('success', 'Request Sent Successfuly!');
              }
         }
