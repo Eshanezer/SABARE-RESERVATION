@@ -41,7 +41,7 @@
         <!-- <td>Number Of Units</td> -->
         <!-- <td>Guest Tye</td>
         <td>Description</td> -->
-        <td>Request VC Approval</td>
+        {{-- <td>Request VC Approval</td> --}}
         <td>Status</td>
         <td>Option</td>
         
@@ -62,11 +62,11 @@
         <!-- <td>{{ $nestbooking->NoOfUnits }}</td> -->
         <!-- <td>{{ $nestbooking->BookingType }}</td>
         <td>{{ $nestbooking->Description }}</td> -->
-        @if($nestbooking->VCApproval == 0)
+        {{-- @if($nestbooking->VCApproval == 0)
         <td>Not Request</td>
         @else
         <td>Requested</td>
-        @endif
+        @endif --}}
         
         <td>{{ $nestbooking->Status }}</td>
        
