@@ -30,6 +30,6 @@ class RequestRecommendMail extends Mailable
      */
     public function build()
     {
-        return $this->from('reservationsusl@gmail.com')->subject('Requesting Recommendation for Reservation ')->view('dynamic_recommendemail_template')->with('data', $this->data);
+        return $this->from('smartadmin@sab.ac.lk')->subject('Requesting Recommendation for Reservation ')->view('dynamic_recommendemail_template')->with('data', $this->data);
     }
 }

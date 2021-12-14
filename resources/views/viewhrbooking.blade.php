@@ -14,26 +14,33 @@
 
 
     <div class="form-group">
-    {{Form::label('CheckInDate', 'Check In Date') }}
+    {{Form::label('CheckInDate', 'Start Date') }}
     <input type="date" class="form-control" name="CheckInDate" value="{{request()->query('CheckInDate') != null ? request()->query('CheckInDate') : date('yyyy/mm/dd')}}">
 
     </div>
 
-
+    <div class="form-group">
+        {{Form::label('CheckOutDate', 'End Date') }}
+        <input type="date" class="form-control" name="CheckOutDate" value="{{request()->query('CheckOutDate') != null ? request()->query('CheckOutDate') : date('yyyy/mm/dd')}}">
+    
+        </div> 
     </br>
     {{Form::submit('Submit', ['class'=>'btn btn-primary', 'v-on:click'=>'formSubmit'])}}
     </div>
     {!! Form::close() !!}
-    <a class="nav-link btn btn-info " href="/download-hrpdf?CheckInDate={{request()->CheckInDate}}">Export Deatils</a></br>
-    <a class="nav-link btn btn-info " href="/download-hrmonthpdf?CheckInDate={{request()->CheckInDate}}">Export Monthly Details </a></br>
-    <a class="nav-link btn btn-info " href="/download-hryearpdf?CheckInDate={{request()->CheckInDate}}">Export Year Details </a></br>
-    
+    <div class="btn-group" style="width:100%">
+    <a class="nav-link btn btn-outline-primary " href="/download-hrpdf?CheckInDate={{request()->CheckInDate}}&CheckOutDate={{request()->CheckOutDate}}">Generate Deatils</a></br>
+    <a class="nav-link btn btn-outline-primary " href="/download-hrmonthpdf?CheckInDate={{request()->CheckInDate}}">Generate Monthly Details </a></br>
+    <a class="nav-link btn btn-outline-primary " href="/download-hryearpdf?CheckInDate={{request()->CheckInDate}}">Generate Year Details </a></br>
+</div>
+
     </div>
 
 <div class="table-responsive">
-    <table  class="table table-striped">
+    <table border = "1" class="table table-striped">
     <tr>
         <td>Booking Id </td>
+        <td>Create Date</td>
         <td>Guest Name</td>
         <td>Room Type </td>
         <td>Check In Date</td>
@@ -50,6 +57,7 @@
     @foreach ($hrbookings as $hrbooking)
     <tr>
         <td>{{ $hrbooking->BookingId  }}</td>
+        <td>{{ $hrbooking->created_at  }}</td>
         <td>{{ $hrbooking->GuestName  }}</td>
         <td>{{ $hrbooking->Type   }}</td>
         <td>{{ $hrbooking->CheckInDate }}</td>
@@ -60,14 +68,14 @@
         <td>{{ $hrbooking->Status }}</td>
        
         <td>
-        <a href = 'showhr/{{ $hrbooking->BookingId }}'>View</a></br>
+        <a class="nav-link btn btn-outline-primary " href = 'showhr/{{ $hrbooking->BookingId }}'>View</a></br>
 
-         <a href = 'showrechr/{{ $hrbooking->BookingId }}'>HOD/Dean Approval</a></br>
-        <a href = 'showvchr/{{ $hrbooking->BookingId }}'>VC Approval</a></br>
+         <a class="nav-link btn btn-outline-primary " href = 'showrechr/{{ $hrbooking->BookingId }}'>HOD Approval</a></br>
+        <a class="nav-link btn btn-outline-primary " href = 'showvchr/{{ $hrbooking->BookingId }}'>VC Approval</a></br>
         <!-- <a href = 'hrregapprove/{{ $hrbooking->BookingId }}'>Registrar Approval </a></br> -->
 
-        <a href = 'hrconfirm/{{ $hrbooking->BookingId }}'>Confirm</a></br>
-        <a href = 'hrnotconfirm/{{ $hrbooking->BookingId }}'>Reject</a></br>
+        <a class="nav-link btn btn-outline-primary " href = 'hrconfirm/{{ $hrbooking->BookingId }}'>Confirm</a></br>
+        <a class="nav-link btn btn-outline-primary " href = 'hrnotconfirm/{{ $hrbooking->BookingId }}'>Reject</a></br>
        
        
         </td>

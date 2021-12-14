@@ -68,23 +68,52 @@ class AVUController extends Controller
 
 
     public function submit(Request $request){
+        $Department= Auth::user()->Department;
+        $hod=User::select('id')
+        ->where('Department', '=', [$Department])
+        ->where('Designation', '=', 'Head of The Department')
+        ->get();
 
-        
+        $current = strtotime(date("Y-m-d"));
+        $date    = strtotime($request->input('CheckInDate'));
 
-        $this->validate($request,[
-            'EventName'=>'required',
-            'CheckInDate'=>'required|date|after:yesterday',
-            'StartTime'=>'required|after:CurrentTime',
-            'EndTime'=>'required|after:StartTime',
-            'Description'=>'required',
-        ],
-        [
-            'EventName.required' => 'Please Fill the Event Name',
-            'CheckInDate.after' => 'Please Enter a Valid Date',
-            'StartTime.after' => 'Please Enter a Valid Start Time',
-            'EndTime.after' => 'Please Enter a Valid End Time',
-            'Description.required' => 'Please Add a Description',
-        ]);
+        $datediff = $date - $current;
+        $difference = floor($datediff/(60*60*24));
+
+        if($difference == 0){
+            $this->validate($request,[
+                'EventName'=>'required',
+                'CheckInDate'=>'required|date|after:yesterday',
+                'StartTime'=>'required|after:CurrentTime',
+                'EndTime'=>'required|after:StartTime',
+                'Description'=>'required',
+            ],
+            [
+                'EventName.required' => 'Please Fill the Event Name',
+                'CheckInDate.after' => 'Please Enter a Valid Date',
+                'StartTime.after' => 'Please Enter a Valid Start Time',
+                'EndTime.after' => 'Please Enter a Valid End Time',
+                'Description.required' => 'Please Add a Description',
+            ]);
+            }
+        else{
+                
+                $this->validate($request,[
+                    'EventName'=>'required',
+                    'CheckInDate'=>'required|date|after:yesterday',
+                    'StartTime'=>'required',
+                    'EndTime'=>'required|after:StartTime',
+                    'Description'=>'required',
+                ],
+                [
+                    'EventName.required' => 'Please Fill the Event Name',
+                    'CheckInDate.after' => 'Please Enter a Valid Date',
+                    'StartTime.after' => 'Please Enter a Valid Start Time',
+                    'EndTime.after' => 'Please Enter a Valid End Time',
+                    'Description.required' => 'Please Add a Description',
+                ]);
+       }
+
         
         ;
         $avubooking = new avubooking;
@@ -94,7 +123,7 @@ class AVUController extends Controller
         $avubooking-> EndTime = $request->input('EndTime');
         $avubooking-> Description = $request->input('Description');
         $avubooking-> Status = 'Request for Booking';
-        $avubooking-> Recommendation_from = $request->input('Recommendation_from');
+        $avubooking-> Recommendation_from = $hod[0]->id;
         $avubooking-> GuestId = Auth::user()->id;
         $avubooking-> GuestName = Auth::user()->name;
         $avubooking-> AVUId = $request->input('AVUId');

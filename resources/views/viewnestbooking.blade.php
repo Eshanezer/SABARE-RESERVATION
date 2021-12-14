@@ -10,30 +10,46 @@
 
    <div class="mb-3">
 
+    
     {!! Form::open(['url' => 'viewnestbooking',  'method' => 'GET',  'id' => 'booking_form']) !!}
 
 
     <div class="form-group">
-    {{Form::label('CheckInDate', 'Check In Date') }}
+    {{Form::label('CheckInDate', 'Start Date') }}
     <input type="date" class="form-control" name="CheckInDate" value="{{request()->query('CheckInDate') != null ? request()->query('CheckInDate') : date('yyyy/mm/dd')}}">
 
     </div>
 
 
     </br>
+
+    <div class="form-group">
+        {{Form::label('CheckOutDate', 'End Date') }}
+        <input type="date" class="form-control" name="CheckOutDate" value="{{request()->query('CheckOutDate') != null ? request()->query('CheckOutDate') : date('yyyy/mm/dd')}}">
+    
+        </div>
+    
+    
+        </br>
+        <div class="center">
     {{Form::submit('Submit', ['class'=>'btn btn-primary', 'v-on:click'=>'formSubmit'])}}
     </div>
     {!! Form::close() !!}
-    <a class="nav-link btn btn-info " href="/download-pdf?CheckInDate={{request()->CheckInDate}}">Export Deatils</a></br>
-    <a class="nav-link btn btn-info " href="/download-monthpdf?CheckInDate={{request()->CheckInDate}}">Export Monthly Details </a></br>
-    <a class="nav-link btn btn-info " href="/download-yearpdf?CheckInDate={{request()->CheckInDate}}">Export Year Details </a></br>
     </div>
+   
+    <div class="btn-group" style="width:100%">
+    <a class="nav-link btn btn-outline-primary " href="/download-pdf?CheckInDate={{request()->CheckInDate}}&CheckOutDate={{request()->CheckOutDate}}">Generate Deatils</a></br>
+    <a class="nav-link btn btn-outline-primary " href="/download-monthpdf?CheckInDate={{request()->CheckInDate}}">Generate Monthly Details </a></br>
+    <a class="nav-link btn btn-outline-primary " href="/download-yearpdf?CheckInDate={{request()->CheckInDate}}">Generate Year Details </a></br>
+    </div>
+</div>
 <div class="table-responsive">
-    <table  class="table table-striped">
+    <table border = "1" class="table table-striped">
     <tr>
         <td>Booking Id </td>
+        <td>Create Date </td>
         <td>Guest Name</td>
-        <td>Room Type </td>
+        {{-- <td>Room Type </td> --}}
         <td>Check In Date</td>
         <td>Check Out Date</td>
         <!-- <td>Number Of Adults</td>
@@ -53,8 +69,9 @@
     @foreach ($nestbookings as $nestbooking)
     <tr>
         <td>{{ $nestbooking->BookingId  }}</td>
+        <td>{{ $nestbooking->created_at  }}</td>
         <td>{{ $nestbooking->GuestName  }}</td>
-        <td>{{ $nestbooking->Type    }}</td>
+        {{-- <td>{{ $nestbooking->Type    }}</td> --}}
         <td>{{ $nestbooking->CheckInDate }}</td>
         <td>{{ $nestbooking->CheckOutDate }}</td>
         <!-- <td>{{ $nestbooking->NoOfAdults }}</td>
@@ -67,17 +84,17 @@
         @else
         <td>Requested</td>
         @endif --}}
-        
+        .
         <td>{{ $nestbooking->Status }}</td>
        
         <td>
-        <a href = 'shownest/{{ $nestbooking->BookingId }}'>View</a></br>
-        <a href = 'showrecnest/{{ $nestbooking->BookingId }}'>Recommendation</a></br>
-        <a href = 'showvcnest/{{ $nestbooking->BookingId }}'>VC Approval</a></br>
+        <a class="nav-link btn btn-outline-primary " href = 'shownest/{{ $nestbooking->BookingId }}'>View</a></br>
+        <a class="nav-link btn btn-outline-primary " href = 'showrecnest/{{ $nestbooking->BookingId }}'>Recommendation</a></br>
+        <a class="nav-link btn btn-outline-primary " href = 'showvcnest/{{ $nestbooking->BookingId }}'>VC Approval</a></br>
         <!-- <a href = 'nestregapprove/{{ $nestbooking->BookingId }}'>Registrar Approval</a></br> -->
         
-        <a href = 'nestconfirm/{{ $nestbooking->BookingId }}'>Confirm</a></br>
-        <a href = 'nestnotconfirm/{{ $nestbooking->BookingId }}'>Reject</a></br>
+        <a class="nav-link btn btn-outline-primary " href = 'nestconfirm/{{ $nestbooking->BookingId }}'>Confirm</a></br>
+        <a class="nav-link btn btn-outline-primary " href = 'nestnotconfirm/{{ $nestbooking->BookingId }}'>Reject</a></br>
         
 
         </td>

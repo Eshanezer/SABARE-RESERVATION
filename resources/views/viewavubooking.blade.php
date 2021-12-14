@@ -13,7 +13,7 @@
 
 
     <div class="form-group">
-    {{Form::label('CheckInDate', 'Check In Date') }}
+    {{Form::label('CheckInDate', 'Date') }}
     <input type="date" class="form-control" name="CheckInDate" value="{{request()->query('CheckInDate') != null ? request()->query('CheckInDate') : date('yyyy/mm/dd')}}">
 
     </div>
@@ -23,17 +23,19 @@
     {{Form::submit('Submit', ['class'=>'btn btn-primary', 'v-on:click'=>'formSubmit'])}}
     </div>
     {!! Form::close() !!}
+    <div class="btn-group" style="width:100%">
+    <a class="nav-link btn btn-outline-primary " href="/download-avupdf?CheckInDate={{request()->CheckInDate}}">Generate Deatils</a></br>
+    <a class="nav-link btn btn-outline-primary " href="/download-avumonthpdf?CheckInDate={{request()->CheckInDate}}">Generate Monthly Details </a></br>
+    <a class="nav-link btn btn-outline-primary " href="/download-avuyearpdf?CheckInDate={{request()->CheckInDate}}">Generate Year Details </a></br>
+</div>
 
-    <a class="nav-link btn btn-info " href="/download-avupdf?CheckInDate={{request()->CheckInDate}}">Export Deatils</a></br>
-    <a class="nav-link btn btn-info " href="/download-avumonthpdf?CheckInDate={{request()->CheckInDate}}">Export Monthly Details </a></br>
-    <a class="nav-link btn btn-info " href="/download-avuyearpdf?CheckInDate={{request()->CheckInDate}}">Export Year Details </a></br>
-    
     </div>
 
 <div class="table-responsive">
-    <table  class="table table-striped">
+    <table border = "1" class="table table-striped">
     <tr>
         <td>Id </td>
+        <td>Create Date </td>
         <td>Guest  </td>
         <td>Service </td>
         <!-- <td>EventName</td> -->
@@ -42,7 +44,7 @@
         <td>EndTime</td>
         <td>Event Name</td>
         <td>Description</td>
-        <td>Recommendation </td>
+        {{-- <td>Recommendation </td> --}}
         <!-- <td> IS Recommended </td> -->
         <td>Status</td>
         <td>Confirm</td>
@@ -55,6 +57,7 @@
     @foreach ($avubookings as $avubooking)
     <tr>
         <td>{{ $avubooking->BookingId  }}</td>
+        <td>{{ $avubooking->created_at  }}</td>
         <td>{{ $avubooking->GuestName  }}</td>
         <td>{{ $avubooking->Type   }}</td>
         <!-- <td>{{ $avubooking->EventName }}</td> -->
@@ -63,16 +66,16 @@
         <td>{{ $avubooking->EndTime }}</td>
         <td>{{ $avubooking->EventName  }}</td>
         <td>{{ $avubooking->Description }}</td>
-        <td>{{ $avubooking->name}}</td>
+        {{-- <td>{{ $avubooking->name}}</td> --}}
         
         <td>{{ $avubooking->Status }}</td>
        
         <td>
         
        
-        <a href = 'showrecavu/{{ $avubooking->BookingId }}'>HOD/Dean Approval</a></br>
-        <a href = 'avuconfirm/{{ $avubooking->BookingId }}'>Confirm</a>
-        <a href = 'avunotconfirm/{{ $avubooking->BookingId }}'>Reject</a>
+        <a class="nav-link btn btn-outline-primary" href = 'showrecavu/{{ $avubooking->BookingId }}'>HOD Approval</a></br>
+        <a class="nav-link btn btn-outline-primary" href = 'avuconfirm/{{ $avubooking->BookingId }}'>Confirm</a></br>
+        <a class="nav-link btn btn-outline-primary" href = 'avunotconfirm/{{ $avubooking->BookingId }}'>Reject</a>
         </td>
        
     </tr>

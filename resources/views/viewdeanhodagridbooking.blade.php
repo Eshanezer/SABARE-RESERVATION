@@ -31,6 +31,7 @@
     <table  class="table table-striped">
     <tr>
         <td>Booking Id </td>
+        <td>Create Date </td>
         <td>Guest Name </td>
         <td>Check In Date</td>
         <td>StartTime</td>
@@ -48,6 +49,7 @@
     @foreach ($agridbookings as $agridbooking)
     <tr>
         <td>{{ $agridbooking->BookingId  }}</td>
+        <td>{{ $agridbooking->created_at  }}</td>
         <td>{{ $agridbooking->GuestName  }}</td>
         <td>{{ $agridbooking->CheckInDate }}</td>
         <td>{{ $agridbooking->StartTime }}</td>
@@ -58,10 +60,10 @@
        
         <td>
         
-        <a href = 'showafddean/{{ $agridbooking->BookingId }}'>View</a></br>
+        <a class="nav-link btn btn-outline-primary" href = 'showafddean/{{ $agridbooking->BookingId }}'>View</a></br>
         @if($agridbooking->Status == 'Send to Recommendation')
-        <a href = 'afdrecommend/{{ $agridbooking->BookingId }}'>Recommend</a> </br>
-        <a href = 'afdnotrecommend/{{ $agridbooking->BookingId }}'>Reject</a>
+        <a class="nav-link btn btn-outline-primary" href = 'afdrecommend/{{ $agridbooking->BookingId }}'>Recommend</a> </br>
+        <a class="nav-link btn btn-outline-primary" href = 'afdnotrecommend/{{ $agridbooking->BookingId }}'>Reject</a>
         @else
         
         @endif

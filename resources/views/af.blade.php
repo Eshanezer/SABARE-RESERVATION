@@ -2,10 +2,10 @@
 
 
 @section('content')
-<h1>Kabanas</h1>
+
 <!-- Agri Farm booking page -->
 <div class=" card border-primary ">
-
+        <h1>Kabanas</h1>
 <div class="flash-message">
         @foreach (['danger', 'warning', 'success', 'info'] as $msg)
             @if(Session::has('alert-' . $msg))
@@ -116,10 +116,10 @@
                     <div class="form-group">
 
  
-                    <div class="form-group" v-if="booking_type === `Resource Person` || booking_type === `SUSL Staff`">
+                    {{-- <div class="form-group" v-if="booking_type === `Resource Person` || booking_type === `SUSL Staff`">
                     {!! Form::label('Dean/HOD')!!}
                     {!! Form::select('Recommendation_from', $select, null, ['class'=>'form-control', 'placeholder' => 'Please select ...']) !!}
-                    </div>
+                    </div> --}}
 
                     <!-- <div class="form-group" v-if="booking_type === `Resource Person` || booking_type === `SUSL Staff`">
                     {{Form::label('VCApproval', 'Request VC Approval') }}
@@ -176,7 +176,6 @@
                             $("#booking_form").submit();
                         }
                    
-
                     
                 }
             }

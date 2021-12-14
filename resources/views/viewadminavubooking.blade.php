@@ -30,6 +30,7 @@
     <table  class="table table-striped">
     <tr>
         <td>Booking Id </td>
+        <td>Create Date </td>
         <td>Guest  </td>
         <td>Audio Visual Unit Id </td>
         <!-- <td>EventName</td> -->
@@ -51,6 +52,7 @@
     @foreach ($avubookings as $avubooking)
     <tr>
         <td>{{ $avubooking->BookingId  }}</td>
+        <td>{{ $avubooking->created_at  }}</td>
         <td>{{ $avubooking->GuestName  }}</td>
         <td>{{ $avubooking->Type   }}</td>
         <!-- <td>{{ $avubooking->EventName }}</td> -->

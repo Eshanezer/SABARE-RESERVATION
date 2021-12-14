@@ -32,18 +32,28 @@ class SendEmailVCController extends Controller
             return view('viewagribooking',['agrsbookings'=>$agrsbookings]); 
         } 
         
-
-        public function viewreportagribooking(Request $request) { 
         
+        //view agri booking details in guest side
+        public function viewguestagribooking(Request $request) { 
+                    
+                    
+            $GuestId = Auth::id();
+
+            
             if($request->input('CheckInDate') != null){
-                $agrsbookings = agrsbooking::whereDate('CheckInDate', $request->input('CheckInDate'))->paginate(10);
-            }else{
-                $agrsbookings = agrsbooking::orderBy('BookingId', 'DESC')->paginate(10);
-            }
+                
+                $agrsbookings = agrsbooking::where('GuestId', '=', [$GuestId])->whereDate('CheckInDate', $request->input('CheckInDate'))->paginate(10);
         
+            }else{
+                
+                $agrsbookings = agrsbooking::where('GuestId', '=', [$GuestId])->orderBy('BookingId', 'DESC')->paginate(10);
+        
+            }
 
-            return view('viewreportagribooking',['agrsbookings'=>$agrsbookings]); 
-        } 
+            return view('viewguestagribooking',['agrsbookings'=>$agrsbookings]); 
+        }
+    
+    
         //load agri booking details in vc page
         public function viewvcagribooking(Request $request) { 
 
@@ -82,13 +92,97 @@ class SendEmailVCController extends Controller
     
             return view('viewdeanhodagrisbooking',['agrsbookings'=>$agrsbookings]); 
             } 
-            public function downloadpdf(Request $request) { 
-      
-                if($request->input('CheckInDate') != null){
-                    $agrsbookings = agrsbooking::whereDate('CheckInDate', $request->input('CheckInDate'))->get();
-                }else{
-                    $agrsbookings = agrsbooking::get();
+
+            public function viewreportagribooking(Request $request) { 
+
+                if($request->input('CheckInDate') != null  && $request->input('CheckOutDate') != null){
+                    $agrsbookings =DB::table('agrsbookings')
+                    ->select('agrsbookings.*')
+                    ->whereDate('CheckInDate', '>=', $request->input('CheckInDate'))
+                    ->whereDate('CheckOutDate', '<=', $request->input('CheckOutDate'))
+                    ->paginate(10);
                 }
+
+                else if($request->input('CheckInDate') != null  ){
+                    $agrsbookings =DB::table('agrsbookings')
+                    ->select('agrsbookings.*')
+                    ->where('CheckInDate',  $request->input('CheckInDate'))
+                    ->paginate(10);
+                }
+                else if( $request->input('CheckOutDate') != null){
+                    $agrsbookings =DB::table('agrsbookings')
+                    ->select('agrsbookings.*')
+                    ->where('CheckOutDate',  $request->input('CheckOutDate'))
+                    ->paginate(10);
+                }
+                else{
+                    $agrsbookings =DB::table('agrsbookings')
+                    ->select('agrsbookings.*')
+                    ->paginate(10);
+                  
+                }
+        
+                // if($request->input('CheckInDate') != null && $request->input('CheckOutDate') != null){
+                //     $agrsbookings = agrsbooking::whereDate('CheckInDate', '>=',  $request->input('CheckInDate'))
+                //     ->whereDate('CheckOutDate', '<=',  $request->input('CheckOutDate'))
+                //     ->get();
+                // }
+                // else if($request->input('CheckInDate') != null){
+                //     $agrsbookings = agrsbooking::whereDate('CheckInDate', $request->input('CheckInDate'))->paginate(10);
+                // }
+                // else if($request->input('CheckOutDate') != null){
+                //     $agrsbookings = agrsbooking::whereDate('CheckOutDate', $request->input('CheckOutDate'))->paginate(10);
+                // }else{
+                //     $agrsbookings = agrsbooking::orderBy('BookingId', 'DESC')->paginate(10);
+                // }
+            
+    
+                return view('viewreportagribooking',['agrsbookings'=>$agrsbookings]); 
+            } 
+            public function downloadpdf(Request $request) { 
+
+
+                if($request->input('CheckInDate') != null  && $request->input('CheckOutDate') != null){
+                    $agrsbookings =DB::table('agrsbookings')
+                    ->select('agrsbookings.*')
+                    ->whereDate('CheckInDate', '>=', $request->input('CheckInDate'))
+                    ->whereDate('CheckOutDate', '<=', $request->input('CheckOutDate'))
+                    ->paginate(10);
+                }
+
+                else if($request->input('CheckInDate') != null  ){
+                    $agrsbookings =DB::table('agrsbookings')
+                    ->select('agrsbookings.*')
+                    ->where('CheckInDate',  $request->input('CheckInDate'))
+                    ->paginate(10);
+                }
+                else if( $request->input('CheckOutDate') != null){
+                    $agrsbookings =DB::table('agrsbookings')
+                    ->select('agrsbookings.*')
+                    ->where('CheckOutDate',  $request->input('CheckOutDate'))
+                    ->paginate(10);
+                }
+                else{
+                    $agrsbookings =DB::table('agrsbookings')
+                    ->select('agrsbookings.*')
+                    ->paginate(10);
+                  
+                }
+      
+                // if($request->input('CheckInDate') != null && $request->input('CheckOutDate') != null){
+                //     $agrsbookings = agrsbooking::whereDate('CheckInDate', '>=',  $request->input('CheckInDate'))
+                //     ->whereDate('CheckOutDate', '<=',  $request->input('CheckOutDate'))
+                //     ->get();
+                // }
+                // else if($request->input('CheckInDate') != null){
+                //     $agrsbookings = agrsbooking::whereDate('CheckInDate', $request->input('CheckInDate'))->grt();
+                // }
+                // else if($request->input('CheckOutDate') != null){
+                //     $agrsbookings = agrsbooking::whereDate('CheckOutDate', $request->input('CheckOutDate'))->get();
+                // }else{
+                //     $agrsbookings = agrsbooking::get();
+                // }
+
             
         
                 view()->share('agrsbookings',$agrsbookings);

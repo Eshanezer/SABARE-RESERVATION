@@ -61,6 +61,7 @@ Route::get('/hrcoordinator','App\Http\Controllers\PagesController@hrcoordinator'
 
 Route::get('/hrreg','App\Http\Controllers\PagesController@hrreg' )->middleware('HrRegistarMiddleware');
 Route::get('/nestreg','App\Http\Controllers\PagesController@nestreg' )->middleware('NestRegistarMiddleware');
+Route::get('/guestbooking','App\Http\Controllers\PagesController@guestbooking' );
 
 Route::get('/dean_hod','App\Http\Controllers\PagesController@dean_hod' )->middleware('DeanHodMiddleware');
 
@@ -149,6 +150,12 @@ Route::get('/viewreportnestbooking', 'App\Http\Controllers\ViewNestBookingContro
 Route::get('/viewreportagridbooking', 'App\Http\Controllers\ViewAFDBookingController@viewreportafdbooking')->name('viewreportafdbooking')->middleware('ReportGeneratorMiddleware');
 Route::get('/viewreporthrbooking', 'App\Http\Controllers\ViewHrBookingController@viewreporthrbooking')->name('viewreporthrbooking')->middleware('ReportGeneratorMiddleware');
 Route::get('/viewreportavubooking', 'App\Http\Controllers\ViewAVUBookingController@viewreportavubooking')->name('viewreportavubooking')->middleware('ReportGeneratorMiddleware'); 
+
+Route::get('/viewguestagribooking', 'App\Http\Controllers\SendEmailVCController@viewguestagribooking')->name('viewguestagribooking');
+Route::get('/viewguestnestbooking', 'App\Http\Controllers\ViewNestBookingController@viewguestnestbooking')->name('viewguestnestbooking'); 
+Route::get('/viewguestagridbooking', 'App\Http\Controllers\ViewAFDBookingController@viewguestagridbooking')->name('viewguestagridbooking');
+Route::get('/viewguesthrbooking', 'App\Http\Controllers\ViewHrBookingController@viewguesthrbooking')->name('viewguesthrbooking');
+Route::get('/viewguestavubooking', 'App\Http\Controllers\ViewAVUBookingController@viewguestavubooking')->name('viewguestavubooking'); 
 
 
 Route::get('/viewavubooking', 'App\Http\Controllers\ViewAVUBookingController@viewavubooking')->name('viewavubooking');

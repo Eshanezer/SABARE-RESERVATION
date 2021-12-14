@@ -63,7 +63,9 @@ class ViewAVUBookingController extends Controller
          ->join('audiovisualunits','audiovisualunits.AVUId','=','avubookings.AVUId')
          ->where('CheckInDate', $request->input('CheckInDate'))
          ->paginate(10);
-     }else{
+     }
+     
+     else{
          $avubookings =DB::table('avubookings')
          ->select('avubookings.*','users.name','audiovisualunits.Type')
          ->join('users','users.id','=','avubookings.Recommendation_From')
@@ -148,6 +150,44 @@ class ViewAVUBookingController extends Controller
         return view('viewSelectavubooking',['avubookings'=>$avubookings]); 
        } 
 
+       
+       public function viewguestavubooking(Request $request) { 
+        
+        //$Recommendation_From = Auth::user()->roleNo;
+        //$Recommendation_From = Auth::roleNo();
+        $GuestId = Auth::id();
+
+        if($request->input('CheckInDate') != null){
+           
+
+            $avubookings =DB::table('avubookings')
+            ->select('avubookings.*','users.name','audiovisualunits.Type')
+            ->join('users','users.id','=','avubookings.Recommendation_From')
+            ->join('audiovisualunits','audiovisualunits.AVUId','=','avubookings.AVUId')
+            ->where(['avubookings.GuestId' => $GuestId])
+            ->where('CheckInDate', $request->input('CheckInDate'))
+            ->orderBy('avubookings.BookingId', 'DESC')
+            ->paginate(10);
+
+        }else{
+            $avubookings =DB::table('avubookings')
+            ->select('avubookings.*','users.name','audiovisualunits.Type')
+            ->join('users','users.id','=','avubookings.Recommendation_From')
+            ->join('audiovisualunits','audiovisualunits.AVUId','=','avubookings.AVUId')
+            ->where(['avubookings.GuestId' => $GuestId])
+            ->orderBy('avubookings.BookingId','DESC')
+            ->paginate(10);
+        }
+ 
+        
+      
+
+        //$avubookings = DB::select('select * from avubookings where Recommendation_From = ?', [$Recommendation_From]);
+         
+        
+ 
+         return view('viewguestavubooking',['avubookings'=>$avubookings]); 
+        } 
 
        public function viewdeanhodavubooking(Request $request) { 
         

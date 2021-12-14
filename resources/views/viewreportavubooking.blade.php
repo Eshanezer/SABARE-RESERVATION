@@ -13,7 +13,7 @@
 
 
     <div class="form-group">
-    {{Form::label('CheckInDate', 'Check In Date') }}
+    {{Form::label('CheckInDate', 'Date') }}
     <input type="date" class="form-control" name="CheckInDate" value="{{request()->query('CheckInDate') != null ? request()->query('CheckInDate') : date('yyyy/mm/dd')}}">
 
     </div>
@@ -23,13 +23,13 @@
     {{Form::submit('Submit', ['class'=>'btn btn-primary', 'v-on:click'=>'formSubmit'])}}
     </div>
     {!! Form::close() !!}
-
-    <a class="nav-link btn btn-info " href="/download-avupdf?CheckInDate={{request()->CheckInDate}}">Export Deatils</a></br>
-    <a class="nav-link btn btn-info " href="/download-avumonthpdf?CheckInDate={{request()->CheckInDate}}">Export Monthly details </a></br>
-    <a class="nav-link btn btn-info " href="/download-avuyearpdf?CheckInDate={{request()->CheckInDate}}">Export Year details </a></br>
+    <div class="btn-group" style="width:100%">
+    <a class="nav-link btn btn-info " href="/download-avupdf?CheckInDate={{request()->CheckInDate}}">Generate Deatils</a></br>
+    <a class="nav-link btn btn-info " href="/download-avumonthpdf?CheckInDate={{request()->CheckInDate}}">Generate Monthly details </a></br>
+    <a class="nav-link btn btn-info " href="/download-avuyearpdf?CheckInDate={{request()->CheckInDate}}">Generate Year details </a></br>
     
     </div>
-
+</div>
  </div>
 </div>
 

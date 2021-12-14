@@ -9,13 +9,13 @@
      <div class="mb-4">
         <form action = "/show/<?php echo $users[0]->BookingId; ?>" method = "post">
         <input type = "hidden" name = "_token" value = "<?php echo csrf_token(); ?>">
-        <table>
+        <table width="90%">
         <tr>
-        <td>
+        <td width="30%">
         Booking Id
         
         </td>
-        <td>
+        <td width="70%">
         <input  class="form-control" type = 'text' name = 'BookingId'
         value = '<?php echo$users[0]->BookingId; ?>'readonly="readonly"/> </td>
         </tr>
@@ -45,6 +45,14 @@
         value = '<?php echo$users[0]->Address; ?>'readonly="readonly"/>
         </td>
         </tr>
+        <tr>
+                <td>Department</td>
+                <td>
+                <input class="form-control" type = 'text' name = 'Department'
+                value = '<?php echo$users[0]->Department; ?>'readonly="readonly"/>
+                </td>
+                </tr>
+        <tr>
         <tr>
         <td>Check In Date</td>
         <td>
@@ -77,7 +85,7 @@
         </tr>
         
         <tr>
-        <td>Comment By HOD/Dean</td>
+        <td>Comment By HOD</td>
         <td>
         <input class="form-control" type = 'textarea' name = 'HODComment'
         value = '<?php echo$users[0]->HODComment; ?>' readonly="readonly"/>

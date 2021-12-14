@@ -4,4 +4,4 @@
 
 
 <p>Please confirm my request. Thank you very much.</p>
-<a href="http://localhost:8000/login">SUSL Reservation</a>
+<a href="http://smartrsv.sab.ac.lk/login">SUSL Reservation</a>

@@ -30,6 +30,7 @@
     <table  class="table table-striped">
     <tr>
         <td>Booking Id </td>
+        <td>Create Date </td>
         <td>Guest Name </td>
         <td>Check In Date</td>
         <td>Check Out Date</td>
@@ -38,7 +39,7 @@
         <td>Number Of Units</td>
         <!-- <td>Guest Tye</td>
         <td>Description</td> -->
-        <td>Request VC Approval</td>
+        {{-- <td>Request VC Approval</td> --}}
         <td>Status</td>
         <td>Option</td>
         
@@ -50,6 +51,7 @@
     @foreach ($agrsbookings as $agrsbooking)
     <tr>
         <td>{{ $agrsbooking->BookingId  }}</td>
+        <td>{{ $agrsbooking->created_at  }}</td>
         <td>{{ $agrsbooking->GuestName  }}</td>
         <td>{{ $agrsbooking->CheckInDate }}</td>
         <td>{{ $agrsbooking->CheckOutDate }}</td>
@@ -58,20 +60,23 @@
         <td>{{ $agrsbooking->NoOfUnits }}</td>
         <!-- <td>{{ $agrsbooking->BookingType }}</td>
         <td>{{ $agrsbooking->Description }}</td> -->
-        @if($agrsbooking->VCApproval == 0)
+        {{-- @if($agrsbooking->VCApproval == 0)
         <td>Not Request</td>
         @else
         <td>Requested</td>
-        @endif
+        @endif --}}
         
         <td>{{ $agrsbooking->Status }}</td>
        
 
         <td>
-        <a href = 'showafsvc/{{ $agrsbooking->BookingId }}'>View</a></br>
-        <a href = 'afsapprove/{{ $agrsbooking->BookingId }}'>Approve</a></br>
-        <a href = 'afsnotapprove/{{ $agrsbooking->BookingId }}'>Reject</a>
-       
+        <a class="nav-link btn btn-outline-primary" href = 'showafsvc/{{ $agrsbooking->BookingId }}'>View</a></br>
+        @if($agrsbooking->Status == 'Request Vice Chancellor Approval')
+        <a class="nav-link btn btn-outline-primary" href = 'afsapprove/{{ $agrsbooking->BookingId }}'>Approve</a></br>
+        <a class="nav-link btn btn-outline-primary" href = 'afsnotapprove/{{ $agrsbooking->BookingId }}'>Reject</a>
+        @else
+        
+        @endif
         </td>
    
         

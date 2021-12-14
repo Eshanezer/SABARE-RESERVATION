@@ -2,6 +2,7 @@
     <table  class="table table-striped">
     <tr>
         <td>Id </td>
+        <td>Create Date </td>
         <td>Guest  </td>
         <td>Service </td>
         <td>Check In Date</td>
@@ -20,6 +21,7 @@
     @foreach ($avubookings as $avubooking)
     <tr>
         <td>{{ $avubooking->BookingId  }}</td>
+        <td>{{ $avubooking->created_at  }}</td>
         <td>{{ $avubooking->GuestName  }}</td>
         <td>{{ $avubooking->Type   }}</td>
         <td>{{ $avubooking->CheckInDate }}</td>

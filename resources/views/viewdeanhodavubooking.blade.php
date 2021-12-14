@@ -30,6 +30,7 @@
     <table  class="table table-striped">
     <tr>
         <td>Id </td>
+        <td>Create Date </td>
         <td>Guest Name </td>
         <td>Audio Visual Unit  </td>
         <!-- <td>EventName</td> -->
@@ -49,6 +50,7 @@
     @foreach ($avubookings as $avubooking)
     <tr>
         <td>{{ $avubooking->BookingId  }}</td>
+        <td>{{ $avubooking->created_at  }}</td>
         <td>{{ $avubooking->GuestName }}</td>
         <td>{{ $avubooking->Type   }}</td>
         <!-- <td>{{ $avubooking->EventName }}</td> -->
@@ -60,9 +62,9 @@
         <td>{{ $avubooking->Status }}</td>
        
         <td>
-        <a href = 'showavudean/{{ $avubooking->BookingId }}'>View</a></br>
-        <a href = 'avurecommend/{{ $avubooking->BookingId }}'>Recommend</a> </br>
-        <a href = 'avunnotrecommend/{{ $avubooking->BookingId }}'>Reject</a>
+        <a class="nav-link btn btn-outline-primary" href = 'showavudean/{{ $avubooking->BookingId }}'>View</a></br>
+        <a class="nav-link btn btn-outline-primary"href = 'avurecommend/{{ $avubooking->BookingId }}'>Recommend</a> </br>
+        <a class="nav-link btn btn-outline-primary"  href = 'avunnotrecommend/{{ $avubooking->BookingId }}'>Reject</a>
         </td>
        
     </tr>

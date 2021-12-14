@@ -28,6 +28,6 @@ class ConfirmMail extends Mailable
      */
     public function build()
     {
-        return $this->from('reservationsusl@gmail.com')->subject('Confirmation of Reservation Request ')->view('dynamic_confirmemail_template')->with('data', $this->data);
+        return $this->from('smartadmin@sab.ac.lk')->subject('Confirmation of Reservation Request ')->view('dynamic_confirmemail_template')->with('data', $this->data);
     }
 }

@@ -2,6 +2,7 @@
 
 
 @section('content')
+<div class="card p-3 mb-2 bg-secondary text-white" >
 <h1>Contact Us</h1>
 <!-- contact page -->
 {!! Form::open(['url' => 'contact/submit']) !!}
@@ -27,4 +28,5 @@
    {{Form::submit('Submit', ['class'=>'btn btn-primary'])}}
    </div>
 {!! Form::close() !!}
+  </div>
 @endsection

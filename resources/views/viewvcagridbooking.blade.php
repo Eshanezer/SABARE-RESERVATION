@@ -30,13 +30,14 @@
     <table  class="table table-striped">
     <tr>
         <td>Booking Id </td>
+        <td>Create Date </td>
         <td>Guest Name </td>
         <td>Check In Date</td>
         <td>StartTime</td>
         <td>EndTime</td>
         <td>Guests</td>
         <td>Description</td>
-        <td>Request VC Approval</td>
+        {{-- <td>Request VC Approval</td> --}}
         <td>Status</td>
         <td>Option</td>
         
@@ -48,26 +49,30 @@
     @foreach ($agridbookings as $agridbooking)
     <tr>
         <td>{{ $agridbooking->BookingId  }}</td>
+        <td>{{ $agridbooking->created_at  }}</td>
         <td>{{ $agridbooking->GuestName  }}</td>
         <td>{{ $agridbooking->CheckInDate }}</td>
         <td>{{ $agridbooking->StartTime }}</td>
         <td>{{ $agridbooking->EndTime }}</td>
         <td>{{ $agridbooking->NoOfGuest  }}</td>
         <td>{{ $agridbooking->Description }}</td>
-        @if($agridbooking->VCApproval == 0)
+        {{-- @if($agridbooking->VCApproval == 0)
         <td>Not Request</td>
         @else
         <td>Requested</td>
-        @endif
+        @endif --}}
         <td>{{ $agridbooking->Status }}</td>
        
        
        
         <td>
-        <a href = 'showafdvc/{{ $agridbooking->BookingId }}'>View</a></br>
-        <a href = 'afdapprove/{{ $agridbooking->BookingId }}'>Approve</a></br>
-        <a href = 'afdnotapprove/{{ $agridbooking->BookingId }}'>Reject</a>
-       
+        <a class="nav-link btn btn-outline-primary" href = 'showafdvc/{{ $agridbooking->BookingId }}'>View</a></br>
+        @if($agridbooking->Status == 'Request Vice Chancellor Approval')
+        <a class="nav-link btn btn-outline-primary" href = 'afdapprove/{{ $agridbooking->BookingId }}'>Approve</a></br>
+        <a class="nav-link btn btn-outline-primary" href = 'afdnotapprove/{{ $agridbooking->BookingId }}'>Reject</a>
+        @else
+        
+        @endif
         </td>
       
        

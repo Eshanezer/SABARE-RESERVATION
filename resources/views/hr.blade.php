@@ -2,7 +2,7 @@
 
 
 @section('content')
-<h1>Holiday Resort</h1>
+
 
 
 <div class="flash-message">
@@ -14,6 +14,7 @@
     </div>
 <!-- Holiday Resort booking page -->
 <div class=" card border-primary ">
+        <h1>Holiday Resort</h1>
 </br>
    <p style="margin-left: 10px;">
    Holiday Resort is the main circuit bungalows of the Sabaragamuwa University of Sri Lanka. The university provides accommodation 
@@ -52,7 +53,7 @@
          <tr>
          <td>Resource Persons</td>
        
-            <td>-</td>
+            <td>2000.00</td>
             <td>400.00</td>
          </tr>
 
@@ -79,7 +80,7 @@
 
                           <div class="form-group">
                         {{Form::label('BookingType', 'Booking for ') }}
-                        {{Form::select('BookingType', ['Resource Person' => 'Resource Person', 'SUSL Staff' => 'SUSL Staff','Local Visitor' => 'Local Visitor', ' Foreigners' => 'Other University Staff '], null, ['class'=>'form-control','v-model' => 'booking_type'])}}
+                        {{Form::select('BookingType', ['Resource Person' => 'Resource Person', 'SUSL Staff' => 'SUSL Staff','Local Visitor' => 'Local Visitor', 'Other University Staff' => 'Other University Staff'], null, ['class'=>'form-control','v-model' => 'booking_type'])}}
                             
                         </div>
 
@@ -122,10 +123,10 @@
                         {{Form::textarea('Description', '',['class'=>'form-control','placeholder'=>'Description'])}}
                         </div>
 
-                        <div class="form-group" v-if="booking_type === `Resource Person` || booking_type === `SUSL Staff`">
+                        {{-- <div class="form-group" v-if="booking_type === `Resource Person` || booking_type === `SUSL Staff`">
                         {!! Form::label('Dean/HOD')!!}
                         {!! Form::select('Recommendation_from', $select, null, ['class'=>'form-control', 'placeholder' => 'Please select ...']) !!}
-                        </div>
+                        </div> --}}
 
                         <!-- <div class="form-group" v-if="booking_type === `Resource Person` || booking_type === `SUSL Staff`">
                         {{Form::label('VCApproval', 'Request VC Approval') }}

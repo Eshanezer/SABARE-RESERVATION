@@ -30,6 +30,7 @@
     <table  class="table table-striped">
     <tr>
         <td>Booking Id </td>
+        <td>Create Date</td>
         <td>Guest Name </td>
         <td>Room Type </td>
         <!-- <td>EventName</td> -->
@@ -38,7 +39,7 @@
         <!-- <td>Number Of Adults</td>
         <td>Number Of Children</td>
         <td>Number Of Units</td> -->
-        <td>Guest Tye</td>
+        {{-- <td>Guest Type</td> --}}
         <!-- <td>Description</td>
         <td>Request VC Approval</td> -->
         <td>Status</td>
@@ -52,6 +53,7 @@
     @foreach ($nestbookings as $nestbooking)
     <tr>
         <td>{{ $nestbooking->BookingId  }}</td>
+        <td>{{ $nestbooking->created_at  }}</td>
         <td>{{ $nestbooking->GuestName  }}</td>
         <td>{{ $nestbooking->Type    }}</td>
         <td>{{ $nestbooking->CheckInDate }}</td>
@@ -59,7 +61,7 @@
          {{-- <td>{{ $nestbooking->NoOfAdults }}</td>
         <td>{{ $nestbooking->NoOfChildren  }}</td>
         <td>{{ $nestbooking->NoOfUnits }}</td>  --}}
-        <td>{{ $nestbooking->BookingType }}</td>
+        {{-- <td>{{ $nestbooking->BookingType }}</td> --}}
          {{-- <td>{{ $nestbooking->Description }}</td> --}}
         {{-- @if($nestbooking->VCApproval == 0)
         <td>Not Request</a></td>
@@ -70,11 +72,11 @@
         <td>{{ $nestbooking->Status }}</td>
        
         <td>
-        <a href = 'shownestdean/{{ $nestbooking->BookingId }}'>View</a></br>
+        <a class="nav-link btn btn-outline-primary" href = 'shownestdean/{{ $nestbooking->BookingId }}'>View</a></br>
 
         @if($nestbooking->Status == 'Send to Recommendation')
-        <a href = 'nestrecommend/{{ $nestbooking->BookingId }}'>Recommend</a> </br>
-        <a href = 'nestnotrecommend/{{ $nestbooking->BookingId }}'>Reject</a>
+        <a class="nav-link btn btn-outline-primary" href = 'nestrecommend/{{ $nestbooking->BookingId }}'>Recommend</a> </br>
+        <a class="nav-link btn btn-outline-primary"  href = 'nestnotrecommend/{{ $nestbooking->BookingId }}'>Reject</a>
         @else
         
         @endif

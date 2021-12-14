@@ -32,7 +32,7 @@
     
 </head>
 <body>
-    <div id="app">
+    <div style="background-image: url('img/background.jpg'); height: 3000px;" id="app">
         <nav class="navbar navbar-expand-md navbar-light bg-white shadow-sm">
             <div class="container">
                
@@ -47,6 +47,11 @@
                         <li class="nav-item active">
                             <a class="nav-link" href="/">Home </a>
                         </li>
+                        @if (Auth::check() && Auth::user()->roleNo == 0)
+                        <li class="nav-item">
+                            <a class="nav-link" href="/guestbooking">Booking Details</a>
+                        </li>
+                        @endif
                         @if (Auth::check() && Auth::user()->roleNo == 1)
                         <li class="nav-item">
                             <a class="nav-link" href="/admin">Admin</a>
@@ -54,7 +59,7 @@
                         @endif
                         @if (Auth::check() && Auth::user()->roleNo == 2)
                         <li class="nav-item">
-                            <a class="nav-link" href="/vc">Vice Chancellor Page</a>
+                            <a class="nav-link" href="/vc">Booking Details</a>
                         </li>
                         @endif
                         @if (Auth::check() && Auth::user()->roleNo == 3)
@@ -79,12 +84,12 @@
                         @endif
                         @if (Auth::check() && Auth::user()->roleNo == 7)
                         <li class="nav-item">
-                            <a class="nav-link" href="/hrreg">Registrar Page</a>
+                            <a class="nav-link" href="/hrreg">Booking Details</a>
                         </li>
                         @endif
                         @if (Auth::check() && Auth::user()->roleNo == 8)
                         <li class="nav-item">
-                            <a class="nav-link" href="/nestreg">Registrar Page</a>
+                            <a class="nav-link" href="/nestreg">Booking Details</a>
                         </li>
                         @endif
                         @if (Auth::check() && Auth::user()->roleNo == 9)
@@ -99,7 +104,7 @@
                         @endif
                         @if (Auth::check() && Auth::user()->roleNo >= 11)
                         <li class="nav-item">
-                            <a class="nav-link" href="/dean_hod">Dean/HOD Page</a>
+                            <a class="nav-link" href="/dean_hod">Booking Details</a>
                         </li>
                         @endif
                         
@@ -185,7 +190,7 @@
     
     </div>
     </br>
-    @include('inc.footer')
+    {{-- @include('inc.footer') --}}
         </main>
     </div>
 </body>

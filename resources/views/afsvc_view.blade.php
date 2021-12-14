@@ -9,12 +9,12 @@
      <div class="mb-4">
         <form action = "/showaf/<?php echo $users[0]->BookingId; ?>" method = "post">
         <input type = "hidden" name = "_token" value = "<?php echo csrf_token(); ?>">
-        <table>
+        <table width="90%">
         <tr>
-        <td>
+        <td width="30%">
         Booking Id
         </td>
-        <td>
+        <td width="70%">
         <input  class="form-control" type = 'text' name = 'BookingId'
         value = '<?php echo$users[0]->BookingId; ?>'readonly="readonly"/> </td>
         </tr>

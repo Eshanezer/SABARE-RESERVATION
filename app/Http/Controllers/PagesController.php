@@ -243,11 +243,17 @@ if($request->input('property') == 'Agri Farm Kabana'){
 
 if($request->input('property') == 'Agri Farm Dining Room'){
                
-            
+    $current = strtotime(date("Y-m-d"));
+    $date    = strtotime($request->input('CheckInDate'));
+
+    $datediff = $date - $current;
+    $difference = floor($datediff/(60*60*24));
+
+    if($difference == 0){
     $this->validate($request,[
         
         'CheckInDate'=>'required|date|after:yesterday',
-        'StartTime'=>'exclude_if:CheckInDate,today|required|after:CurrentTime',
+        'StartTime'=>'required|after:CurrentTime',
         //'StartTime'=>'required|after:CurrentTime',
         'EndTime'=>'required|after:StartTime',
     ],
@@ -257,8 +263,23 @@ if($request->input('property') == 'Agri Farm Dining Room'){
         'EndTime.after' => 'Please Enter a Valid End Time',
     ]);
     
-
-                                
+    }
+    else{
+            
+        $this->validate($request,[
+            
+            'CheckInDate'=>'required|date|after:yesterday',
+            'StartTime'=>'required',
+            //'StartTime'=>'required|after:CurrentTime',
+            'EndTime'=>'required|after:StartTime',
+        ],
+        [
+            'CheckInDate.after' => 'Please Enter a Valid Date',
+            'StartTime.after' => 'Please Enter a Valid Start Time',
+            'EndTime.after' => 'Please Enter a Valid End Time',
+        ]);
+    }
+                                    
    $CheckInDate = agridbooking::where('CheckInDate', '=', $request->input('CheckInDate'))->first();
     
     if ($CheckInDate === null) {
@@ -295,19 +316,40 @@ if($request->input('property') == 'Agri Farm Dining Room'){
 
     if($request->input('property') == 'Audio Visual Unit'){
              
-            
-        $this->validate($request,[
-            
-            'CheckInDate'=>'required|date|after:yesterday',
-            'StartTime'=>'required|after:CurrentTime',
-            'EndTime'=>'required|after:StartTime',
-        ],
-        [
-            'CheckInDate.after' => 'Please Enter a Valid Date',
-            'StartTime.after' => 'Please Enter a Valid Start Time',
-            'EndTime.after' => 'Please Enter a Valid End Time',
-        ]);
-        
+        $current = strtotime(date("Y-m-d"));
+        $date    = strtotime($request->input('CheckInDate'));
+    
+        $datediff = $date - $current;
+        $difference = floor($datediff/(60*60*24));
+    
+        if($difference == 0){   
+            $this->validate($request,[
+                
+                'CheckInDate'=>'required|date|after:yesterday',
+                'StartTime'=>'required|after:CurrentTime',
+                'EndTime'=>'required|after:StartTime',
+            ],
+            [
+                'CheckInDate.after' => 'Please Enter a Valid Date',
+                'StartTime.after' => 'Please Enter a Valid Start Time',
+                'EndTime.after' => 'Please Enter a Valid End Time',
+            ]);
+        }
+        else{
+                
+            $this->validate($request,[
+                
+                'CheckInDate'=>'required|date|after:yesterday',
+                'StartTime'=>'required',
+                'EndTime'=>'required|after:StartTime',
+            ],
+            [
+                'CheckInDate.after' => 'Please Enter a Valid Date',
+                'StartTime.after' => 'Please Enter a Valid Start Time',
+                'EndTime.after' => 'Please Enter a Valid End Time',
+            ]);
+       }
+
     
                                     
        $CheckInDate = avubooking::where('CheckInDate', '=', $request->input('CheckInDate'))->first();
@@ -405,5 +447,9 @@ if($request->input('property') == 'Agri Farm Dining Room'){
 
     public function view_reports(Request $req){
         return view('view_reports');
+    }
+
+    public function guestbooking(Request $req){
+        return view('guestbooking');
     }
 }

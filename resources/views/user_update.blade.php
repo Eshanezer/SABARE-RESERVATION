@@ -9,13 +9,13 @@
      <div class="mb-4">
         <form action = "/edit/<?php echo $users[0]->id; ?>" method = "post">
         <input type = "hidden" name = "_token" value = "<?php echo csrf_token(); ?>">
-        <table>
+        <table width="90%">
         <tr>
-        <td>
+        <td width="30%">
         Name
         
         </td>
-        <td>
+        <td width="70%">
         <input  class="form-control" type = 'text' name = 'name'
         value = '<?php echo$users[0]->name; ?>'/> </td>
         </tr>
@@ -58,21 +58,21 @@
         <td>University</td>
         <td>
         <input class="form-control" type = 'text' name = 'University'
-        value = '<?php echo$users[0]->University; ?>'/>
+        value = '<?php echo$users[0]->University; ?>' readonly="readonly"/>
         </td>
         </tr>
         <tr>
-        <td>Faculty Or Center</td>
+        <td>Faculty </td>
         <td>
         <input class="form-control" type = 'text' name = 'FacultyOrCenter'
-        value = '<?php echo$users[0]->FacultyOrCenter; ?>'/>
+        value = '<?php echo$users[0]->FacultyOrCenter; ?>' readonly="readonly"/>
         </td>
         </tr>
         <tr>
         <td>Department</td>
         <td>
         <input class="form-control" type = 'text' name = 'Department'
-        value = '<?php echo$users[0]->Department; ?>'/>
+        value = '<?php echo$users[0]->Department; ?>' readonly="readonly"/>
         </td>
         </tr>
         <tr>
@@ -86,7 +86,7 @@
         <td>Designation</td>
         <td>
         <input class="form-control" type = 'text' name = 'Designation'
-        value = '<?php echo$users[0]->Designation; ?>'/>
+        value = '<?php echo$users[0]->Designation; ?>' readonly="readonly"/>
         </td>
         </tr>
         <td>Role Number</td>

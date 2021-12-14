@@ -2,6 +2,9 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\KabanaPaymentType;
+use Carbon\Carbon;
+use Carbon\CarbonPeriod;
 use Illuminate\Http\Request;
 use App\Models\agrifarmstay;
 use App\Models\agrsbooking;
@@ -51,6 +54,13 @@ class AgriFarmController extends Controller
 
     public function submit(Request $request){
 
+
+        $Department= Auth::user()->Department;
+        $hod=User::select('id')
+        ->where('Department', '=', [$Department])
+        ->where('Designation', '=', 'Head of The Department')
+        ->get();
+
         $this->validate($request,[
             'BookingType' =>'required',
             'CheckInDate'=>'required|date|after:yesterday',
@@ -59,7 +69,7 @@ class AgriFarmController extends Controller
             'NoOfChildren'=>'required|numeric|min:0',
             'NoOfUnits'=>'required|numeric|min:1',
             'Description'=>'required',   
-            'Recommendation_from'=>"required_if:BookingType,==,Resource Person,SUSL Staff",
+            //'Recommendation_from'=>"required_if:BookingType,==,Resource Person,SUSL Staff",
         ], 
         [
             'BookingType.required' => 'Please Select Whom are You Booking For',
@@ -85,7 +95,31 @@ class AgriFarmController extends Controller
                  return back()->with('success','Sorry Allready Booked!');
              }else{
               //dd("available");
-                
+
+                // calculation
+
+                $amountByDate=0;
+                $totalDays =0;
+                $booking_type = KabanaPaymentType::where('booking_type',$request->BookingType)->first();
+
+                $startDate = Carbon::createFromFormat('Y-m-d',$request->CheckInDate);
+                $endDate = Carbon::createFromFormat('Y-m-d',$request->CheckOutDate);
+
+
+                $dateRange = CarbonPeriod::create($startDate, $endDate);
+                foreach($dateRange as $date){
+                    $totalDays++;
+                    if($date->isMonday()===true || $date->isTuesday()===true || $date->isWednesday()===true ||$date->isThursday()===true){
+                        // monday - tuesday
+                        $amountByDate+=$booking_type->weekdays;
+                    }else{
+                        //friday sat sun days
+                        $amountByDate+=$booking_type->weekend;
+                    }
+                }
+                $totalAmount = $amountByDate*$request->NoOfUnits;
+
+
               $agrsbooking = new agrsbooking;
               $agrsbooking-> BookingType = $request->input('BookingType');
               $agrsbooking-> CheckInDate = $request->input('CheckInDate');
@@ -95,9 +129,10 @@ class AgriFarmController extends Controller
               $agrsbooking-> NoOfUnits = $request->input('NoOfUnits');
               $agrsbooking-> Description = $request->input('Description');
               $agrsbooking-> Status = 'Request for Booking';
+              $agrsbooking->payment_total= $totalAmount;
               
               if($request->input('BookingType') == "Resource Person" || $request->input('BookingType') == "SUSL Staff"){
-                $agrsbooking-> Recommendation_from = $request->input('Recommendation_from');
+                $agrsbooking-> Recommendation_from = $hod[0]->id;
                 // $agrsbooking-> VCApproval = $request->input('VCApproval');
                 
               }

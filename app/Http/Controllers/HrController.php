@@ -2,6 +2,9 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\HoliydayResortPayment;
+use Carbon\Carbon;
+use Carbon\CarbonPeriod;
 use Illuminate\Http\Request;
 use App\Models\holidayresort;
 use App\Models\hrbooking;
@@ -53,6 +56,11 @@ class HrController extends Controller
 
     public function submit(Request $request){
 
+        $Department= Auth::user()->Department;
+        $hod=User::select('id')
+        ->where('Department', '=', [$Department])
+        ->where('Designation', '=', 'Head of The Department')
+        ->get();
 
         $this->validate($request,[
            
@@ -64,10 +72,24 @@ class HrController extends Controller
             'NoOfChildren'=>'required|numeric|min:0',
             'NoOfUnits'=>'required|numeric|min:1',
             'Description'=>'required', 
-            'Recommendation_from'=>"required_if:BookingType,==,Resource Person,SUSL Staff",
+           // 'Recommendation_from'=>"required_if:BookingType,==,Resource Person,SUSL Staff",
             'HolodayResortId'=>'required',
         ]);
 
+
+        // payment calculate
+        $startDate = Carbon::createFromFormat('Y-m-d',$request->CheckInDate);
+        $endDate = Carbon::createFromFormat('Y-m-d',$request->CheckOutDate);
+
+
+        $dateRange = CarbonPeriod::create($startDate, $endDate);
+
+        $totalDays =count($dateRange);
+
+        $holidayPayment = HoliydayResortPayment::where('booking_type',$request->input('BookingType'))->first();
+
+
+        $totalPayments = 0;
         //dd($request->input('HolodayResortId'));
 
         if($request->input('HolodayResortId') == 1){
@@ -91,6 +113,12 @@ class HrController extends Controller
                  return back()->with('success','Sorry Allready Booked!');
              }else{
               // dd("available");
+
+
+
+                // master room
+                    $totalPayments = $holidayPayment->master * $totalDays * (+$request->input('NoOfUnits'));
+
                 
                     $hrbooking = new hrbooking;
                     $hrbooking-> BookingType = $request->input('BookingType');
@@ -101,9 +129,10 @@ class HrController extends Controller
                     $hrbooking-> NoOfUnits = $request->input('NoOfUnits');
                     $hrbooking-> Description = $request->input('Description');
                     $hrbooking-> Status = 'Request for Booking';
-                    
+                    $hrbooking-> payment_total = $totalPayments;
+
                     if($request->input('BookingType') == "Resource Person" || $request->input('BookingType') == "SUSL Staff"){
-                        $hrbooking-> Recommendation_from = $request->input('Recommendation_from');
+                        $hrbooking-> Recommendation_from = $hod[0]->id;
                         //$hrbooking-> VCApproval = $request->input('VCApproval');
                         
                       }
@@ -158,8 +187,11 @@ class HrController extends Controller
                 return back()->with('success','Sorry Allready Booked!');
              }else{
               // dd("available");
-                
-                    $hrbooking = new hrbooking;
+
+                $totalPayments = $holidayPayment->single * $totalDays * (+$request->input('NoOfUnits'));
+
+
+                $hrbooking = new hrbooking;
                     $hrbooking-> BookingType = $request->input('BookingType');
                     $hrbooking-> CheckInDate = $request->input('CheckInDate');
                     $hrbooking-> CheckOutDate = $request->input('CheckOutDate');
@@ -168,9 +200,10 @@ class HrController extends Controller
                     $hrbooking-> NoOfUnits = $request->input('NoOfUnits');
                     $hrbooking-> Description = $request->input('Description');
                     $hrbooking-> Status = 'Request for Booking';
-                    
+                    $hrbooking-> payment_total = $totalPayments;
+
                     if($request->input('BookingType') == "Resource Person" || $request->input('BookingType') == "SUSL Staff"){
-                        $hrbooking-> Recommendation_from = $request->input('Recommendation_from');
+                        $hrbooking-> Recommendation_from = $hod[0]->id;
                        // $hrbooking-> VCApproval = $request->input('VCApproval');
                         
                       }

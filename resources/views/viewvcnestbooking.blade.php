@@ -30,12 +30,13 @@
     <table  class="table table-striped">
     <tr>
         <td>Id </td>
+        <td>Create Date</td>
         <td>Guest Name </td>
         <td>Room Type </td>
         <td>Check In Date</td>
         <td>Check Out Date</td>
         <td>Units</td>
-        <td>Request VC Approval</td>
+        {{-- <td>Request VC Approval</td> --}}
         <td>Status</td>
         <td>Option</td>
         
@@ -47,26 +48,30 @@
     @foreach ($nestbookings as $nestbooking)
     <tr>
         <td>{{ $nestbooking->BookingId  }}</td>
+        <td>{{ $nestbooking->created_at  }}</td>
         <td>{{ $nestbooking->GuestName  }}</td>
         <td>{{ $nestbooking->Type   }}</td>
         <td>{{ $nestbooking->CheckInDate }}</td>
         <td>{{ $nestbooking->CheckOutDate }}</td>
         <td>{{ $nestbooking->NoOfUnits }}</td>
-        @if($nestbooking->VCApproval == 0)
+        {{-- @if($nestbooking->VCApproval == 0)
         <td>Not Request</td>
         @else
         <td>Requested</td>
-        @endif
+        @endif --}}
         
         <td>{{ $nestbooking->Status }}</td>
        
 
        
         <td>
-        <a href = 'shownestvc/{{ $nestbooking->BookingId }}'>View</a></br>
-        <a href = 'nestapprove/{{ $nestbooking->BookingId }}'>Approve</a></br>
-        <a href = 'nestnotapprove/{{ $nestbooking->BookingId }}'>Reject</a>
-       
+        <a class="nav-link btn btn-outline-primary" href = 'shownestvc/{{ $nestbooking->BookingId }}'>View</a></br>
+        @if($nestbooking->Status == 'Request Vice Chancellor Approval')
+        <a class="nav-link btn btn-outline-primary" href = 'nestapprove/{{ $nestbooking->BookingId }}'>Approve</a></br>
+        <a class="nav-link btn btn-outline-primary" href = 'nestnotapprove/{{ $nestbooking->BookingId }}'>Reject</a>
+        @else
+        
+        @endif
         </td>
        
        

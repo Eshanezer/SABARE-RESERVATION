@@ -28,6 +28,6 @@ class RegistarMail extends Mailable
      */
     public function build()
     {
-        return $this->from('reservationsusl@gmail.com')->subject('Regarding SUSL Resorts Reservation ')->view('dynamic_reg_template')->with('data', $this->data);
+        return $this->from('smartadmin@sab.ac.lk')->subject('Regarding SUSL Resorts Reservation ')->view('dynamic_reg_template')->with('data', $this->data);
     }
 }

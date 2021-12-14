@@ -28,6 +28,6 @@ class agriemail extends Mailable
      */
     public function build()
     {
-        return $this->from('reservationsusl@gmail.com')->subject('Reservation Booking Details')->view('dynamic_reservationmemail_template')->with('data', $this->data);
+        return $this->from('smartadmin@sab.ac.lk')->subject('Reservation Booking Details')->view('dynamic_reservationmemail_template')->with('data', $this->data);
     }
 }

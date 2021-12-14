@@ -2,6 +2,10 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\HoliydayResortPayment;
+use App\Models\NestPayment;
+use Carbon\Carbon;
+use Carbon\CarbonPeriod;
 use Illuminate\Http\Request;
 use App\Models\nest;
 use App\Models\nestbooking;
@@ -55,8 +59,15 @@ class NestController extends Controller
 
     public function submit(Request $request){
 
-        
 
+        $Department= Auth::user()->Department;
+        $hod=User::select('id')
+        ->where('Department', '=', [$Department])
+        ->where('Designation', '=', 'Head of The Department')
+        ->get();
+     
+            
+//dd( $hod[0]->id,$Department);
         $this->validate($request,[
             'CheckInDate'=>'required|date|after:yesterday',
             'CheckOutDate'=>'required|date|after:CheckInDate',
@@ -65,7 +76,7 @@ class NestController extends Controller
             'NoOfChildren'=>'required|numeric|min:0',
             'Description'=>'required',
             'BookingType'=>'required',
-            'Recommendation_from'=>'required',
+            //'Recommendation_from'=>'required',
             
         ], 
         [
@@ -76,8 +87,22 @@ class NestController extends Controller
             'NoOfChildren.required' => 'Please Enter The Number of Children',
             'NoOfUnits.required' => 'Please Enter The Number of Units',
             'Description.required' => 'Please Add a Description',
-            'Recommendation_from' => 'Please Select From Whom You Need to Get Recommendation',
+           // 'Recommendation_from' => 'Please Select From Whom You Need to Get Recommendation',
         ]);
+
+        // payment calculate
+        $startDate = Carbon::createFromFormat('Y-m-d',$request->CheckInDate);
+        $endDate = Carbon::createFromFormat('Y-m-d',$request->CheckOutDate);
+
+
+        $dateRange = CarbonPeriod::create($startDate, $endDate);
+
+        $totalDays =count($dateRange);
+
+        $nestPayment = NestPayment::where('booking_type',$request->input('BookingType'))->first();
+        $noOfUnits = $request->input('NoOfUnits');
+
+        $totalPayments = 0;
         
         if($request->input('NestId') == 1){
             //Master bed room
@@ -95,7 +120,8 @@ class NestController extends Controller
                  return redirect('/')->with('success','Sorry Allready Booked!');
              }else{
               // dd("available");
-                
+
+               $totalPayments = $nestPayment->master * $totalDays * $noOfUnits;
               $nestbooking = new nestbooking;
               $nestbooking-> CheckInDate = $request->input('CheckInDate');
               $nestbooking-> CheckOutDate = $request->input('CheckOutDate');
@@ -105,11 +131,13 @@ class NestController extends Controller
               $nestbooking-> Description = $request->input('Description');
               $nestbooking-> BookingType = $request->input('BookingType');
               $nestbooking-> Status = 'Request for Booking';
-              $nestbooking-> Recommendation_from = $request->input('Recommendation_from');
+              //$nestbooking-> Recommendation_from = $request->input('Recommendation_from');
+              $nestbooking-> Recommendation_from = $hod[0]->id;
               //$nestbooking-> VCApproval = $request->input('VCApproval');
               $nestbooking-> GuestId = Auth::user()->id;
               $nestbooking-> GuestName = Auth::user()->name;
               $nestbooking-> NestId = $request->input('NestId');
+               $nestbooking->payment_amount= $totalPayments;
       
       
               $data = array(
@@ -154,7 +182,9 @@ class NestController extends Controller
                  return redirect('/')->with('success','Sorry Allready Booked!');
              }else{
               // dd("available");
-                
+
+               $totalPayments = $nestPayment->single * $totalDays * $noOfUnits;
+
               $nestbooking = new nestbooking;
               $nestbooking-> CheckInDate = $request->input('CheckInDate');
               $nestbooking-> CheckOutDate = $request->input('CheckOutDate');
@@ -164,12 +194,12 @@ class NestController extends Controller
               $nestbooking-> Description = $request->input('Description');
               $nestbooking-> BookingType = $request->input('BookingType');
               $nestbooking-> Status = 'Request for Booking';
-              $nestbooking-> Recommendation_from = $request->input('Recommendation_from');
+              $nestbooking-> Recommendation_from = $hod[0]->id;
               //$nestbooking-> VCApproval = $request->input('VCApproval');
               $nestbooking-> GuestId = Auth::user()->id;
               $nestbooking-> GuestName = Auth::user()->name;
               $nestbooking-> NestId = $request->input('NestId');
-      
+              $nestbooking->payment_amount= $totalPayments;
       
               $data = array(
                   'id'      =>  Auth::user()->id,

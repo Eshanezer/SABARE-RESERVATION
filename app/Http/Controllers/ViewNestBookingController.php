@@ -49,13 +49,34 @@ class ViewNestBookingController extends Controller
        
 
        public function viewreportnestbooking(Request $request) { 
+       
       
         //$nestbookings = DB::select('select * from nestbookings');
-        if($request->input('CheckInDate') != null){
+        if($request->input('CheckInDate') != null && $request->input('CheckOutDate') != null){
+           
             $nestbookings =DB::table('nestbookings')
             ->select('nestbookings.*','nests.Type')
             ->join('nests','nests.NestId','=','nestbookings.NestId')
-            ->where('CheckInDate', $request->input('CheckInDate'))
+            ->whereDate('CheckInDate', '>=', $request->input('CheckInDate'))
+            ->whereDate('CheckOutDate', '<=', $request->input('CheckOutDate'))
+            ->paginate(10);
+                
+        }
+        else if($request->input('CheckInDate') != null){
+           
+            $nestbookings =DB::table('nestbookings')
+            ->select('nestbookings.*','nests.Type')
+            ->join('nests','nests.NestId','=','nestbookings.NestId')
+            ->whereDate('CheckInDate',$request->input('CheckInDate'))
+            ->paginate(10);
+                
+        }
+        else if($request->input('CheckOutDate') != null){
+           
+            $nestbookings =DB::table('nestbookings')
+            ->select('nestbookings.*','nests.Type')
+            ->join('nests','nests.NestId','=','nestbookings.NestId')
+            ->whereDate('CheckOutDate', $request->input('CheckOutDate'))
             ->paginate(10);
                 
         }else{
@@ -72,16 +93,38 @@ class ViewNestBookingController extends Controller
        } 
 
        public function downloadpdf(Request $request) { 
-      
+
+       // dd($request->input('CheckOutDate'));
+        
         //$nestbookings = DB::select('select * from nestbookings');
-        if($request->input('CheckInDate') != null){
+        if($request->input('CheckInDate') != null && $request->input('CheckOutDate') != null){
             $nestbookings =DB::table('nestbookings')
             ->select('nestbookings.*','nests.Type')
             ->join('nests','nests.NestId','=','nestbookings.NestId')
-            ->where('CheckInDate', $request->input('CheckInDate'))
+            ->whereDate('CheckInDate', '>=', $request->input('CheckInDate'))
+            ->whereDate('CheckOutDate', '<=', $request->input('CheckOutDate'))
             ->get();
                 
-        }else{
+        }
+        else if($request->input('CheckInDate') != null){
+           
+            $nestbookings =DB::table('nestbookings')
+            ->select('nestbookings.*','nests.Type')
+            ->join('nests','nests.NestId','=','nestbookings.NestId')
+            ->whereDate('CheckInDate','>=',$request->input('CheckInDate'))
+            ->paginate(10);
+                
+        }
+        else if($request->input('CheckOutDate') != null){
+           
+            $nestbookings =DB::table('nestbookings')
+            ->select('nestbookings.*','nests.Type')
+            ->join('nests','nests.NestId','=','nestbookings.NestId')
+            ->whereDate('CheckOutDate','<=', $request->input('CheckOutDate'))
+            ->paginate(10);
+                
+        }
+        else{
             $nestbookings =DB::table('nestbookings')
             ->select('nestbookings.*','nests.Type')
             ->join('nests','nests.NestId','=','nestbookings.NestId')
@@ -194,6 +237,36 @@ class ViewNestBookingController extends Controller
     //     echo 'Click Here to go back.';
     //     }
 
+    public function viewguestnestbooking(Request $request) { 
+        
+        
+        $GuestId = Auth::id();
+
+       
+    
+        if($request->input('CheckInDate') != null){
+            $nestbookings =DB::table('nestbookings')
+            ->select('nestbookings.*','nests.Type')
+            ->join('nests','nests.NestId','=','nestbookings.NestId')
+            ->where(['nestbookings.GuestId' => $GuestId])
+            ->where('CheckInDate', $request->input('CheckInDate'))
+            ->orderBy('BookingId', 'DESC')
+            ->paginate(10);
+                
+        }else{
+            $nestbookings =DB::table('nestbookings')
+            ->select('nestbookings.*','nests.Type')
+            ->join('nests','nests.NestId','=','nestbookings.NestId')
+            ->where(['nestbookings.GuestId' => $GuestId])
+            ->orderBy('BookingId', 'DESC')
+            ->paginate(10);
+                
+        }
+      
+       
+         return view('viewguestnestbooking',['nestbookings'=>$nestbookings]); 
+        } 
+
     public function viewdeanhodnestbooking(Request $request) { 
         
         
@@ -220,13 +293,8 @@ class ViewNestBookingController extends Controller
                 
         }
       
-
-      
-        
        // $nestbookings = DB::select('select * from nestbookings where Recommendation_From = ?', [$Recommendation_From]);
-         
-        
- 
+       
          return view('viewdeanhodnestbooking',['nestbookings'=>$nestbookings]); 
         } 
 

@@ -2,6 +2,7 @@
     <table  class="table table-striped">
     <tr>
         <td>Booking Id </td>
+        <td>Create Date </td>
         <td>Guest Name </td>
         <td>Check In Date</td>
         <td>StartTime</td>
@@ -19,6 +20,7 @@
     @foreach ($agridbookings as $agridbooking)
     <tr>
         <td>{{ $agridbooking->BookingId  }}</td>
+        <td>{{ $agridbooking->created_at  }}</td>
         <td>{{ $agridbooking->GuestName  }}</td>
         <td>{{ $agridbooking->CheckInDate }}</td>
         <td>{{ $agridbooking->StartTime }}</td>

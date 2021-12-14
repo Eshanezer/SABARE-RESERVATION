@@ -28,6 +28,6 @@ class nestemail extends Mailable
      */
     public function build()
     {
-        return $this->from('reservationsusl@gmail.com')->subject('Reservation Request ')->view('dynamic_reservationmemail_template')->with('data', $this->data);
+        return $this->from('smartadmin@sab.ac.lk')->subject('Reservation Request ')->view('dynamic_reservationmemail_template')->with('data', $this->data);
     }
 }

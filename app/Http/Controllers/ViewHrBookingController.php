@@ -50,13 +50,31 @@ class ViewHrBookingController extends Controller
       
         //$hrbookings = DB::select('select * from hrbookings');
        
-        if($request->input('CheckInDate') != null){
+        if($request->input('CheckInDate') != null  && $request->input('CheckOutDate') != null){
             $hrbookings =DB::table('hrbookings')
             ->select('hrbookings.*','holidayresorts.Type')
             ->join('holidayresorts','holidayresorts.HolodayResortId','=','hrbookings.HolodayResortId')
-            ->where('CheckInDate', $request->input('CheckInDate'))
+            //->where('CheckInDate', $request->input('CheckInDate'))
+            ->whereDate('CheckInDate', '>=', $request->input('CheckInDate'))
+            ->whereDate('CheckOutDate', '<=', $request->input('CheckOutDate'))
             ->paginate(10);
-        }else{
+        }
+        else if($request->input('CheckInDate') != null  ){
+            $hrbookings =DB::table('hrbookings')
+            ->select('hrbookings.*','holidayresorts.Type')
+            ->join('holidayresorts','holidayresorts.HolodayResortId','=','hrbookings.HolodayResortId')
+            //->where('CheckInDate', $request->input('CheckInDate'))
+            ->where('CheckInDate',  $request->input('CheckInDate'))
+            ->paginate(10);
+        }
+        else if( $request->input('CheckOutDate') != null){
+            $hrbookings =DB::table('hrbookings')
+            ->select('hrbookings.*','holidayresorts.Type')
+            ->join('holidayresorts','holidayresorts.HolodayResortId','=','hrbookings.HolodayResortId')
+            ->where('CheckOutDate',  $request->input('CheckOutDate'))
+            ->paginate(10);
+        }
+        else{
             $hrbookings =DB::table('hrbookings')
             ->select('hrbookings.*','holidayresorts.Type')
             ->join('holidayresorts','holidayresorts.HolodayResortId','=','hrbookings.HolodayResortId')
@@ -68,16 +86,35 @@ class ViewHrBookingController extends Controller
         
        } 
        public function downloadpdf(Request $request) { 
-      
+        //dd($request->input('CheckOutDate'));
         //$hrbookings = DB::select('select * from hrbookings');
-        if($request->input('CheckInDate') != null){
+        if($request->input('CheckInDate') != null && $request->input('CheckOutDate') != null ){
+            $hrbookings =DB::table('hrbookings')
+            ->select('hrbookings.*','holidayresorts.Type')
+            ->join('holidayresorts','holidayresorts.HolodayResortId','=','hrbookings.HolodayResortId')
+            //->where('CheckInDate', $request->input('CheckInDate'))
+            ->whereDate('CheckInDate', '>=', $request->input('CheckInDate'))
+            ->whereDate('CheckOutDate', '<=', $request->input('CheckOutDate'))
+            ->get();
+                
+        }
+        else if($request->input('CheckInDate') != null  ){
             $hrbookings =DB::table('hrbookings')
             ->select('hrbookings.*','holidayresorts.Type')
             ->join('holidayresorts','holidayresorts.HolodayResortId','=','hrbookings.HolodayResortId')
             ->where('CheckInDate', $request->input('CheckInDate'))
             ->get();
                 
-        }else{
+        }
+        else if($request->input('CheckOutDate') != null ){
+            $hrbookings =DB::table('hrbookings')
+            ->select('hrbookings.*','holidayresorts.Type')
+            ->join('holidayresorts','holidayresorts.HolodayResortId','=','hrbookings.HolodayResortId')
+            ->where('CheckOutDate', $request->input('CheckOutDate'))
+            ->get();
+                
+        }
+        else{
             $hrbookings =DB::table('hrbookings')
             ->select('hrbookings.*','holidayresorts.Type')
             ->join('holidayresorts','holidayresorts.HolodayResortId','=','hrbookings.HolodayResortId')
@@ -224,16 +261,39 @@ class ViewHrBookingController extends Controller
         }
 
       
-        
-
         //$hrbookings = DB::select('select * from hrbookings where Recommendation_From = ?', [$Recommendation_From]);
          
-        
  
          return view('viewdeanhodhrbooking',['hrbookings'=>$hrbookings]); 
         } 
 
 
+        public function viewguesthrbooking(Request $request) { 
+        
+        
+            $GuestId = Auth::id();
+    
+            if($request->input('CheckInDate') != null){
+                $hrbookings =DB::table('hrbookings')
+                ->select('hrbookings.*','holidayresorts.Type')
+                ->join('holidayresorts','holidayresorts.HolodayResortId','=','hrbookings.HolodayResortId')
+                ->where('CheckInDate', $request->input('CheckInDate'))
+                ->where(['hrbookings.GuestId' => $GuestId])
+                ->orderBy('hrbookings.BookingId', 'DESC')
+                ->paginate(10);
+            }else{
+                $hrbookings =DB::table('hrbookings')
+                ->select('hrbookings.*','holidayresorts.Type')
+                ->join('holidayresorts','holidayresorts.HolodayResortId','=','hrbookings.HolodayResortId')
+                ->where(['hrbookings.GuestId' => $GuestId])
+                ->orderBy('hrbookings.BookingId', 'DESC')
+                ->paginate(10);
+              
+            }
+    
+     
+             return view('viewguesthrbooking',['hrbookings'=>$hrbookings]); 
+            }
 
         public function confirm(Request $request,$BookingId) {
 

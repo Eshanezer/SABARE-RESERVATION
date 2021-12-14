@@ -9,13 +9,13 @@
      <div class="mb-4">
         <form action = "/editguest/<?php echo $users[0]->id; ?>" method = "post">
         <input type = "hidden" name = "_token" value = "<?php echo csrf_token(); ?>">
-        <table>
+        <table width="90%">
         <tr>
-        <td>
+        <td width="30%">
         Name
         
         </td>
-        <td>
+        <td width="70%">
         <input  class="form-control" type = 'text' name = 'name'
         value = '<?php echo$users[0]->name; ?>' readonly="readonly"/> </td>
         </tr>

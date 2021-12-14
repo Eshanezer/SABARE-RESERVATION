@@ -13,26 +13,34 @@
 
 
     <div class="form-group">
-    {{Form::label('CheckInDate', 'Check In Date') }}
+    {{Form::label('CheckInDate', 'Start Date') }}
     <input type="date" class="form-control" name="CheckInDate" value="{{request()->query('CheckInDate') != null ? request()->query('CheckInDate') : date('yyyy/mm/dd')}}">
 
     </div>
 
+    <div class="form-group">
+        {{Form::label('CheckOutDate', 'End Date') }}
+        <input type="date" class="form-control" name="CheckOutDate" value="{{request()->query('CheckOutDate') != null ? request()->query('CheckOutDate') : date('yyyy/mm/dd')}}">
+    
+        </div>
 
     </br>
     {{Form::submit('Submit', ['class'=>'btn btn-primary', 'v-on:click'=>'formSubmit'])}}
     </div>
     {!! Form::close() !!}
+    <div class="btn-group" style="width:100%">
+    <a class="nav-link btn btn-outline-primary " href="/download-agrispdf?CheckInDate={{request()->CheckInDate}}&CheckOutDate={{request()->CheckOutDate}}">Generate Deatils</a></br>
+    <a class="nav-link btn btn-outline-primary " href="/download-agrismonthpdf?CheckInDate={{request()->CheckInDate}}">Generate Monthly Details </a></br>
+    <a class="nav-link btn btn-outline-primary " href="/download-agriyearpdf?CheckInDate={{request()->CheckInDate}}">Generate Year Details </a></br>
+</div>
 
-    <a class="nav-link btn btn-info " href="/download-agrispdf?CheckInDate={{request()->CheckInDate}}">Export Deatils</a></br>
-    <a class="nav-link btn btn-info " href="/download-agrismonthpdf?CheckInDate={{request()->CheckInDate}}">Export Monthly Details </a></br>
-    <a class="nav-link btn btn-info " href="/download-agriyearpdf?CheckInDate={{request()->CheckInDate}}">Export Year Details </a></br>
-    
+
     </div>
 
     <table border = "1" class="table table-striped">
     <tr>
         <td>Booking Id </td>
+        <td>Create Date </td>
         <td>Guest Name </td>
         <td>Check In Date</td>
         <td>Check Out Date</td>
@@ -44,6 +52,7 @@
     @foreach ($agrsbookings as $agrsbooking)
     <tr>
         <td>{{ $agrsbooking->BookingId  }}</td>
+        <td>{{ $agrsbooking->created_at  }}</td>
         <td>{{ $agrsbooking->GuestName  }}</td>
         <td>{{ $agrsbooking->CheckInDate }}</td>
         <td>{{ $agrsbooking->CheckOutDate }}</td>
@@ -52,11 +61,11 @@
         <td>{{ $agrsbooking->Status }}</td>
        
         <td>
-        <a href = 'showaf/{{ $agrsbooking->BookingId }}'>View</a></br>
-        <a href = 'showrecagri/{{ $agrsbooking->BookingId }}'>HOD/Dean Approval</a></br>
-        <a href = 'showvcagri/{{ $agrsbooking->BookingId }}'>VC Approval</a></br>
-        <a href = 'afconfirm/{{ $agrsbooking->BookingId }}'>Confirm</a></br>
-        <a href = 'afnotconfirm/{{ $agrsbooking->BookingId }}'>Reject</a>
+        <a class="nav-link btn btn-outline-primary" href = 'showaf/{{ $agrsbooking->BookingId }}'>View</a></br>
+        <a class="nav-link btn btn-outline-primary"href = 'showrecagri/{{ $agrsbooking->BookingId }}'>HOD Approval</a></br>
+        <a class="nav-link btn btn-outline-primary" href = 'showvcagri/{{ $agrsbooking->BookingId }}'>VC Approval</a></br>
+        <a class="nav-link btn btn-outline-primary" href = 'afconfirm/{{ $agrsbooking->BookingId }}'>Confirm</a></br>
+        <a class="nav-link btn btn-outline-primary" href = 'afnotconfirm/{{ $agrsbooking->BookingId }}'>Reject</a>
        
         </td>
     </tr>

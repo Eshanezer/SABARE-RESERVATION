@@ -1,1 +1,5 @@
-<p>Booking Id{{ $data }} is confirmed</p>
+Hi,
+
+<p>Your Booking (Id {{ $data }}) is confirmed</p>
+
+Thank you.

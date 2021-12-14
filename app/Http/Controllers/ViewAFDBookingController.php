@@ -43,7 +43,27 @@ class ViewAFDBookingController extends Controller
    
        } 
        
+       public function viewguestagridbooking(Request $request) { 
+        
+        
+        $GuestId = Auth::id();
 
+        if($request->input('CheckInDate') != null){
+                
+            $agridbookings = agridbooking::where('GuestId', '=', [$GuestId])->whereDate('CheckInDate', $request->input('CheckInDate'))->orderBy('BookingId', 'DESC')->paginate(10);
+       
+        }else{
+            
+            $agridbookings = agridbooking::where('GuestId', '=', [$GuestId])->orderBy('BookingId', 'DESC')->paginate(10);
+       
+        }
+        
+       // $agridbooking = DB::select('select * from agridbookings where Recommendation_From = ?', [$Recommendation_From]);
+         
+        
+ 
+         return view('viewguestagridbooking',['agridbookings'=>$agridbookings]); 
+        } 
        public function viewreportafdbooking(Request $request) { 
       
         if($request->input('CheckInDate') != null){

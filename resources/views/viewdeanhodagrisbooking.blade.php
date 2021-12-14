@@ -31,14 +31,15 @@
     <table  class="table table-striped">
     <tr>
         <td>Booking Id </td>
+        <td>Create Date</td>
         <td>Guest Name </td>
         <td>Check In Date</td>
         <td>Check Out Date</td>
-        <td>Number Of Adults</td>
-        <td>Number Of Children</td>
+        {{-- <td>Number Of Adults</td>
+        <td>Number Of Children</td> --}}
         <td>Number Of Units</td>
-        <td>Guest Tye</td>
-        <td>Description</td>
+        <td>Guest Type</td>
+        {{-- <td>Description</td> --}}
         {{-- <td>Request VC Approval</td> --}}
         <td>Status</td>
         <td>Option</td>
@@ -51,14 +52,15 @@
     @foreach ($agrsbookings as $agrsbooking)
     <tr>
         <td>{{ $agrsbooking->BookingId  }}</td>
+        <td>{{ $agrsbooking->created_at  }}</td>
         <td>{{ $agrsbooking->GuestName  }}</td>
         <td>{{ $agrsbooking->CheckInDate }}</td>
         <td>{{ $agrsbooking->CheckOutDate }}</td>
-        <td>{{ $agrsbooking->NoOfAdults }}</td>
-        <td>{{ $agrsbooking->NoOfChildren  }}</td>
+        {{-- <td>{{ $agrsbooking->NoOfAdults }}</td>
+        <td>{{ $agrsbooking->NoOfChildren  }}</td> --}}
         <td>{{ $agrsbooking->NoOfUnits }}</td>
         <td>{{ $agrsbooking->BookingType }}</td>
-        <td>{{ $agrsbooking->Description }}</td>
+        {{-- <td>{{ $agrsbooking->Description }}</td> --}}
         {{-- @if($agrsbooking->VCApproval == 0)
         <td>Not Request</a></td>
         @else
@@ -68,10 +70,10 @@
         <td>{{ $agrsbooking->Status }}</td>
        
         <td>
-        <a href = 'showafdean/{{ $agrsbooking->BookingId }}'>View</a></br>
+        <a class="nav-link btn btn-outline-primary" href = 'showafdean/{{ $agrsbooking->BookingId }}'>View</a></br>
         @if($agrsbooking->Status == 'Send to Recommendation')
-        <a href = 'afrecommend/{{ $agrsbooking->BookingId }}'>Recommend</a> </br>
-        <a href = 'afnotrecommend/{{ $agrsbooking->BookingId }}'>Reject</a>
+        <a class="nav-link btn btn-outline-primary" href = 'afrecommend/{{ $agrsbooking->BookingId }}'>Recommend</a> </br>
+        <a class="nav-link btn btn-outline-primary" href = 'afnotrecommend/{{ $agrsbooking->BookingId }}'>Reject</a>
         @else
         
         @endif

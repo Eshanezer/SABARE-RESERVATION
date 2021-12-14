@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 use App\Models\agrifarmdining;
 use App\Models\agridbooking;
@@ -71,6 +72,25 @@ class AgriDinningController extends Controller
 
     public function submit(Request $request){
 
+        // DINING PRICE
+        $pricePerHour = 2000;
+
+
+        $Department= Auth::user()->Department;
+        $hod=User::select('id')
+        ->where('Department', '=', [$Department])
+        ->where('Designation', '=', 'Head of The Department')
+        ->get();
+
+        $current = strtotime(date("Y-m-d"));
+        $date    = strtotime($request->input('CheckInDate'));
+
+        $datediff = $date - $current;
+        $difference = floor($datediff/(60*60*24));
+
+
+        if($difference == 0){
+
         $this->validate($request,[
             'NoOfGuest'=>'required|numeric|min:1',
             'CheckInDate'=>'required|date|after:yesterday',
@@ -87,8 +107,26 @@ class AgriDinningController extends Controller
             'Description.required' => 'Please Add a Description',
             
         ]);
-        
-
+        }
+        else{
+                
+            $this->validate($request,[
+                'NoOfGuest'=>'required|numeric|min:1',
+                'CheckInDate'=>'required|date|after:yesterday',
+                'StartTime'=>'required',
+                'EndTime'=>'required|after:StartTime',
+                'Description'=>'required',
+                
+            ],
+            [
+                'NoOfGuest.required' => 'Please Add the Number of Guests',
+                'CheckInDate.after' => 'Please Enter a Valid Date',
+                'StartTime.after' => 'Please Enter a Valid Start Time',
+                'EndTime.after' => 'Please Enter a Valid End Time',
+                'Description.required' => 'Please Add a Description',
+                
+            ]);
+   }
         							
         $agridbooking = new agridbooking;
         $agridbooking-> CheckInDate = $request->input('CheckInDate');
@@ -97,12 +135,23 @@ class AgriDinningController extends Controller
         $agridbooking-> NoOfGuest = $request->input('NoOfGuest');
         $agridbooking-> Description = $request->input('Description');
         $agridbooking-> Status = 'Request for Booking';
-        $agridbooking-> Recommendation_from = $request->input('Recommendation_from');
+        $agridbooking-> Recommendation_from = $hod[0]->id;
         $agridbooking-> GuestId = Auth::user()->id;
         $agridbooking-> GuestName = Auth::user()->name;
         $agridbooking-> AgriFarmDiningId = '1';
         // $agridbooking-> VCApproval = $request->input('VCApproval');
         $agridbooking-> BookingType = 'SUSL Staff';
+
+
+        //time calulation process
+        $startTime = Carbon::parse($request->StartTime);
+        $endTime = Carbon::parse($request->EndTime);
+
+        $totalDuration = $endTime->diffInMinutes($startTime);
+
+        $totalDurationInHours = $totalDuration/60;
+        $agridbooking->duration =$totalDurationInHours;
+        $agridbooking->payment_amount= $totalDurationInHours * $pricePerHour;
 
         $data = array(
             'id'      =>  Auth::user()->id,

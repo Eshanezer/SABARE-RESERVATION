@@ -2,7 +2,7 @@
 
 
 @section('content')
-<h1>Audio Visual Unit</h1>
+
 
 <div class="flash-message">
         @foreach (['danger', 'warning', 'success', 'info'] as $msg)
@@ -14,6 +14,7 @@
     
 <!-- Audio Visual Unit booking page -->
 <div class=" card border-primary ">
+    <h1>Audio Visual Unit</h1>
 </br>
    <p style="margin-left: 10px;">
    Department of Agribusiness Management provides facilities through the Audio-Visual Unit. The unit support the faculty,
@@ -71,10 +72,10 @@
                         </div>
                         <div class="form-group">
 
-                          <div class="form-group ">
+                          {{-- <div class="form-group ">
                             {!! Form::label('Dean/HOD')!!}
                             {!! Form::select('Recommendation_from', $select, null, ['class'=>'form-control']) !!}
-                        </div>
+                        </div> --}}
                         
                      
                         </br>

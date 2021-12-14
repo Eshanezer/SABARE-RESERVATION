@@ -30,6 +30,7 @@
     <table  class="table table-striped">
     <tr>
         <td>Booking Id </td>
+        <td>Create Date </td>
         <td>Guest Name </td>
         <td>Room Type </td>
         <!-- <td>EventName</td> -->
@@ -38,7 +39,7 @@
         <!-- <td>Number Of Adults</td>
         <td>Number Of Children</td> -->
         <!-- <td>Number Of Units</td> -->
-        <td>Guest Tye</td>
+        <td>Guest Type</td>
         <!-- <td>Description</td> -->
         <!-- <td>Request VC Approval</td> -->
         <td>Status</td>
@@ -52,6 +53,7 @@
     @foreach ($hrbookings as $hrbooking)
     <tr>
         <td>{{ $hrbooking->BookingId  }}</td>
+        <td>{{ $hrbooking->created_at  }}</td>
         <td>{{ $hrbooking->GuestName  }}</td>
         <td>{{ $hrbooking->Type    }}</td>
         <td>{{ $hrbooking->CheckInDate }}</td>
@@ -70,11 +72,11 @@
         <td>{{ $hrbooking->Status }}</td>
        
         <td>
-        <a href = 'showhrdean/{{ $hrbooking->BookingId }}'>View</a></br>
+        <a class="nav-link btn btn-outline-primary" href = 'showhrdean/{{ $hrbooking->BookingId }}'>View</a></br>
 
         @if($hrbooking->Status == 'Send to Recommendation')
-        <a href = 'hrrecommend/{{ $hrbooking->BookingId }}'>Recommend</a> </br>
-        <a href = 'hrnotrecommend/{{ $hrbooking->BookingId }}'>Reject</a>
+        <a class="nav-link btn btn-outline-primary" href = 'hrrecommend/{{ $hrbooking->BookingId }}'>Recommend</a> </br>
+        <a class="nav-link btn btn-outline-primary" href = 'hrnotrecommend/{{ $hrbooking->BookingId }}'>Reject</a>
         @else
         
         @endif
