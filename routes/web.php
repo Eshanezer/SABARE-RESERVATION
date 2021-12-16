@@ -185,6 +185,7 @@ Route::get('showrecavu/{id}','App\Http\Controllers\ViewAVUBookingController@getR
 Route::get('nestrecommend/{BookingId}','App\Http\Controllers\ViewNestBookingController@recommend');
 Route::get('nestnotrecommend/{BookingId}','App\Http\Controllers\ViewNestBookingController@notrecommend');
 Route::get('nestconfirm/{BookingId}','App\Http\Controllers\ViewNestBookingController@confirm');
+Route::get('nestconfirm/request-payment/{BookingId}','App\Http\Controllers\ViewNestBookingController@requestpayment');
 Route::get('nestnotconfirm/{BookingId}','App\Http\Controllers\ViewNestBookingController@reject');
 Route::get('nestregconfirm/{BookingId}','App\Http\Controllers\ViewNestBookingController@regconfirm');
 Route::get('nestregapprove/{BookingId}','App\Http\Controllers\ViewNestBookingController@regapprove');
@@ -200,6 +201,7 @@ Route::get('shownestdean/{id}','App\Http\Controllers\ViewNestBookingController@s
 Route::get('hrrecommend/{BookingId}','App\Http\Controllers\ViewHrBookingController@recommend');
 Route::get('hrnotrecommend/{BookingId}','App\Http\Controllers\ViewHrBookingController@notrecommend');
 Route::get('hrconfirm/{BookingId}','App\Http\Controllers\ViewHrBookingController@confirm');
+Route::get('hrconfirm/request-payment/{BookingId}','App\Http\Controllers\ViewHrBookingController@requestPayment');
 Route::get('hrnotconfirm/{BookingId}','App\Http\Controllers\ViewHrBookingController@reject');
 Route::get('hrregconfirm/{BookingId}','App\Http\Controllers\ViewHrBookingController@regconfirm');
 Route::get('hrregapprove/{BookingId}','App\Http\Controllers\ViewHrBookingController@regapprove');
@@ -216,6 +218,7 @@ Route::get('showhrdean/{id}','App\Http\Controllers\ViewHrBookingController@showh
 Route::get('afrecommend/{BookingId}','App\Http\Controllers\SendEmailVCController@recommend');
 Route::get('afnotrecommend/{BookingId}','App\Http\Controllers\SendEmailVCController@notrecommend');
 Route::get('afconfirm/{BookingId}','App\Http\Controllers\SendEmailVCController@confirm');
+Route::get('afconfirm/request-payment/{BookingId}','App\Http\Controllers\SendEmailVCController@requestPayment');
 Route::get('afnotconfirm/{BookingId}','App\Http\Controllers\SendEmailVCController@reject');
 Route::get('afadminconfirm/{BookingId}','App\Http\Controllers\AdminAgriSBookingController@confirm');
 Route::get('afadminnotconfirm/{BookingId}','App\Http\Controllers\AdminAgriSBookingController@reject');
@@ -229,6 +232,7 @@ Route::post('showafdean/{id}','App\Http\Controllers\SendEmailVCController@addhea
 Route::get('afdrecommend/{BookingId}','App\Http\Controllers\ViewAFDBookingController@recommend');
 Route::get('afdnotrecommend/{BookingId}','App\Http\Controllers\ViewAFDBookingController@notrecommend');
 Route::get('afdconfirm/{BookingId}','App\Http\Controllers\ViewAFDBookingController@confirm');
+Route::get('afdconfirm/request-payment/{BookingId}','App\Http\Controllers\ViewAFDBookingController@requestPayment');
 Route::get('afdnotconfirm/{BookingId}','App\Http\Controllers\ViewAFDBookingController@reject');
 Route::get('afdadminconfirm/{BookingId}','App\Http\Controllers\AdminDBookingController@confirm');
 Route::get('afdadminnotconfirm/{BookingId}','App\Http\Controllers\AdminDBookingController@reject');

@@ -575,5 +575,11 @@ class ViewNestBookingController extends Controller
         
                                     return back()->with('success', 'Message Sent Successfuly!');
                                 }
+    public function requestPayment($id){
+        $status='Payment Requested';
+        $state =DB::update('update nestbookings set Status = ? where BookingId = ?',[$status,$id]);
+        if($state!=1) return redirect()->back()->with('success', 'Somthing went wrong');
+        return redirect()->back()->with('success', 'Payment requested invitation send successfully!');
+    }
 
 }

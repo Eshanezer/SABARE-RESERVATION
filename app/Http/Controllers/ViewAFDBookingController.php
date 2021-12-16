@@ -367,5 +367,12 @@ class ViewAFDBookingController extends Controller
                                         Mail::to($email)->send(new RequestRecommendMail($data));
                                         return back()->with('success', 'Message Sent Successfuly!');
                                         }
+
+    public function requestPayment($id){
+        $status='Payment Requested';
+        $state =DB::update('update agridbookings set Status = ? where BookingId = ?',[$status,$id]);
+        if($state!=1) return redirect()->back()->with('success', 'Somthing went wrong');
+        return redirect()->back()->with('success', 'Payment requested invitation send successfully!');
+    }
             
 }

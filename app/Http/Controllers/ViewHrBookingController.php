@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\hrbooking;
 use Illuminate\Http\Request;
 
 
@@ -583,4 +584,12 @@ class ViewHrBookingController extends Controller
     //     ";
     //     echo 'Click Here to go back.';
     //     }
+
+
+    public function requestPayment($id){
+        $status='Payment Requested';
+        $state =DB::update('update hrbookings set Status = ? where BookingId = ?',[$status,$id]);
+        if($state!=1) return redirect()->back()->with('success', 'Somthing went wrong');
+        return redirect()->back()->with('success', 'Payment requested invitation send successfully!');
+    }
 }

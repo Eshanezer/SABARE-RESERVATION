@@ -92,8 +92,9 @@
         <a class="nav-link btn btn-outline-primary " href = 'showrecnest/{{ $nestbooking->BookingId }}'>Recommendation</a></br>
         <a class="nav-link btn btn-outline-primary " href = 'showvcnest/{{ $nestbooking->BookingId }}'>VC Approval</a></br>
         <!-- <a href = 'nestregapprove/{{ $nestbooking->BookingId }}'>Registrar Approval</a></br> -->
-        
-        <a class="nav-link btn btn-outline-primary " href = 'nestconfirm/{{ $nestbooking->BookingId }}'>Confirm</a></br>
+
+            <a class="nav-link btn btn-outline-primary " href = 'nestconfirm/request-payment/{{ $nestbooking->BookingId }}'>Request Payment</a></br>
+            <a class="nav-link btn btn-outline-primary " href = 'nestconfirm/{{ $nestbooking->BookingId }}'>Confirm</a></br>
         <a class="nav-link btn btn-outline-primary " href = 'nestnotconfirm/{{ $nestbooking->BookingId }}'>Reject</a></br>
         
 

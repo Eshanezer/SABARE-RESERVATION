@@ -47,6 +47,7 @@
         <td>Check Out Date</td>
         <td>Number Of Units</td>
         <td>Status</td>
+        <td>Status</td>
         <td>Option</td>
         
         
@@ -74,6 +75,7 @@
         <a class="nav-link btn btn-outline-primary " href = 'showvchr/{{ $hrbooking->BookingId }}'>VC Approval</a></br>
         <!-- <a href = 'hrregapprove/{{ $hrbooking->BookingId }}'>Registrar Approval </a></br> -->
 
+                <a class="nav-link btn btn-outline-primary " href = 'hrconfirm/request-payment/{{ $hrbooking->BookingId }}'>Request Payment</a></br>
         <a class="nav-link btn btn-outline-primary " href = 'hrconfirm/{{ $hrbooking->BookingId }}'>Confirm</a></br>
         <a class="nav-link btn btn-outline-primary " href = 'hrnotconfirm/{{ $hrbooking->BookingId }}'>Reject</a></br>
        
