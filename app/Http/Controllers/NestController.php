@@ -97,7 +97,7 @@ class NestController extends Controller
 
         $dateRange = CarbonPeriod::create($startDate, $endDate);
 
-        $totalDays =count($dateRange);
+        $totalDays =$startDate->diff($endDate);
 
         $nestPayment = NestPayment::where('booking_type',$request->input('BookingType'))->first();
         $noOfUnits = $request->input('NoOfUnits');

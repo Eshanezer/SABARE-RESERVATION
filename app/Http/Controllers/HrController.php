@@ -84,7 +84,7 @@ class HrController extends Controller
 
         $dateRange = CarbonPeriod::create($startDate, $endDate);
 
-        $totalDays =count($dateRange);
+        $totalDays =$startDate->diff($endDate);
 
         $holidayPayment = HoliydayResortPayment::where('booking_type',$request->input('BookingType'))->first();
 
